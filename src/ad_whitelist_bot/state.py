@@ -157,25 +157,48 @@ def load_seed_json(name: str) -> Any | None:
 def apply_overrides(st: State) -> list[str]:
     """Apply data/manual_overrides.json — the human review layer.
 
+    approve entries may be plain domain strings, or dicts carrying issue
+    provenance for decisions that predate the automation:
+        {"domain": "x.com", "issues": [{"n": 123, "repo": "owner/repo"}],
+         "note": "why"}
     approve: pending -> active (creates the record if it does not exist yet).
     deny:    any status -> rejected (sticky; scans never re-activate).
     Returns the list of newly approved domains.
     """
     ov = load_seed_json("manual_overrides.json") or {}
     approved: list[str] = []
-    for d in ov.get("approve", []):
-        rec = st["domains"].get(d)
+    for entry in ov.get("approve", []):
+        if isinstance(entry, str):
+            domain, issues, note = entry, [], ""
+        else:
+            domain = entry["domain"]
+            issues = entry.get("issues", [])
+            note = entry.get("note", "")
+        rec = st["domains"].get(domain)
         if rec is None:
-            merge_domain(st, d, {
+            merge_domain(st, domain, {
                 "repo": "manual", "kind": "manual",
-                "action": "human-approved via manual_overrides.json", "issues": []})
-            rec = st["domains"][d]
+                "action": note or "human-approved via manual_overrides.json",
+                "issues": issues})
+            rec = st["domains"][domain]
             rec["approved_by"] = "manual_overrides"
-            approved.append(d)
-        elif rec["status"] == "pending":
-            rec["status"] = "active"
-            rec["approved_by"] = "manual_overrides"
-            approved.append(d)
+            approved.append(domain)
+        else:
+            if rec["status"] == "pending":
+                rec["status"] = "active"
+                rec["approved_by"] = "manual_overrides"
+                approved.append(domain)
+            # human-provided issue provenance subsumes older issue-less manual
+            # sources; prune them idempotently, then add provenance if missing
+            if issues:
+                rec["sources"] = [s for s in rec["sources"]
+                                  if not (s.get("kind") == "manual"
+                                          and not s.get("issues"))]
+                if not any(s.get("issues") for s in rec["sources"]):
+                    rec["sources"].append({
+                        "repo": "manual", "kind": "manual",
+                        "action": note or "human-approved via manual_overrides.json",
+                        "issues": issues})
     for d in ov.get("deny", []):
         rec = st["domains"].get(d)
         if rec:

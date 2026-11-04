@@ -74,11 +74,17 @@ issue 溯源**、**与两个项目的广告规则发布产物零交集**的白�
 
 ```json
 {
-  "approve": ["example.org"],   // pending → active;不存在的域会创建记录
-  "deny": ["another.net"]       // 任何状态 → rejected(粘滞,扫描不会复活)
+  "approve": [
+    "example.org",
+    {"domain": "legacy.org", "note": "公钥服务器被拦(#720)",
+     "issues": [{"n": 720, "repo": "privacy-protection-tools/anti-AD"}]}
+  ],
+  "deny": ["another.net"]
 }
 ```
 
+字符串条目即普通批准;dict 条目可为人工决策附带 issue 归因(显示在
+`whitelist_annotated.txt` 与 PROVENANCE 中,并顶替旧的无归因记录)。
 下次运行自动应用;批准/拒绝都会体现在 `report.md` 与 PROVENANCE。
 
 ## 仓库结构
@@ -135,8 +141,9 @@ python -m ad_whitelist_bot run        # 不安装也能跑(需 PYTHONPATH=src)
 | 文件 | 说明 |
 |---|---|
 | `merged_false_positive_whitelist.txt` | 合并列表,一行一个域名 |
+| `whitelist_annotated.txt` | **带溯源注释版**:每行 `域名  # 仓库 issue号(报告的问题;处置)` |
 | `merged_false_positive_whitelist_adguard.txt` | 同列表,`@@||domain^` 格式 |
-| `PROVENANCE.md` | 每个域名 → 来源仓库 → 判定依据 → issue 链接 |
+| `PROVENANCE.md` | 每个域名 → 来源仓库 → 判定依据 → issue 链接(表格版溯源) |
 | `antiad_whitelist_without_issue_ref.txt` | anti-AD 无 issue 引用条目(仅参考) |
 | `report.md` | 当次运行报告:新增/晋升/批准/冲突/复核队列/php 变更 |
 

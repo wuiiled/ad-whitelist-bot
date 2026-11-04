@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import logging
 import os
+import re
 from datetime import date
 
 from . import config
@@ -68,6 +69,94 @@ def render_provenance(st: State, out_dir: str) -> None:
     with open(os.path.join(out_dir, "PROVENANCE.md"), "w",
               encoding="utf-8", newline="\n") as f:
         f.write("\n".join(lines) + "\n")
+
+
+REPO_SHORT = {
+    config.ANTIAD: "anti-AD",
+    config.AWAVENUE: "AWAvenue",
+    "manual": "人工",
+}
+_TEMPLATE_NOISE = re.compile(r"\[BUG\]\s*<问题标题>|\[BUG\]|\[enhancement\]|\s{2,}")
+
+
+def _clean_title(title: str | None, limit: int = 60) -> str:
+    """Issue titles carry the breakage description; strip template noise."""
+    t = _TEMPLATE_NOISE.sub(" ", title or "").strip()
+    return t[:limit] + ("…" if len(t) > limit else "")
+
+
+def _clean_comment(comment: str | None, limit: int = 60) -> str:
+    """Maintainer's php annotation; embedded issue refs are printed separately."""
+    t = re.sub(r"#\d{2,5}|https?://\S+", "", comment or "").strip(" ,;，;/ ")
+    return t[:limit] + ("…" if len(t) > limit else "")
+
+
+def render_annotated_list(st: State, out_dir: str) -> list[str]:
+    """One domain per line with an inline provenance comment:
+    `domain  # repo issues(问题;处置) — one segment per source repo`."""
+    os.makedirs(out_dir, exist_ok=True)
+    # issue title index (titles describe the reported breakage); locked
+    # records carry placeholder titles, exclude them
+    titles: dict[tuple[str, int], str] = {}
+    for repo, issues in st["issues"].items():
+        for num, rec in issues.items():
+            if rec.get("title") and not rec.get("locked"):
+                titles[(repo, int(num))] = rec["title"]
+
+    lines = []
+    for d in active_domains(st):
+        by_repo: dict[str, list[dict]] = {}
+        for s in st["domains"][d]["sources"]:
+            if s.get("kind") != "rejected":
+                by_repo.setdefault(s["repo"], []).append(s)
+
+        segs = []
+        for repo, srcs in by_repo.items():
+            nums = sorted({it["n"] for s in srcs for it in s.get("issues", [])})
+            iss = "+".join(f"#{n}" for n in nums) or "无issue号"
+            kinds = {s.get("kind") for s in srcs}
+            php_src = next((s for s in srcs if s.get("kind") == "whitelist-php"), None)
+            # problem text: issue title > maintainer php comment > note/action
+            problem = ""
+            for n in nums:
+                t = _clean_title(titles.get((repo, n)))
+                if t:
+                    problem = t
+                    break
+            if not problem and php_src:
+                problem = _clean_comment(php_src.get("comment"))
+            if not problem:
+                problem = next((s.get("note") for s in srcs if s.get("note")), "") \
+                    or next((s.get("action") for s in srcs if s.get("action")), "")
+            if not problem:
+                problem = "维护者确认误杀"
+            # disposition flags
+            flags = []
+            if php_src:
+                v = php_src.get("value")
+                flags.append("php白名单" + ("(含子域)" if v == 1 else ""))
+            if "issue-only" in kinds:
+                flags.append("复核后人工放行")
+            action = next((s.get("action") for s in srcs
+                           if s.get("kind") == "issue-confirmed" and s.get("action")), None)
+            if action:
+                flags.append(action)
+            if repo == "manual":
+                flags.append("人工批准")
+            seg = f"{REPO_SHORT.get(repo, repo)} {iss}({problem}"
+            if flags:
+                seg += ";" + ";".join(dict.fromkeys(flags))
+            seg += ")"
+            segs.append(seg)
+        lines.append(f"{d}  # " + "; ".join(segs))
+
+    path = os.path.join(out_dir, "whitelist_annotated.txt")
+    with open(path, "w", encoding="utf-8", newline="\n") as f:
+        f.write(f"# 误报白名单(带溯源注释) {date.today().isoformat()} | "
+                f"Total: {len(lines)}\n")
+        f.write("# 格式: 域名  # 仓库 issue号(报告的问题;维护者处置) — 多仓库来源用 ; 分隔\n")
+        f.write("\n".join(lines) + ("\n" if lines else ""))
+    return lines
 
 
 def render_noref_reference(st: State, out_dir: str) -> None:

@@ -1,7 +1,7 @@
 {
  "checkpoints": {
-  "TG-Twilight/AWAvenue-Ads-Rule": "2026-11-04T21:57:06Z",
-  "privacy-protection-tools/anti-AD": "2026-11-04T21:57:06Z"
+  "TG-Twilight/AWAvenue-Ads-Rule": "2026-11-04T22:07:04Z",
+  "privacy-protection-tools/anti-AD": "2026-11-04T22:07:04Z"
  },
  "domains": {
   "1688.com": {
@@ -930,8 +930,13 @@
    "in_awavenue_main_now": false,
    "sources": [
     {
-     "action": "human-approved via manual_overrides.json",
-     "issues": [],
+     "action": "公网IP检测被拦(#15)",
+     "issues": [
+      {
+       "n": 15,
+       "repo": "privacy-protection-tools/anti-AD"
+      }
+     ],
      "kind": "manual",
      "repo": "manual"
     }
@@ -4672,8 +4677,13 @@
    "in_awavenue_main_now": false,
    "sources": [
     {
-     "action": "human-approved via manual_overrides.json",
-     "issues": [],
+     "action": "公网IP检测被拦(#15)",
+     "issues": [
+      {
+       "n": 15,
+       "repo": "privacy-protection-tools/anti-AD"
+      }
+     ],
      "kind": "manual",
      "repo": "manual"
     }
@@ -5099,8 +5109,13 @@
    "in_awavenue_main_now": false,
    "sources": [
     {
-     "action": "human-approved via manual_overrides.json",
-     "issues": [],
+     "action": "OpenPGP公钥服务器被拦(#720)",
+     "issues": [
+      {
+       "n": 720,
+       "repo": "privacy-protection-tools/anti-AD"
+      }
+     ],
      "kind": "manual",
      "repo": "manual"
     }
@@ -8655,8 +8670,13 @@
    "in_awavenue_main_now": false,
    "sources": [
     {
-     "action": "human-approved via manual_overrides.json",
-     "issues": [],
+     "action": "海盗湾BT站被拦(#720)",
+     "issues": [
+      {
+       "n": 720,
+       "repo": "privacy-protection-tools/anti-AD"
+      }
+     ],
      "kind": "manual",
      "repo": "manual"
     }
@@ -9684,8 +9704,13 @@
    "in_awavenue_main_now": false,
    "sources": [
     {
-     "action": "human-approved via manual_overrides.json",
-     "issues": [],
+     "action": "H5天气插件被拦(#1112)",
+     "issues": [
+      {
+       "n": 1112,
+       "repo": "privacy-protection-tools/anti-AD"
+      }
+     ],
      "kind": "manual",
      "repo": "manual"
     }
@@ -9918,8 +9943,13 @@
    "in_awavenue_main_now": false,
    "sources": [
     {
-     "action": "human-approved via manual_overrides.json",
-     "issues": [],
+     "action": "公网IP检测被拦(#15)",
+     "issues": [
+      {
+       "n": 15,
+       "repo": "privacy-protection-tools/anti-AD"
+      }
+     ],
      "kind": "manual",
      "repo": "manual"
     }
@@ -10407,7 +10437,7 @@
    "status": "active"
   }
  },
- "generated_at": "2026-11-04T21:57:10Z",
+ "generated_at": "2026-11-04T22:07:07Z",
  "issues": {
   "TG-Twilight/AWAvenue-Ads-Rule": {
    "112": {

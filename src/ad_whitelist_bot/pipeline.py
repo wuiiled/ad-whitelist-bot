@@ -156,6 +156,7 @@ def run(full: bool = False) -> None:
     doms = render.render_lists(st, config.OUTPUT_DIR)
     render.render_provenance(st, config.OUTPUT_DIR)
     render.render_noref_reference(st, config.OUTPUT_DIR)
+    render.render_annotated_list(st, config.OUTPUT_DIR)
     run_info["api_calls"] = client.calls
     render.render_report(st, config.OUTPUT_DIR, run_info)
     log.info("run done: %d active | new=%d promoted=%d approved=%d conflicts=%d "

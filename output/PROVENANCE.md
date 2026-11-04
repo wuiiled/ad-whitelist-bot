@@ -47,7 +47,7 @@
 | `api.iplay.163.com` | privacy-protection-tools/anti-AD | 白名单php(v=0) #247 | [#247](https://github.com/privacy-protection-tools/anti-AD/issues/247) |
 | `api.jr.mi.com` | privacy-protection-tools/anti-AD | 白名单php(v=0) #121 | [#121](https://github.com/privacy-protection-tools/anti-AD/issues/121) |
 | `api.open.uc.cn` | privacy-protection-tools/anti-AD | 白名单php(v=0) #845 | [#845](https://github.com/privacy-protection-tools/anti-AD/issues/845) |
-| `api6.ipify.org` | manual | human-approved via manual_overrides.json | — |
+| `api6.ipify.org` | manual | 公网IP检测被拦(#15) | [#15](https://github.com/privacy-protection-tools/anti-AD/issues/15) |
 | `apiwz.midukanshu.com` | privacy-protection-tools/anti-AD | 白名单php(v=0) #120 | [#120](https://github.com/privacy-protection-tools/anti-AD/issues/120) |
 | `app.chat.xiaomi.net` | privacy-protection-tools/anti-AD | 白名单php(v=0) https://github.com/AdguardTeam/AdGuardSDNSFilter/issues/1726 | [#1726](https://github.com/github.com/AdguardTeam/AdGuardSDNSFilter/issues/1726) |
 | `app.powerbi.com` | privacy-protection-tools/anti-AD | issue确认(进复核队列后人工批准) 已加白 | [#1011](https://github.com/privacy-protection-tools/anti-AD/issues/1011) |
@@ -223,7 +223,7 @@
 | `ip.cn` | privacy-protection-tools/anti-AD | issue确认(进复核队列后人工批准) 加入白名单 | [#208](https://github.com/privacy-protection-tools/anti-AD/issues/208) |
 | `ip2location.com` | privacy-protection-tools/anti-AD | 白名单php(v=0) #163 | [#163](https://github.com/privacy-protection-tools/anti-AD/issues/163) |
 | `ipapi.co` | privacy-protection-tools/anti-AD | 白名单php(v=0) #470 | [#470](https://github.com/privacy-protection-tools/anti-AD/issues/470) |
-| `ipify.org` | manual | human-approved via manual_overrides.json | — |
+| `ipify.org` | manual | 公网IP检测被拦(#15) | [#15](https://github.com/privacy-protection-tools/anti-AD/issues/15) |
 | `ipinfodb.com` | privacy-protection-tools/anti-AD | 白名单php(v=0) #470 | [#470](https://github.com/privacy-protection-tools/anti-AD/issues/470) |
 | `ipstack.com` | privacy-protection-tools/anti-AD | 白名单php(v=0) #470 | [#470](https://github.com/privacy-protection-tools/anti-AD/issues/470) |
 | `is.snssdk.com` | privacy-protection-tools/anti-AD | 白名单php(v=0) #579 | [#579](https://github.com/privacy-protection-tools/anti-AD/issues/579) |
@@ -246,7 +246,7 @@
 | `kanjiantu.com` | privacy-protection-tools/anti-AD | 白名单php(v=0) #451 | [#451](https://github.com/privacy-protection-tools/anti-AD/issues/451) |
 | `kanjiantu.com` | privacy-protection-tools/anti-AD | issue确认(进复核队列后人工批准) 已修复 | [#451](https://github.com/privacy-protection-tools/anti-AD/issues/451) |
 | `kaptcha.com` | privacy-protection-tools/anti-AD | 白名单php(v=0) #481 | [#481](https://github.com/privacy-protection-tools/anti-AD/issues/481) |
-| `keys.openpgp.org` | manual | human-approved via manual_overrides.json | — |
+| `keys.openpgp.org` | manual | OpenPGP公钥服务器被拦(#720) | [#720](https://github.com/privacy-protection-tools/anti-AD/issues/720) |
 | `knet.cn` | privacy-protection-tools/anti-AD | 白名单php(v=0) #503 | [#503](https://github.com/privacy-protection-tools/anti-AD/issues/503) |
 | `knet.cn` | privacy-protection-tools/anti-AD | issue确认(进复核队列后人工批准) fixed | [#503](https://github.com/privacy-protection-tools/anti-AD/issues/503) |
 | `kpstaticbj.wx.ckjr001.com` | privacy-protection-tools/anti-AD | 白名单php(v=0) #433 | [#433](https://github.com/privacy-protection-tools/anti-AD/issues/433) |
@@ -401,7 +401,7 @@
 | `tdid.m.qq.com` | privacy-protection-tools/anti-AD | 白名单php(v=0) #1092 | [#1092](https://github.com/privacy-protection-tools/anti-AD/issues/1092) |
 | `tdid.m.qq.com` | TG-Twilight/AWAvenue-Ads-Rule | 会修复 QQ安全中心验证码同步 | [#57](https://github.com/TG-Twilight/AWAvenue-Ads-Rule/issues/57) |
 | `terms-drcn.platform.dbankcloud.cn` | TG-Twilight/AWAvenue-Ads-Rule | 移除 华为智慧生活门锁插件 | [#155](https://github.com/TG-Twilight/AWAvenue-Ads-Rule/issues/155) |
-| `thepiratebay.org` | manual | human-approved via manual_overrides.json | — |
+| `thepiratebay.org` | manual | 海盗湾BT站被拦(#720) | [#720](https://github.com/privacy-protection-tools/anti-AD/issues/720) |
 | `threatbook.cn` | privacy-protection-tools/anti-AD | 白名单php(v=0) #522 | [#522](https://github.com/privacy-protection-tools/anti-AD/issues/522) |
 | `tianqiapi.com` | privacy-protection-tools/anti-AD | issue确认(进复核队列后人工批准) 加白 | [#1112](https://github.com/privacy-protection-tools/anti-AD/issues/1112) |
 | `time.izatcloud.net` | privacy-protection-tools/anti-AD | issue确认(进复核队列后人工批准) 已加白 | [#1150](https://github.com/privacy-protection-tools/anti-AD/issues/1150) |
@@ -449,7 +449,7 @@
 | `whoami.akamai.net` | privacy-protection-tools/anti-AD | issue确认(进复核队列后人工批准) 加入白名单 | [#208](https://github.com/privacy-protection-tools/anti-AD/issues/208) |
 | `widget.gleamjs.io` | privacy-protection-tools/anti-AD | 白名单php(v=0) #472 | [#472](https://github.com/privacy-protection-tools/anti-AD/issues/472) |
 | `widget.gleamjs.io` | privacy-protection-tools/anti-AD | issue确认(进复核队列后人工批准) 加白 | [#472](https://github.com/privacy-protection-tools/anti-AD/issues/472) |
-| `widget.tianqiapi.com` | manual | human-approved via manual_overrides.json | — |
+| `widget.tianqiapi.com` | manual | H5天气插件被拦(#1112) | [#1112](https://github.com/privacy-protection-tools/anti-AD/issues/1112) |
 | `wl.jd.com` | TG-Twilight/AWAvenue-Ads-Rule | 确认误拦并移除 京东PC首页 | [#112](https://github.com/TG-Twilight/AWAvenue-Ads-Rule/issues/112) |
 | `wl.spotify.com` | privacy-protection-tools/anti-AD | 白名单php(v=0) #508 | [#508](https://github.com/privacy-protection-tools/anti-AD/issues/508) |
 | `wmflabs.org` | privacy-protection-tools/anti-AD | 白名单php(v=0) #611 | [#611](https://github.com/privacy-protection-tools/anti-AD/issues/611) |
@@ -461,7 +461,7 @@
 | `www.cnnic.net` | privacy-protection-tools/anti-AD | 白名单php(v=0) #274 | [#274](https://github.com/privacy-protection-tools/anti-AD/issues/274) |
 | `www.cnnic.net.cn` | privacy-protection-tools/anti-AD | 白名单php(v=0) #274 | [#274](https://github.com/privacy-protection-tools/anti-AD/issues/274) |
 | `www.gztv.com` | privacy-protection-tools/anti-AD | issue确认(进复核队列后人工批准) 加白 | [#103](https://github.com/privacy-protection-tools/anti-AD/issues/103) |
-| `www.ipify.org` | manual | human-approved via manual_overrides.json | — |
+| `www.ipify.org` | manual | 公网IP检测被拦(#15) | [#15](https://github.com/privacy-protection-tools/anti-AD/issues/15) |
 | `www.kanjiantu.com` | privacy-protection-tools/anti-AD | 白名单php(v=0) #451 | [#451](https://github.com/privacy-protection-tools/anti-AD/issues/451) |
 | `www.meipian7.cn` | privacy-protection-tools/anti-AD | 白名单php(v=0) #586 | [#586](https://github.com/privacy-protection-tools/anti-AD/issues/586) |
 | `www.supportxmr.com` | privacy-protection-tools/anti-AD | 白名单php(v=0) #436 | [#436](https://github.com/privacy-protection-tools/anti-AD/issues/436) |
