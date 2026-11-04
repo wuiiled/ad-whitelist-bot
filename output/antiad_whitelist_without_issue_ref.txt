@@ -1,0 +1,180 @@
+# anti-AD 白名单中无 issue 引用的条目(176 条)— 仅供参考
+# 这些是 anti-AD 维护者的内部策展(非 issue 误报产物),不满足本列表
+# 的收录章程(必须有 issue 溯源)。如需放行请自行取用或加入
+# data/manual_overrides.json 的 approve。
+7moor.com  # 山姆会员客服异常
+a1.itc.cn
+act2.mediafour.com
+activate.adobe.com
+activation.easeus.com
+activation.phaseone.com
+adm.10jqka.com.cn  # 修复同花顺的tips异常
+adobedtm.com
+adx.yiche.com
+alcohol-soft.com
+api-game.meizu.com  # 魅族商店更新游戏
+api.sec.miui.com  # miui自带骚扰拦截相关
+api.tv.sohu.com  # 搜狐视频win app版不能使用
+apm3.music.163.com  # 网易云音乐
+app.link
+auditude.com
+b.bdstatic.com
+bce.baidu.com
+binaryage.com
+bj.bcebos.com  # 百度云产品
+bluesoleil.com
+bytedance.com  # 字节跳动
+c.evidon.com
+c0.ifengimg.com  # 凤凰网视频异常
+cd.bendibao.com  # 成都本地宝
+cdn-thumb.fds.api.xiaomi.com
+cdn.segment.com
+cedexis.net  # windowsupdate CNAME
+cgi.connect.qq.com  # qq互联
+changyan.sohu.com
+click.taobao.com  # 淘宝粉丝福利购
+com.com
+consent.cmp.oath.com
+corel.com
+cps.kaola.com  # 考拉的cps，放行
+csi.gstatic.com
+cyberlink.com
+data.video.iqiyi.com  # 爱奇艺电视投屏
+dbregistration.cuteftp.com
+dg.k.jd.com  # 京东不能跳转app
+digg.com
+dl.360safe.com  # 360驱动下载
+dldir1.qq.com  # qq下载安装包路径
+duckdns.org
+dynatrace.com
+e.shifen.com  # 百度的某个cname域名，误杀严重
+ecma.bdimg.com
+edge.yunjiasu.com  # 百度云加速javascript快速加载功能
+ensighten.com
+ereg.adobe.com
+ereg.wip3.adobe.com
+f10.baidu.com  # 百度公众号图片
+f11.baidu.com  # 百度公众号图片
+f12.baidu.com  # 百度公众号图片
+feedburner.com
+fpdownload.macromedia.com
+g.msn.com
+gameone.com  # 影响部分B站直播
+gemius.pl
+gia.jd.com  # 京东滑动验证码
+gk.sina.cn
+googleadapis.l.google.com  # 解决google字体下载异常
+graph.facebook.com
+gs.statcounter.com
+gsp0.baidu.com  # 百度贴吧相关
+gsp1.baidu.com  # 百度贴吧相关
+gsp2.baidu.com  # 百度贴吧相关
+gsp3.baidu.com  # 百度贴吧相关
+gss0.bdstatic.com  # 百度贴吧头像
+gstaticadssl.l.google.com  # 解决google字体下载异常
+haohuo.snssdk.com  # 抖音订单列表
+hinet.net
+hlrcv.stage.adobe.com
+hubpd.com  # 党媒平台网址
+i.niupic.com  # 免费图床地址
+iface2.iqiyi.com  # 爱奇艺 相关视频推荐
+iflow.uczzd.cn  # uc搞笑段子
+image.zzd.sm.cn  # uc浏览器
+ipify.org  # 获得公网 IP
+ipinfo.io
+iteye.com  # 某编程网站
+jiathis.com
+kepler.jd.com  # 京东不能跳转app
+kingsoft.com  # 金山软件
+l.qq.com  # 解决腾讯视频无法播放
+license.piriform.com
+licenses.adobe.com
+licenses.ashampoo.com
+licensing.tableausoftware.com
+litix.io
+lmlicenses.wip4.adobe.com
+log.mmstat.com  # 修复优酷视频显示禁用了cookie
+loggly.com
+logrocket.com
+lumion3d.com
+lumion3d.net
+m.qpic.cn  # qq，微信，QQ空间等用到的静态资源域名
+m.uczzd.cn  # uc搞笑段子
+mbd.baidu.com  # 百度百家号
+minorshort.weixin.qq.com  # 微信滑动验证码
+mmstat.com  # 修复优酷视频显示禁用了cookie
+na1r.services.adobe.com
+nahnoji.cz
+om.cbsi.com
+omtrdc.net
+orbit.jd.com  # 京东不能跳转app
+pacaio.match.qq.com  # 腾讯网qq登录
+pass.1688.com  # 阿里巴巴网站访问不正常
+placehold.it
+pladform.ru
+pr0gramm.com
+prf.hn
+promotion.aliyun.com  # 阿里云控制台
+puds.ucweb.com  # uc小游戏
+purch.com
+rambler.ru
+rarbg.to  # BT站
+rarbg2019.org  # BT站
+rarbg2020.org  # BT站
+rarbg2021.org  # BT站
+rarbgaccess.org  # BT站
+rarbgmirror.com  # BT站
+rarbgmirror.org  # BT站
+rarbgmirrored.org  # BT站
+rarbgp2p.org  # BT站
+rarbgproxied.org  # BT站
+rarbgproxy.org  # BT站
+rarbgprx.org  # BT站
+rarbgto.org  # BT站
+rarbgway.org  # BT站
+resolver.msg.xiaomi.net  # 小爱音箱语音识别
+rs6.net
+s.youtube.com
+s0.2mdn.net
+sams.nikonimaging.com
+sascdn.com
+scribol.com
+segment.com
+shifen.com  # 百度的cname
+sp0.baidu.com  # 百度翻译资源
+sp2.baidu.com  # 百度翻译资源
+src.litix.io
+statcounter.com
+stdl.qq.com  # qq浏览器
+suo.im  # 短网址服务
+surge.sh  # qq group, @frank
+t1.baidu.com  # 百度图片自有平台
+t10.baidu.com  # 百度图片自有平台
+t11.baidu.com  # 百度图片自有平台
+t12.baidu.com  # 百度图片自有平台
+t2.baidu.com  # 百度图片自有平台
+t3.baidu.com  # 百度图片自有平台
+t4.baidu.com  # 百度图片自有平台
+t5.baidu.com  # 百度图片自有平台
+t6.baidu.com  # 百度图片自有平台
+t7.baidu.com  # 百度图片自有平台
+t8.baidu.com  # 百度图片自有平台
+t9.baidu.com  # 百度图片自有平台
+tanx.com  # 饿了么店铺异常
+tbskip.taobao.com  # 淘宝订单搜索相关
+techsmith.com
+tf.360.cn
+top.baidu.com  # 百度风云榜
+tracking.epicgames.com
+ultraiso.net  # 软碟通官网
+upd.faronicslabs.com
+v.shopify.com
+v.smtcdns.net  # 影响部分B站直播
+wangbase.com  # 阮一峰同志的博客图片显示
+widget.weibo.com  # 微博误杀
+wisecleaner.com
+wl.jd.com  # 修复京东pc首页加载异常
+wup.imtt.qq.com  # qq浏览器书签
+www.bitsumactivationserver.com
+www.statcounter.com
+y0.cn  # 短网址服务，涉及本次丁香医生实时疫情页面 http://y0.cn/sari

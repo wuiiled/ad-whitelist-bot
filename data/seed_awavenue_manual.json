@@ -1,0 +1,261 @@
+{
+ "domains": [
+  {
+   "domain": "alsc-buy2.ele.me",
+   "issue": 33,
+   "action": "已修复",
+   "note": "饿了么功能异常"
+  },
+  {
+   "domain": "analytics.95516.com",
+   "issue": 116,
+   "action": "移除",
+   "note": "云闪付国补页面"
+  },
+  {
+   "domain": "aweme.snssdk.com",
+   "issue": 36,
+   "action": "已修复",
+   "note": "抖音学校信息申报"
+  },
+  {
+   "domain": "client.app.coc.10086.cn",
+   "issue": 121,
+   "action": "已修复",
+   "note": "中国移动验证码"
+  },
+  {
+   "domain": "contentcenter-drcn.dbankcdn.cn",
+   "issue": 35,
+   "action": "移至补充规则",
+   "note": "华为运动健康图片"
+  },
+  {
+   "domain": "drcn-weather.cloud.huawei.com",
+   "issue": 209,
+   "action": "清理",
+   "note": "华为天气域名"
+  },
+  {
+   "domain": "h5hosting.dbankcdn.com",
+   "issue": 34,
+   "action": "已移除(无维护者评论,现不在主规则)",
+   "note": "花瓣测速"
+  },
+  {
+   "domain": "hax.co.id",
+   "issue": 91,
+   "action": "已移除(无维护者评论,现不在主规则)",
+   "note": "just-detect-adblock伪装"
+  },
+  {
+   "domain": "henzanapp.com",
+   "issue": 92,
+   "action": "将移除",
+   "note": "好物清单App"
+  },
+  {
+   "domain": "hismarttv.com",
+   "issue": 132,
+   "action": "移至补充规则",
+   "note": "海信电视封面图"
+  },
+  {
+   "domain": "hs.p2p.huya.com",
+   "issue": 118,
+   "action": "fix",
+   "note": "虎牙P2P"
+  },
+  {
+   "domain": "hw.p2p.huya.com",
+   "issue": 118,
+   "action": "fix",
+   "note": "虎牙P2P"
+  },
+  {
+   "domain": "hw.zuimeitianqi.com",
+   "issue": 209,
+   "action": "清理",
+   "note": "华为天气域名"
+  },
+  {
+   "domain": "m.iqiyipic.com",
+   "issue": 180,
+   "action": "已移除",
+   "note": "爱奇艺垃圾封面域名,误伤正常图"
+  },
+  {
+   "domain": "mcdn.bilivideo.cn",
+   "issue": 72,
+   "action": "已移除(无维护者评论,现不在主规则)",
+   "note": "B站mcdn P2P"
+  },
+  {
+   "domain": "mmgame.qpic.cn",
+   "issue": 175,
+   "action": "fix",
+   "note": "微信小游戏低质广告域名误伤"
+  },
+  {
+   "domain": "oauth-login-drcn.platform.dbankcloud.com",
+   "issue": 127,
+   "action": "移除",
+   "note": "华为账号oauth登录"
+  },
+  {
+   "domain": "panglelog.gz.bcebos.com",
+   "issue": 65,
+   "action": "处理",
+   "note": "喵趣漫画app误拦"
+  },
+  {
+   "domain": "safebrowsing.googleapis.com",
+   "issue": 186,
+   "action": "解释功能(现已不在主规则)",
+   "note": "Google安全浏览API"
+  },
+  {
+   "domain": "safebrowsing.urlsec.gg.com",
+   "issue": 213,
+   "action": "更正为qq.com",
+   "note": "腾讯安全浏览域名笔误(.gg.com误拦)"
+  },
+  {
+   "domain": "saveu5-normal-lq.zijieapi.com",
+   "issue": 113,
+   "action": "已移除",
+   "note": "抖音人脸识别登录"
+  },
+  {
+   "domain": "shopping.ele.me",
+   "issue": 33,
+   "action": "已修复",
+   "note": "饿了么功能异常"
+  },
+  {
+   "domain": "static.wxqcloud.qq.com.cn",
+   "issue": 123,
+   "action": "移至补充规则",
+   "note": "微信小程序订单页"
+  },
+  {
+   "domain": "staticsns.cdn.bcebos.com",
+   "issue": 79,
+   "action": "迁移至补充规则",
+   "note": "百度网盘分享页静态资源"
+  },
+  {
+   "domain": "t7z.cupid.iqiyi.com",
+   "issue": 190,
+   "action": "会处理(现已不在主规则)",
+   "note": "爱奇艺封面"
+  },
+  {
+   "domain": "tdid.m.qq.com",
+   "issue": 57,
+   "action": "会修复",
+   "note": "QQ安全中心验证码同步"
+  },
+  {
+   "domain": "terms-drcn.platform.dbankcloud.cn",
+   "issue": 155,
+   "action": "移除",
+   "note": "华为智慧生活门锁插件"
+  },
+  {
+   "domain": "tx.p2p.huya.com",
+   "issue": 118,
+   "action": "fix",
+   "note": "虎牙P2P"
+  },
+  {
+   "domain": "videocloud.cn-hangzhou.log.aliyuncs.com",
+   "issue": 211,
+   "action": "移除",
+   "note": "阿里云日志SDK误杀"
+  },
+  {
+   "domain": "waimai-guide.ele.me",
+   "issue": 33,
+   "action": "已修复",
+   "note": "饿了么功能异常"
+  },
+  {
+   "domain": "weather-drcn.music.dbankcloud.cn",
+   "issue": 66,
+   "action": "移至补充规则",
+   "note": "华为天气开屏(功能域名)"
+  },
+  {
+   "domain": "wl.jd.com",
+   "issue": 112,
+   "action": "确认误拦并移除",
+   "note": "京东PC首页"
+  },
+  {
+   "domain": "xiaoshuo.wtzw.com",
+   "issue": 114,
+   "action": "已移除",
+   "note": "七猫小说验证码/登录"
+  }
+ ],
+ "lock_issues": [
+  21,
+  31,
+  33,
+  34,
+  35,
+  36,
+  38,
+  45,
+  50,
+  53,
+  57,
+  65,
+  66,
+  68,
+  70,
+  72,
+  76,
+  77,
+  79,
+  80,
+  85,
+  88,
+  91,
+  92,
+  112,
+  113,
+  114,
+  116,
+  118,
+  121,
+  122,
+  123,
+  124,
+  127,
+  132,
+  142,
+  153,
+  155,
+  159,
+  165,
+  166,
+  167,
+  174,
+  175,
+  178,
+  180,
+  183,
+  186,
+  189,
+  190,
+  201,
+  203,
+  209,
+  211,
+  213,
+  215,
+  217
+ ]
+}

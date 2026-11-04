@@ -1,0 +1,12 @@
+{
+ "domains": [
+  {"domain": "feed-image.baidu.com", "repo": "TG-Twilight/AWAvenue-Ads-Rule", "issue": 183, "reason": "维护者先移除后重新加回(#183),当前主规则仍拦——移除≠永久白名单"},
+  {"domain": "a0.app.xiaomi.com", "repo": "TG-Twilight/AWAvenue-Ads-Rule", "issue": 38, "reason": "维护者以隐私理由明确保留拦截"},
+  {"domain": "mime.baidu.com", "repo": "TG-Twilight/AWAvenue-Ads-Rule", "issue": 76, "reason": "上传输入内容,维护者保留拦截"},
+  {"domain": "shouji.sogou.com", "repo": "TG-Twilight/AWAvenue-Ads-Rule", "issue": 45, "reason": "上传输入习惯/文字,维护者讨论后保留拦截"},
+  {"domain": "security.snssdk.com", "repo": "TG-Twilight/AWAvenue-Ads-Rule", "issue": 178, "reason": "用户误订补充规则所致;补充规则内按设计保留"}
+ ],
+ "lock_issues": {
+  "TG-Twilight/AWAvenue-Ads-Rule": [183, 38, 76, 45, 178]
+ }
+}

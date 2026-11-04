@@ -1,0 +1,33 @@
+{
+ "approve": [
+  "activity.windows.com", "ads.google.com", "adwords.google.com", "ads.privacy.qq.com",
+  "api.ipify.org", "api6.ipify.org", "www.ipify.org", "ipify.org",
+  "app.powerbi.com", "bbs.nga.cn", "cip.cc", "ip.cn",
+  "common-geo.ha.1drv.com", "common-us.onedrive.akadns.net",
+  "i-bl6p-cor002.api.p001.1drv.com", "skydrivesync.policies.live.net",
+  "data.sec.miui.com", "dig.bdurl.net", "docker.n8n.io", "docs.scarf.sh",
+  "gateway.scarf.sh", "docs.microsoft.com", "download.windowsupdate.com",
+  "e.189.cn", "edith.xiaohongshu.com", "fs-im-kefu.7moor-fs1.com",
+  "google.co.in", "input.shouji.sogou.com", "keys.openpgp.org",
+  "thepiratebay.org", "log.amemv.com", "m.ctrip.com", "manhua.acgimg.cn",
+  "pay.weixin.qq.com", "rdelivery.qq.com", "search.kuwo.cn", "tongji.kuwo.cn",
+  "tongji.cn", "tongji.edu.cn", "seeip.org", "sock158-mt1.pusher.com",
+  "ws-mt1.pusher.com", "tianqiapi.com", "widget.tianqiapi.com",
+  "time.izatcloud.net", "tracker.bittor.xyz", "tracker.hdsky.me",
+  "www.gztv.com", "zhuanlan.zhihu.com"
+ ],
+ "deny": [
+  "1688.com", "ads.srs", "bdtj.tagtic.cn", "bootcss.com",
+  "cloudflare.net", "cloudfront.net", "dti.domaintools.com",
+  "developers.adnet.qq.com", "developers.e.qq.com", "e.kuaishou.com",
+  "easylist.to", "gdt.qq.com", "gofile.io", "imasdk.googleapis.com",
+  "keysopenpgporg.report-uri.com", "log.snssdk.com", "malware-filter.gitlab.io",
+  "netlify.com", "noreply.github.com", "plausible.io", "umami.is",
+  "p1-lm.adukwai.com", "p1-tube.adukwai.com", "p2-tube.adukwai.com",
+  "p3-tube.adukwai.com", "p4-tube.adukwai.com", "p5-tube.adukwai.com",
+  "qq.com", "snssdk.com", "stats.pusher.com",
+  "stats.qiumibao.com", "track.aliexpress.com", "tracking.doordash.com",
+  "tracking.ubisoft.com", "tube.adukwai.com", "tube.e.kuaishou.com",
+  "canvas-cdn.gdt.qq.com", "g1.tagtic.cn"
+ ]
+}
