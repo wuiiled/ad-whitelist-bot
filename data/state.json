@@ -1,7 +1,7 @@
 {
  "checkpoints": {
-  "TG-Twilight/AWAvenue-Ads-Rule": "2026-11-06T01:40:53Z",
-  "privacy-protection-tools/anti-AD": "2026-11-06T01:40:53Z"
+  "TG-Twilight/AWAvenue-Ads-Rule": "2026-11-07T01:00:06Z",
+  "privacy-protection-tools/anti-AD": "2026-11-07T01:00:06Z"
  },
  "domains": {
   "1688.com": {
@@ -10437,7 +10437,7 @@
    "status": "active"
   }
  },
- "generated_at": "2026-11-06T01:40:54Z",
+ "generated_at": "2026-11-07T01:00:08Z",
  "issues": {
   "TG-Twilight/AWAvenue-Ads-Rule": {
    "112": {
@@ -11833,6 +11833,14 @@
     "title": "[误杀]datadome.co",
     "updated_at": "2026-10-30T12:25:29Z",
     "verdict": "confirmed"
+   },
+   "1154": {
+    "comments_count": 1,
+    "evidence": null,
+    "status": "no-verdict",
+    "title": "[误杀] ads.cup.com.cn",
+    "updated_at": "2026-11-06T12:19:52Z",
+    "verdict": null
    },
    "117": {
     "comments_count": 1,
