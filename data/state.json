@@ -1,7 +1,7 @@
 {
  "checkpoints": {
-  "TG-Twilight/AWAvenue-Ads-Rule": "2026-11-07T01:00:06Z",
-  "privacy-protection-tools/anti-AD": "2026-11-07T01:00:06Z"
+  "TG-Twilight/AWAvenue-Ads-Rule": "2026-11-08T00:48:55Z",
+  "privacy-protection-tools/anti-AD": "2026-11-08T00:48:55Z"
  },
  "domains": {
   "1688.com": {
@@ -10437,7 +10437,7 @@
    "status": "active"
   }
  },
- "generated_at": "2026-11-07T01:00:08Z",
+ "generated_at": "2026-11-08T00:48:57Z",
  "issues": {
   "TG-Twilight/AWAvenue-Ads-Rule": {
    "112": {
@@ -10672,6 +10672,24 @@
     "locked": true,
     "status": "done",
     "title": "human-audited 2026-11-05"
+   },
+   "219": {
+    "comments_count": 0,
+    "evidence": null,
+    "issue_state": "open",
+    "status": "no-verdict",
+    "title": "[误拦截] api.ad.xiaomi.com",
+    "updated_at": "2026-11-07T08:43:04Z",
+    "verdict": null
+   },
+   "220": {
+    "comments_count": 0,
+    "evidence": null,
+    "issue_state": "open",
+    "status": "no-verdict",
+    "title": "[误拦截] ,微信小程序 广州交通行讯通  无法正常加载公交列表，无法正常使用",
+    "updated_at": "2026-11-07T09:31:57Z",
+    "verdict": null
    },
    "31": {
     "locked": true,
@@ -11835,11 +11853,11 @@
     "verdict": "confirmed"
    },
    "1154": {
-    "comments_count": 1,
+    "comments_count": 3,
     "evidence": null,
     "status": "no-verdict",
     "title": "[误杀] ads.cup.com.cn",
-    "updated_at": "2026-11-06T12:19:52Z",
+    "updated_at": "2026-11-07T08:40:30Z",
     "verdict": null
    },
    "117": {
