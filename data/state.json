@@ -1,7 +1,7 @@
 {
  "checkpoints": {
-  "TG-Twilight/AWAvenue-Ads-Rule": "2026-11-08T00:48:55Z",
-  "privacy-protection-tools/anti-AD": "2026-11-08T00:48:55Z"
+  "TG-Twilight/AWAvenue-Ads-Rule": "2026-11-09T01:03:23Z",
+  "privacy-protection-tools/anti-AD": "2026-11-09T01:03:23Z"
  },
  "domains": {
   "1688.com": {
@@ -10437,7 +10437,7 @@
    "status": "active"
   }
  },
- "generated_at": "2026-11-08T00:48:57Z",
+ "generated_at": "2026-11-09T01:03:24Z",
  "issues": {
   "TG-Twilight/AWAvenue-Ads-Rule": {
    "112": {
@@ -10683,12 +10683,12 @@
     "verdict": null
    },
    "220": {
-    "comments_count": 0,
+    "comments_count": 1,
     "evidence": null,
-    "issue_state": "open",
+    "issue_state": "closed",
     "status": "no-verdict",
     "title": "[误拦截] ,微信小程序 广州交通行讯通  无法正常加载公交列表，无法正常使用",
-    "updated_at": "2026-11-07T09:31:57Z",
+    "updated_at": "2026-11-08T06:04:56Z",
     "verdict": null
    },
    "31": {
@@ -11853,11 +11853,11 @@
     "verdict": "confirmed"
    },
    "1154": {
-    "comments_count": 3,
+    "comments_count": 4,
     "evidence": null,
     "status": "no-verdict",
     "title": "[误杀] ads.cup.com.cn",
-    "updated_at": "2026-11-07T08:40:30Z",
+    "updated_at": "2026-11-08T15:34:49Z",
     "verdict": null
    },
    "117": {
