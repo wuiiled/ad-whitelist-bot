@@ -1,4 +1,4 @@
-# Generated: 2026-11-09 | Total: 424
+# Generated: 2026-11-10 | Total: 424
 # 误报白名单 — 域名在 anti-AD / AWAvenue-Ads-Rule 的 GitHub issue 中被报告为误报,
 # 并经维护者复核后加入排除名单(anti-AD 白名单 / AWAvenue 从主规则移除或移入补充规则)。
 # 一行一个域名;放行语义应覆盖其全部子域名。
