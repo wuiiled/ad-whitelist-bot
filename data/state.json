@@ -1,7 +1,7 @@
 {
  "checkpoints": {
-  "TG-Twilight/AWAvenue-Ads-Rule": "2026-11-10T03:40:04Z",
-  "privacy-protection-tools/anti-AD": "2026-11-10T03:40:04Z"
+  "TG-Twilight/AWAvenue-Ads-Rule": "2026-11-11T01:20:28Z",
+  "privacy-protection-tools/anti-AD": "2026-11-11T01:20:28Z"
  },
  "domains": {
   "1688.com": {
@@ -10437,7 +10437,7 @@
    "status": "active"
   }
  },
- "generated_at": "2026-11-10T03:40:05Z",
+ "generated_at": "2026-11-11T01:20:30Z",
  "issues": {
   "TG-Twilight/AWAvenue-Ads-Rule": {
    "112": {
@@ -14723,11 +14723,11 @@
     "verdict": null
    },
    "564": {
-    "comments_count": 2,
+    "comments_count": 3,
     "evidence": null,
     "status": "no-verdict",
     "title": "[误杀] 微信红包封面",
-    "updated_at": "2022-02-15T04:25:37Z",
+    "updated_at": "2026-11-10T04:16:27Z",
     "verdict": null
    },
    "565": {
