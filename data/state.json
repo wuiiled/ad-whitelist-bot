@@ -1,7 +1,7 @@
 {
  "checkpoints": {
-  "TG-Twilight/AWAvenue-Ads-Rule": "2026-11-13T01:59:11Z",
-  "privacy-protection-tools/anti-AD": "2026-11-13T01:59:11Z"
+  "TG-Twilight/AWAvenue-Ads-Rule": "2026-11-14T01:31:29Z",
+  "privacy-protection-tools/anti-AD": "2026-11-14T01:31:29Z"
  },
  "domains": {
   "1688.com": {
@@ -10437,7 +10437,7 @@
    "status": "active"
   }
  },
- "generated_at": "2026-11-13T01:59:12Z",
+ "generated_at": "2026-11-14T01:31:30Z",
  "issues": {
   "TG-Twilight/AWAvenue-Ads-Rule": {
    "112": {
