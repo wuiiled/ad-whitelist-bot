@@ -1,3 +1,6 @@
+import json
+import os
+import tempfile
 import unittest
 
 from ad_whitelist_bot import pipeline, state
@@ -72,6 +75,36 @@ class SubstantiveTest(unittest.TestCase):
         st["generated_at"] = "2099-01-01T00:00:00Z"  # 时间戳不算实质变更
         st["checkpoints"][ANTIAD] = "2099-01-01T00:00:00Z"
         self.assertFalse(pipeline._substantive(before, pipeline._snapshot(st)))
+
+
+class RejectionSeedTest(unittest.TestCase):
+    def setUp(self):
+        self._orig = pipeline.state.config.DATA_DIR
+        self.tmp = tempfile.TemporaryDirectory()
+        pipeline.state.config.DATA_DIR = self.tmp.name
+
+    def tearDown(self):
+        pipeline.state.config.DATA_DIR = self._orig
+        self.tmp.cleanup()
+
+    def test_drifted_rejection_reasserted(self):
+        # 审计实拍: security.snssdk.com 拒收种子整个生命周期都躺在 active
+        with open(os.path.join(self.tmp.name, "seed_rejections.json"), "w",
+                  encoding="utf-8") as f:
+            json.dump({"domains": [{"domain": "bad.example", "repo": AWAVENUE,
+                                    "issue": 178, "reason": "保留拦截"}]}, f)
+        st = state.empty_state()
+        rec = state.merge_domain(st, "bad.example", {
+            "repo": AWAVENUE, "kind": "rejected",
+            "issues": [{"n": 178, "repo": AWAVENUE}]})
+        rec["status"] = "active"  # drift
+        fixed = pipeline._reapply_rejection_seeds(st)
+        self.assertEqual(fixed, ["bad.example"])
+        self.assertEqual(st["domains"]["bad.example"]["status"], "rejected")
+
+    def test_no_seed_file_noop(self):
+        self.assertEqual(
+            pipeline._reapply_rejection_seeds(state.empty_state()), [])
 
 
 if __name__ == "__main__":

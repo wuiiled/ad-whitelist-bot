@@ -11,10 +11,13 @@ from .state import State, now_iso
 log = logging.getLogger(__name__)
 
 HEADER_NOTE = [
-    "误报白名单 — 域名在 anti-AD / AWAvenue-Ads-Rule 的 GitHub issue 中被报告为误报,",
-    "并经维护者复核后加入排除名单(anti-AD 白名单 / AWAvenue 从主规则移除或移入补充规则)。",
+    "误报白名单 — 域名在 anti-AD / AWAvenue-Ads-Rule / AdGuard DNS filter 的发布产物",
+    "或 issue 中被判定为误报,并经维护者复核后处理(anti-AD 白名单 / AWAvenue 从主规则",
+    "移除或移入补充规则 / AdGuard DNS filter 编译期剔除与子域豁免)。",
     "一行一个域名;放行语义应覆盖其全部子域名。",
-    "收录章程:①全部条目带 issue 溯源;②与两个项目的广告规则发布产物零交集。",
+    "收录章程:①全部条目带 issue 溯源(人工 approve 破例标注「无issue号」);",
+    "②逐源源内零交集——域名不出现在其来源项目自己的发布产物中(人工 approve 对全部",
+    "产物检查);跨源立场差异不剔除,仅注记。",
 ]
 
 
@@ -139,12 +142,17 @@ def render_annotated_list(st: State, out_dir: str) -> list[str]:
             if php_src:
                 v = php_src.get("value")
                 flags.append("php白名单" + ("(含子域)" if v == 1 else ""))
+                if php_src.get("attributed_by") == "commit-message":
+                    flags.append("commit归因")
             if "issue-only" in kinds:
                 flags.append("复核后人工放行")
-            action = next((s.get("action") for s in srcs
-                           if s.get("kind") == "issue-confirmed" and s.get("action")), None)
-            if action:
-                flags.append(action)
+            for s in srcs:
+                if s.get("kind") == "dns-exclusion" and s.get("action"):
+                    flags.append("编译期剔除:" + s["action"])
+                elif s.get("kind") == "dns-exception" and s.get("action"):
+                    flags.append("子域豁免:" + s["action"])
+                elif s.get("kind") == "issue-confirmed" and s.get("action"):
+                    flags.append(s["action"])
             if repo == "manual":
                 flags.append("人工批准")
             seg = f"{REPO_SHORT.get(repo, repo)} {iss}({problem}"
@@ -193,6 +201,9 @@ def render_report(st: State, out_dir: str, run_info: dict) -> None:
     if run_info.get("approved"):
         lines.append(f"- 人工批准(manual_overrides):{len(run_info['approved'])}: "
                      + ", ".join(f"`{d}`" for d in run_info["approved"]))
+    if run_info.get("rejection_fixed"):
+        lines.append(f"- 拒收种子复位(seed_rejections 重申):{len(run_info['rejection_fixed'])}: "
+                     + ", ".join(f"`{d}`" for d in run_info["rejection_fixed"]))
     if run_info.get("conflicts"):
         lines.append(f"- **冲突(与广告列表重叠,已剔除出列表)**:{len(run_info['conflicts'])}")
         lines.extend(f"  - `{d}` — {where}" for d, where in run_info["conflicts"])

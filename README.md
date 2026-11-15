@@ -164,7 +164,7 @@ python -m unittest discover -s tests -v     # 测试(无需安装)
 python -m compileall -q src                 # 语法检查
 ```
 
-约定:`config.py` 是唯一的调参点(仓库、短语、维护者);两个项目的差异逻辑
+约定:`config.py` 是唯一的调参点(仓库、短语、维护者);三个项目的差异逻辑
 各自收敛在 `sources/<project>.py`,共享机制在 `sources/base.py`;状态形状
 用 `TypedDict` 描述在 `state.py`;任何行为改动先补测试。
 

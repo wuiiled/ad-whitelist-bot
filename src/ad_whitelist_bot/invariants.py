@@ -64,8 +64,15 @@ def _checked_keys(rec: dict) -> tuple[str, ...]:
 
 def enforce_invariants(st: State, awavenue_main: set[str], antiad_block: set[str],
                        adguard_block: set[str] | None = None,
+                       adguard_allow: set[str] | None = None,
                        ) -> tuple[list[tuple[str, str]], list[tuple[str, str]]]:
     """Flip violating active domains to `conflict`; recover stale conflicts.
+
+    `adguard_allow` = the published filter's own @@ exception set: a domain
+    carrying its own exemption is NOT blocked by the published product (the
+    exceptions mechanism injects @@ precisely to un-block it), so it must
+    not conflict. Without this, ~26 exceptions-sourced entries are wrongly
+    purged on every run.
 
     Returns (conflicts, recovered):
     - conflicts: [(domain, where)] for NEW conflicts (active -> conflict);
@@ -74,6 +81,7 @@ def enforce_invariants(st: State, awavenue_main: set[str], antiad_block: set[str
       (target = "active" with qualifying evidence, else "pending").
     """
     adguard_block = adguard_block or set()
+    adguard_allow = adguard_allow or set()
     conflicts: list[tuple[str, str]] = []
     recovered: list[tuple[str, str]] = []
     for d, rec in st["domains"].items():
@@ -87,7 +95,7 @@ def enforce_invariants(st: State, awavenue_main: set[str], antiad_block: set[str
         if "awavenue" in keys and (d in awavenue_main
                                    or extract.suffix_blocked(d, awavenue_main)):
             where = (where + " + " if where else "") + "AWAvenue main rule"
-        if "adguard" in keys and d in adguard_block:
+        if "adguard" in keys and d in adguard_block and d not in adguard_allow:
             where = (where + " + " if where else "") + "AdGuard DNS filter (exact)"
         if where:
             rec["status"] = "conflict"

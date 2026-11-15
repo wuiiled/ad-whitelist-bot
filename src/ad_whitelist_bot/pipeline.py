@@ -73,16 +73,47 @@ def _fetch_artifacts(client: GitHubClient) -> tuple[str, set[str], set[str]]:
     return php, antiad_block, awavenue_main
 
 
-def _fetch_adguard(client: GitHubClient) -> tuple[dict[str, dict], dict[str, str], set[str]]:
-    """AdGuard DNS filter adjudication files + published block product."""
+def _reapply_rejection_seeds(st: State) -> list[str]:
+    """Re-assert seed_rejections.json verdicts every run.
+
+    The rejection layer is a sticky human decision (maintainer explicitly
+    keeps these blocked), but seeds were only applied at seed-time — a
+    record that drifted out of `rejected` would sit in the list unchecked.
+    Found by the 2026-11-15 per-domain audit: security.snssdk.com shipped
+    active for its whole life. Returns re-fixed domains.
+    """
+    rej = state.load_seed_json("seed_rejections.json")
+    if not rej:
+        return []
+    fixed: list[str] = []
+    for item in rej["domains"]:
+        rec = st["domains"].get(item["domain"])
+        if rec and rec.get("status") != "rejected":
+            rec["status"] = "rejected"
+            fixed.append(item["domain"])
+            log.info("rejection seed re-asserted: %s", item["domain"])
+    return fixed
+
+
+def _fetch_adguard(client: GitHubClient) -> tuple[dict[str, dict], dict[str, str],
+                                                  set[str], set[str]]:
+    """AdGuard DNS filter adjudication files + published product sets.
+
+    Returns (records, noref, block, allow) — allow = the published filter's
+    own @@ exception set; a domain carrying its own exemption is not blocked
+    by the published product and must not conflict.
+    """
     excl = client.get_raw(config.ADG_DNS_EXCLUSIONS_URL)
     exc = client.get_raw(config.ADG_DNS_EXCEPTIONS_URL)
     filt = client.get_raw(config.ADG_DNS_FILTER_URL)
     records, noref = adguardsdns.harvest(excl, exc)
     block = extract.parse_adguard_rule_domainset(filt)
+    allow = {d for ln in filt.splitlines()
+             if (d := extract.parse_allow_rule_domain_line(ln))}
     log.info("adguard artifacts: harvested=%d domains, noref=%d, "
-             "published filter block=%d domains", len(records), len(noref), len(block))
-    return records, noref, block
+             "published filter block=%d allow=%d", len(records), len(noref),
+             len(block), len(allow))
+    return records, noref, block, allow
 
 
 def seed() -> None:
@@ -98,7 +129,7 @@ def seed() -> None:
                                     for e in antiad.parse_white_php(php)
                                     if e["value"] != -1}
 
-    adguard_records, _, adguard_block = _fetch_adguard(client)
+    adguard_records, _, adguard_block, adguard_allow = _fetch_adguard(client)
     state.merge_records(st, adguard_records)
 
     seed = state.load_seed_json("seed_awavenue_manual.json")
@@ -128,7 +159,8 @@ def seed() -> None:
                     "title": "human-audited rejection 2026-11-05"}
 
     from . import invariants
-    invariants.enforce_invariants(st, awavenue_main, antiad_block, adguard_block)
+    invariants.enforce_invariants(st, awavenue_main, antiad_block,
+                                  adguard_block, adguard_allow)
     invariants.refresh_cross_status(st, awavenue_main, antiad_block)
     state.save(st)
     log.info("seeded: %d domain records, %d active",
@@ -192,7 +224,7 @@ def run(full: bool = False) -> None:
                                "commit_issues": commit_issues[:20]}
 
     # ---- 1.5 AdGuard DNS filter harvest (file provenance) --------------------
-    adguard_records, adguard_noref, adguard_block = _fetch_adguard(client)
+    adguard_records, adguard_noref, adguard_block, adguard_allow = _fetch_adguard(client)
     merge_adg = state.merge_records(st, adguard_records)
     run_info["new_domains"].extend(
         d for d in merge_adg if st["domains"][d]["status"] == "active")
@@ -226,10 +258,13 @@ def run(full: bool = False) -> None:
         if st["domains"][d]["status"] == "active" and d not in run_info["promoted"]:
             run_info["promoted"].append(d)
     run_info["approved"] = state.apply_overrides(st)
+    rej_fixed = _reapply_rejection_seeds(st)
+    if rej_fixed:
+        run_info["rejection_fixed"] = rej_fixed
 
     # ---- 4. charter invariants + cross status -------------------------------
     conflicts, recovered = invariants.enforce_invariants(
-        st, awavenue_main, antiad_block, adguard_block)
+        st, awavenue_main, antiad_block, adguard_block, adguard_allow)
     run_info["conflicts"] = conflicts
     run_info["recovered"] = recovered
     invariants.refresh_cross_status(st, awavenue_main, antiad_block, adguard_block)
