@@ -164,16 +164,80 @@ python -m ad_whitelist_bot run        # 不安装也能跑(需 PYTHONPATH=src)
 | `merged_false_positive_whitelist.txt` | **主列表(后缀档)**,一行一个域名,放行语义覆盖全部子域 |
 | `merged_false_positive_whitelist_exact.txt` | **精确档**:裸域(两段)裁决型条目,消费端须按整域精确匹配、不参与祖先连坐 |
 | `whitelist_annotated.txt` | **带溯源注释版**:每行 `域名  # 仓库 issue号(报告的问题;处置)` |
-| `merged_false_positive_whitelist_adguard.txt` | 主列表的 `@@||domain^` 格式(AdGuard DNS 语义本身即后缀放行,精确档不适用此格式) |
+| `merged_false_positive_whitelist_adguard.txt` | **AdGuard 语法双档变体**:`@@||domain^`(后缀档,840 条)+ `@@|domain^`(精确档,480 条;单首锚 = 精确主机名,不覆盖子域) |
 | `PROVENANCE.md` | 每个域名 → 来源仓库 → 判定依据 → issue 链接(表格版溯源) |
 | `antiad_whitelist_without_issue_ref.txt` | anti-AD 无 issue 引用条目(仅参考) |
 | `report.md` | 当次运行报告:新增/晋升/批准/冲突/复核队列/php 变更/策展引用并入与立场冲突 |
 
-**双档语义**(2026-11-16):裁决型来源(anti-AD php / AWAvenue / AdGuard DNS
-filter)的裸域条目,是上游项目在自家单源语义下的整域裁决;多源消费栈若按后缀
-放行会连坐清除其他黑名单源的同族广告规则(tanx/yximgs/ucweb/co.in 等整族,
-实测 ~1,100 条),故单列精确档。策展引用层的裸域条目(如 cloudfront.net/
-amazonaws.com)本意即基础设施放行,留在主文件按后缀档处理。
+## 双档产物详解(主文件 vs 精确档)
+
+白名单放行天然有宽窄矛盾:放得太窄,误杀救不回(断流);放得太宽,同族
+广告一并放走(连坐)。本仓把"该宽放"与"该窄放"拆成两个文件,由消费端用
+**不同的匹配口径**消费——这是本仓产物最核心的契约。
+
+### `merged_false_positive_whitelist.txt` — 主文件(后缀档,当前 840 条)
+
+**一行 = 该域名自身 + 它的全部子域都放行。**
+
+装两类条目:
+
+1. **深条目(功能域名)**:`acs.m.taobao.com`、`wgo.mmstat.com`、
+   `presence.teams.live.com` 这类具体接口。上游的裁决语义本来就是
+   "放行这个地址及其子域"(anti-AD php `value=1` 含子域 / AWAvenue 移除 /
+   AdGuard 排除),后缀放行忠实还原上游意图;
+2. **策展引用层的裸域(基础设施放行)**:`cloudfront.net`、`amazonaws.com`、
+   `akamaized.net` 等。多租户公共后缀,子域善恶无法逐个判断,整族放行是
+   上游(Cats 自家黑名单 1,481 条 cloudfront 规则被自家白名单压掉)与本仓
+   (2026-11-16 Option A 裁决)共同的取舍;代价自知,可逐条 `deny` 反悔。
+
+### `merged_false_positive_whitelist_exact.txt` — 精确档(当前 480 条)
+
+**一行 = 只放行这个名字本身,子域一概不管。**
+
+装的全是**裁决型来源的两段裸域**(AdGuard exclusions 编译期剔除为主,
+anti-AD php 白名单、AWAvenue issue 确认、人工 approve 为辅)。这些裸域是
+上游在**自家单源语境**下的整域裁决,但放进多源消费栈语境完全不同——裸域
+之下几乎全是广告节点(tanx / yximgs / ucweb / co.in / adsterra 等),按
+后缀放行会把**其他黑名单源**的同族拦截规则一并清掉。
+
+**为什么必须单列一个文件**(2026-11-16 实测):
+
+- 后缀放行 `tanx.com` 一个名字 = 救回黑名单里全部 25 条 tanx 规则;
+- 480 条 exact 条目若留在后缀档,六源合计 **1,131 条拦截规则被连坐放走**
+  (fwmrm 118 / adswizz 109 / co.in 70 / rubiconproject 46 / …);
+- 拆出精确档后,这 1,131 条恢复拦截,而需要救的功能域零丢失
+  (`newly_allowed = 0`)。
+
+### 消费端处理方法(Wuiiled_Setup `apply_advanced_whitelist_filter`)
+
+对合并黑名单的每条拦截规则 `r` 依次三问,命中即删:
+
+```
+① r 恰好等于精确档条目   → 删(精确豁免,只救这一条)
+② r 的任一祖先在主文件中 → 删(主文件宽放行,向下覆盖全部子域)
+③ r 是主文件某条目的祖先 → 删(否则后缀拦截会连坐掉主文件的深条目)
+```
+
+**精确档不参与 ②③**:它没有父域豁免权,也不产生向下覆盖——这就是
+"只免检本人"与"全家免检"的区别。主文件条目则同时参与 ②③。
+
+下游三处消费同一对文件:
+
+- **mode A**:六源合并黑名单经上述减法 → `geosite-ad`;
+- **mode B(黑加白)**:`build_blocklist_b` 用精确档做恰等剔除 →
+  `geosite-ad-precise`;`build_whitelist_b` 只收主文件 →
+  `geosite-ad-allow`(运行时前置短路放行);
+- **reject-drop 源**:与 mode A 同一对白名单再过一遍(DROP 早于 REJECT,
+  不过白名单会提前吞掉误杀域名)。
+
+### 错误用法警告
+
+- **把精确档当后缀文件消费** = 回到连坐时代,1,131 条广告规则重新放走。
+  OxiDNS 这类纯后缀引擎无法表达精确匹配,只能不消费精确档、维持旧行为;
+- **把主文件当精确文件消费** = 深条目全部失去保护(`acs.m.taobao.com`
+  的精确匹配救不回任何实际请求);
+- 两个文件必须**成对、按对应口径**消费——消费端 `providers.py` 的
+  `ALLOW_URLS` + `ALLOW_EXACT_URLS` 即此契约。
 
 ## 开发
 
