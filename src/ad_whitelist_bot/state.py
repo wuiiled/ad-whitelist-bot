@@ -188,6 +188,13 @@ def apply_overrides(st: State) -> list[str]:
                 rec["status"] = "active"
                 rec["approved_by"] = "manual_overrides"
                 approved.append(domain)
+            elif rec["status"] == "conflict":
+                # conflict is a hard charter rule — approval cannot flip the
+                # status (enforce_invariants would immediately re-conflict).
+                # Only stamp the backing marker: once upstream lifts the block,
+                # recovery goes to `active` via has_active_backing. Idempotent,
+                # emits no events.
+                rec["approved_by"] = "manual_overrides"
             # human-provided issue provenance subsumes older issue-less manual
             # sources; prune them idempotently, then add provenance if missing
             if issues:

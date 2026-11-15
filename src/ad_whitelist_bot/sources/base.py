@@ -7,6 +7,7 @@ and hands fully-evaluated issues to the repo-specific scanner.
 from __future__ import annotations
 
 import logging
+import re
 from typing import Callable
 
 from .. import config
@@ -15,6 +16,21 @@ from ..state import State
 log = logging.getLogger(__name__)
 
 IssueEval = dict  # {"issue", "comments", "verdict", "evidence", "verdict_body", "comments_count"}
+
+# shared candidate gate — the two repos use identical gating logic, so the
+# regexes are compiled once here and both scanners delegate to is_candidate
+_SUBMISSION_RE = re.compile(config.SUBMISSION_RE, re.I)
+_BUG_ESCAPE_RE = re.compile(r"误|\[BUG\]|BUG]", re.I)
+_CANDIDATE_RE = re.compile(config.CANDIDATE_RE, re.I)
+
+
+def is_candidate(issue: dict) -> bool:
+    title = issue.get("title") or ""
+    text = title + "\n" + (issue.get("body") or "")
+    # pure domain-submission issues are additions, not false positives
+    if _SUBMISSION_RE.search(title) and not _BUG_ESCAPE_RE.search(title):
+        return False
+    return bool(_CANDIDATE_RE.search(text))
 
 
 def evaluate_issues(

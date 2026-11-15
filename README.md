@@ -17,12 +17,14 @@ issue 溯源**、**与两个项目的广告规则发布产物零交集**的白�
 1. **只收带 issue 溯源的域名**。anti-AD 白名单 php 中无 issue 引用的条目
    (维护者内部策展,约 176 条)不进主列表,单独输出到
    `output/antiad_whitelist_without_issue_ref.txt` 供参考;
-   需要放行其中某条时,加入 `data/manual_overrides.json` 的 `approve`。
+   需要放行其中某条时,加入 `data/manual_overrides.json` 的 `approve`
+   (人工 `approve` 允许无 issue 号破例,产物中标注「无issue号」)。
 2. **与广告规则发布产物零交集**(`invariants.enforce_invariants`,每跑强制):
    主列表域名不得出现在 `anti-ad-domains.txt`(精确)或 AWAvenue 主规则
    (精确 + 祖先 `||rule^`)中,违者剔除并记入 `report.md` 的"冲突"节。
    anti-AD 祖先被拦但本域未拦的情形(其 `@@` 白名单语义)仅作
-   `partial_block` 信息标注,不剔除。人工批准不能豁免本规则。
+   `partial_block` 信息标注,不剔除(仅存于 state 供审计,不渲染进产物)。
+   人工批准不能豁免本规则。
 
 ## 判定方法(核心)
 
@@ -52,7 +54,8 @@ issue 溯源**、**与两个项目的广告规则发布产物零交集**的白�
 
 无白名单文件——误报处理方式是**从主规则移除**或**移入补充规则(Replenish)**:
 
-1. issue 候选:标题/正文命中误报关键词,排除纯 `[enhancement]` 提交类;
+1. issue 候选:标题/正文命中误报关键词,排除纯 `[enhancement]` 提交类
+   (按标题匹配;标题含 误/BUG 字样的提交类仍放行);
 2. 维护者 **TG-Twilight**(OWNER)评论命中接受短语 → confirmed;
 3. **生效验证**:域名确实从当前 `||domain^` 主规则消失 → 自动进列表;
    issue 仍开或规则未重建 → 挂 pending,规则更新后自动晋升。
@@ -105,7 +108,7 @@ ad-whitelist-bot/
 │       ├── base.py              # 共享 issue 扫描骨架(锁定/缓存/候选闸门)
 │       ├── antiad.py            # anti-AD:php 解析/收割/commit 归因/issue 扫描
 │       └── awavenue.py          # AWAvenue:issue 扫描/主规则验证/晋升
-├── tests/                       # unittest 套件(51 个用例,CI 三版本矩阵)
+├── tests/                       # unittest 套件(CI 四版本矩阵)
 ├── data/
 │   ├── state.json               # 运行状态(CI 提交回仓库 = 跨日记忆)
 │   ├── seed_awavenue_manual.json  # 人工审计种子(33 域 + 57 个锁定 issue)
@@ -121,7 +124,7 @@ ad-whitelist-bot/
 pip install -e .                      # 零第三方依赖,只是装 CLI 入口
 
 ad-whitelist-bot seed                 # 首次:构建 data/state.json
-ad-whitelist-bot run                  # 日常增量(1-3 分钟,约 5-50 次 API)
+ad-whitelist-bot run                  # 日常增量(1-3 分钟,约 5-10 次 REST + 数个 raw 下载)
 ad-whitelist-bot run --full           # 全量回填(30-60 分钟,约 800 次 API)
 ad-whitelist-bot -v run               # 调试日志
 python -m ad_whitelist_bot run        # 不安装也能跑(需 PYTHONPATH=src)
@@ -134,7 +137,7 @@ python -m ad_whitelist_bot run        # 不安装也能跑(需 PYTHONPATH=src)
 
 - **daily.yml**:每天 UTC 21:30(北京 05:30)自动增量运行,把
   `data/state.json` 与 `output/` 的变更提交回仓库;手动触发时可勾选全量。
-- **ci.yml**:push/PR 时在 Python 3.10 / 3.12 / 3.13 三个版本跑测试。
+- **ci.yml**:push/PR 时在 Python 3.10 / 3.11 / 3.12 / 3.13 四个版本跑测试。
 
 ## 输出(`output/`)
 

@@ -82,11 +82,26 @@ def suffix_blocked(domain: str, blockset: set[str] | frozenset[str]) -> bool:
 
 
 def parse_rule_domain_line(line: str) -> str | None:
-    """Extract the domain from an AdGuard-style `||domain^` line, else None."""
+    """Extract the domain from a bare AdGuard-style `||domain^` line, else None.
+
+    Only bare suffix rules qualify: anything with `$` modifiers, a `/` path,
+    a `*` wildcard, or residue after `^` (besides a trailing `|` anchor) is
+    rejected — the parsed set must stay 100% plain suffix domains, because it
+    feeds conflict detection (safety-critical: false negatives let a
+    whitelisted-but-blocked domain ship) and `+.x` style consumers.
+    """
     s = line.strip()
-    if s.startswith("||") and "^" in s:
-        return s[2:s.index("^")].lower() or None
-    return None
+    if not s.startswith("||") or "$" in s:
+        return None
+    idx = s.find("^")
+    if idx == -1:
+        return None
+    if s[idx + 1:].strip("|"):  # only a trailing `|` end-anchor is tolerated
+        return None
+    dom = s[2:idx].lower()
+    if not dom or "/" in dom or "*" in dom:
+        return None
+    return dom
 
 
 def parse_domain_blocklist(text: str) -> set[str]:

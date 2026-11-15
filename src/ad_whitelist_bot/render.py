@@ -4,10 +4,9 @@ from __future__ import annotations
 import logging
 import os
 import re
-from datetime import date
 
 from . import config
-from .state import State
+from .state import State, now_iso
 
 log = logging.getLogger(__name__)
 
@@ -27,7 +26,7 @@ def active_domains(st: State) -> list[str]:
 def render_lists(st: State, out_dir: str) -> list[str]:
     os.makedirs(out_dir, exist_ok=True)
     doms = active_domains(st)
-    today = date.today().isoformat()
+    today = now_iso()[:10]
     with open(os.path.join(out_dir, "merged_false_positive_whitelist.txt"), "w",
               encoding="utf-8", newline="\n") as f:
         f.write(f"# Generated: {today} | Total: {len(doms)}\n")
@@ -47,7 +46,7 @@ def _link(n: int, repo: str) -> str:
 
 def render_provenance(st: State, out_dir: str) -> None:
     lines = ["# 误报域名白名单 — 溯源", "",
-             f"自动生成于 {date.today().isoformat()};收录标准与判定方法见 README。", "",
+             f"自动生成于 {now_iso()[:10]};收录标准与判定方法见 README。", "",
              "| 域名 | 来源 | 判定 | issue |", "|---|---|---|---|"]
     for d in active_domains(st):
         rec = st["domains"][d]
@@ -152,7 +151,7 @@ def render_annotated_list(st: State, out_dir: str) -> list[str]:
 
     path = os.path.join(out_dir, "whitelist_annotated.txt")
     with open(path, "w", encoding="utf-8", newline="\n") as f:
-        f.write(f"# 误报白名单(带溯源注释) {date.today().isoformat()} | "
+        f.write(f"# 误报白名单(带溯源注释) {now_iso()[:10]} | "
                 f"Total: {len(lines)}\n")
         f.write("# 格式: 域名  # 仓库 issue号(报告的问题;维护者处置) — 多仓库来源用 ; 分隔\n")
         f.write("\n".join(lines) + ("\n" if lines else ""))
@@ -192,6 +191,12 @@ def render_report(st: State, out_dir: str, run_info: dict) -> None:
     if run_info.get("conflicts"):
         lines.append(f"- **冲突(与广告列表重叠,已剔除出列表)**:{len(run_info['conflicts'])}")
         lines.extend(f"  - `{d}` — {where}" for d, where in run_info["conflicts"])
+    if run_info.get("recovered"):
+        lines.append(f"- conflict 解除恢复:{len(run_info['recovered'])}: "
+                     + ", ".join(f"`{d}`→{t}" for d, t in run_info["recovered"]))
+    if run_info.get("php_demoted"):
+        lines.append(f"- php 白名单撤出(无其他背书,降级复核):{len(run_info['php_demoted'])}: "
+                     + ", ".join(f"`{d}`" for d in run_info["php_demoted"]))
     php = run_info.get("php_changes") or {}
     if php:
         lines.append(f"- anti-AD 白名单php变更:+{php.get('added', 0)} / "

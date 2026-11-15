@@ -21,13 +21,7 @@ RELATED_SECTION_RE = re.compile(
 
 
 def is_candidate(issue: dict) -> bool:
-    title = issue.get("title") or ""
-    text = title + "\n" + (issue.get("body") or "")
-    # pure domain-submission issues are additions, not false positives
-    if re.search(config.SUBMISSION_RE, title, re.I) \
-            and not re.search(r"误|\[BUG\]|BUG]", title, re.I):
-        return False
-    return bool(re.search(config.CANDIDATE_RE, text, re.I))
+    return base.is_candidate(issue)  # shared gate — identical logic for both repos
 
 
 def domains_from_issue(issue: dict) -> list[str]:
@@ -54,26 +48,35 @@ def scan_issues(client, issues: list[dict], st, awavenue_main: set[str],
         num = str(it["number"])
         rec = base.base_issue_record(ev)
         rec["issue_state"] = it["state"]
-        if ev["verdict"] == "confirmed" and it["state"] == "closed":
-            # confirming comment + the issue's own report (title / 相关域名 /
-            # body), filtered by main-rule absence — the effective verification
+        if ev["verdict"] == "confirmed":
+            # candidates = confirming comment + the issue's own report
+            # (title / 相关域名 / body), before main-rule filtering
             mc = extract.extract_domains(ev["verdict_body"])
-            picked = [d for d in dict.fromkeys(mc + domains_from_issue(it))
+            candidates = list(dict.fromkeys(mc + domains_from_issue(it)))
+            picked = [d for d in candidates
                       if d not in awavenue_main
                       and not extract.suffix_blocked(d, awavenue_main)]
-            rec.update(status="done", verdict="confirmed", domains=picked)
-            for d in picked:
-                confirmed.setdefault(d, {
-                    "domain": d,
-                    "sources": [{"repo": config.AWAVENUE, "kind": "issue-confirmed",
-                                 "issues": [{"n": it["number"], "repo": config.AWAVENUE}],
-                                 "action": ev["evidence"] or "maintainer confirmed removal"}]})
-        elif ev["verdict"] == "confirmed":
-            # maintainer announced the fix but the issue is still open (or the
-            # rule has not been rebuilt yet): hold as pending, promote later
-            # once the domain verifiably disappears from the main rule.
-            rec.update(status="pending", verdict="confirmed",
-                       domains=domains_from_issue(it))
+            if it["state"] == "closed" and candidates and picked:
+                # closed + at least one domain verifiably absent from the
+                # current main rule -> strong enough to auto-activate
+                rec.update(status="done", verdict="confirmed", domains=picked)
+                for d in picked:
+                    confirmed.setdefault(d, {
+                        "domain": d,
+                        "sources": [{"repo": config.AWAVENUE, "kind": "issue-confirmed",
+                                     "issues": [{"n": it["number"], "repo": config.AWAVENUE}],
+                                     "action": ev["evidence"] or "maintainer confirmed removal"}]})
+            elif candidates:
+                # issue still open, OR closed but the main rule has not been
+                # rebuilt yet (picked empty while candidates exist — race
+                # between the maintainer closing and their CI rebuild): hold
+                # as pending; promote_pending() activates after the rebuild.
+                rec.update(status="pending", verdict="confirmed",
+                           domains=candidates)
+            else:
+                # maintainer confirmed but no domain is extractable from the
+                # issue at all — nothing to whitelist, keep the old shape
+                rec.update(status="done", verdict="confirmed", domains=[])
         else:
             rec.update(status=base.STATUS_MAP.get(ev["verdict"], "no-verdict"))
         base.record_issue(st, config.AWAVENUE, num, rec)

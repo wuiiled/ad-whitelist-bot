@@ -30,13 +30,16 @@ class GitHubClient:
         last: Exception | None = None
         for attempt in range(tries):
             try:
+                is_api = url.startswith(API)  # raw/static downloads: no auth, no count
                 req = urllib.request.Request(url)
-                req.add_header("Authorization", f"Bearer {self.token}")
-                req.add_header("Accept", "application/vnd.github+json")
                 req.add_header("User-Agent", "ad-whitelist-bot")
-                req.add_header("X-GitHub-Api-Version", "2022-11-28")
+                if is_api:
+                    req.add_header("Authorization", f"Bearer {self.token}")
+                    req.add_header("Accept", "application/vnd.github+json")
+                    req.add_header("X-GitHub-Api-Version", "2022-11-28")
                 with urllib.request.urlopen(req, timeout=30) as resp:
-                    self.calls += 1
+                    if is_api:
+                        self.calls += 1
                     data = resp.read()
                     return data.decode("utf-8") if raw else json.loads(data)
             except urllib.error.HTTPError as exc:

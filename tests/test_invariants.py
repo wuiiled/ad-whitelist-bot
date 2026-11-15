@@ -25,7 +25,7 @@ class EnforceInvariantsTest(unittest.TestCase):
                                   "value": 0, "issues": [{"n": 2, "repo": ANTIAD}]}]})
         # make bad.com exactly present in the blocklist
         self.aa_block.add("bad.com")
-        conflicts = invariants.enforce_invariants(st, self.aw_main, self.aa_block)
+        conflicts, _ = invariants.enforce_invariants(st, self.aw_main, self.aa_block)
         self.assertEqual([d for d, _ in conflicts], ["bad.com"])
         self.assertEqual(st["domains"]["bad.com"]["status"], "conflict")
         self.assertEqual(st["domains"]["good.com"]["status"], "active")
@@ -38,7 +38,7 @@ class EnforceInvariantsTest(unittest.TestCase):
             "other.aw": [{"repo": AWAVENUE, "kind": "issue-confirmed",
                           "issues": [{"n": 9, "repo": AWAVENUE}]}],
         })
-        conflicts = invariants.enforce_invariants(st, self.aw_main, self.aa_block)
+        conflicts, _ = invariants.enforce_invariants(st, self.aw_main, self.aa_block)
         self.assertEqual([d for d, _ in conflicts], ["child.parent.aw"])
 
     def test_conflict_applies_even_to_manual_approval(self):
@@ -46,7 +46,7 @@ class EnforceInvariantsTest(unittest.TestCase):
         st = build({"m.com": [{"repo": "manual", "kind": "manual", "issues": []}]})
         st["domains"]["m.com"]["approved_by"] = "manual_overrides"
         self.aa_block.add("m.com")
-        conflicts = invariants.enforce_invariants(st, self.aw_main, self.aa_block)
+        conflicts, _ = invariants.enforce_invariants(st, self.aw_main, self.aa_block)
         self.assertEqual([d for d, _ in conflicts], ["m.com"])
         self.assertEqual(st["domains"]["m.com"]["status"], "conflict")
 
@@ -56,7 +56,7 @@ class EnforceInvariantsTest(unittest.TestCase):
         st = build({"code.sms.mob.com": [{"repo": ANTIAD, "kind": "whitelist-php",
                                           "value": 0,
                                           "issues": [{"n": 3, "repo": ANTIAD}]}]})
-        conflicts = invariants.enforce_invariants(st, self.aw_main, self.aa_block)
+        conflicts, _ = invariants.enforce_invariants(st, self.aw_main, self.aa_block)
         self.assertEqual(conflicts, [])
         self.assertEqual(st["domains"]["code.sms.mob.com"]["status"], "active")
         self.assertIn("partial_block", st["domains"]["code.sms.mob.com"])
@@ -75,7 +75,7 @@ class EnforceInvariantsTest(unittest.TestCase):
         st = build({"rej.com": [{"repo": AWAVENUE, "kind": "rejected", "issues": []}]})
         st["domains"]["rej.com"]["status"] = "rejected"
         self.aw_main.add("rej.com")
-        conflicts = invariants.enforce_invariants(st, self.aw_main, self.aa_block)
+        conflicts, _ = invariants.enforce_invariants(st, self.aw_main, self.aa_block)
         self.assertEqual(conflicts, [])
         self.assertEqual(st["domains"]["rej.com"]["status"], "rejected")
 
@@ -87,6 +87,58 @@ class RefreshCrossStatusTest(unittest.TestCase):
         invariants.refresh_cross_status(st, {"a.com"}, {"b.com"})
         self.assertTrue(st["domains"]["a.com"]["in_awavenue_main_now"])
         self.assertFalse(st["domains"]["a.com"]["in_antiad_block_now"])
+
+
+class ConflictRecoveryTest(unittest.TestCase):
+    def setUp(self):
+        self.aa_block = {"blocked.example"}
+        self.aw_main = {"ad.aw"}
+
+    def test_recovery_to_active_with_php_backing(self):
+        self.aa_block.add("bad.com")
+        st = build({"bad.com": [{"repo": ANTIAD, "kind": "whitelist-php",
+                                 "value": 0, "issues": [{"n": 1, "repo": ANTIAD}]}]})
+        invariants.enforce_invariants(st, self.aw_main, self.aa_block)
+        self.assertEqual(st["domains"]["bad.com"]["status"], "conflict")
+        self.aa_block.discard("bad.com")  # 上游解除拦截
+        conflicts, recovered = invariants.enforce_invariants(st, self.aw_main, self.aa_block)
+        self.assertEqual(conflicts, [])
+        self.assertEqual(recovered, [("bad.com", "active")])
+        self.assertEqual(st["domains"]["bad.com"]["status"], "active")
+        self.assertNotIn("conflict", st["domains"]["bad.com"])
+
+    def test_recovery_to_pending_without_backing(self):
+        self.aa_block.add("bad.com")
+        st = build({"bad.com": [{"repo": ANTIAD, "kind": "whitelist-php",
+                                 "value": 0, "issues": [{"n": 1, "repo": ANTIAD}]}]})
+        invariants.enforce_invariants(st, self.aw_main, self.aa_block)
+        for s in st["domains"]["bad.com"]["sources"]:
+            s["php_removed"] = "2026-11-15"  # 背书已撤
+        self.aa_block.discard("bad.com")
+        conflicts, recovered = invariants.enforce_invariants(st, self.aw_main, self.aa_block)
+        self.assertEqual(recovered, [("bad.com", "pending")])
+        self.assertEqual(st["domains"]["bad.com"]["status"], "pending")
+
+    def test_recovery_with_manual_approval_goes_active(self):
+        self.aa_block.add("m.com")
+        st = build({"m.com": [{"repo": "manual", "kind": "manual", "issues": []}]})
+        invariants.enforce_invariants(st, self.aw_main, self.aa_block)
+        st["domains"]["m.com"]["approved_by"] = "manual_overrides"
+        self.aa_block.discard("m.com")
+        conflicts, recovered = invariants.enforce_invariants(st, self.aw_main, self.aa_block)
+        self.assertEqual(recovered, [("m.com", "active")])
+
+    def test_approved_domain_stays_conflicted_while_blocked(self):
+        # 章程:批准不能豁免;已 conflict 域重复跑不得重复上报
+        self.aa_block.add("m.com")
+        st = build({"m.com": [{"repo": "manual", "kind": "manual", "issues": []}]})
+        st["domains"]["m.com"]["approved_by"] = "manual_overrides"
+        conflicts, _ = invariants.enforce_invariants(st, self.aw_main, self.aa_block)
+        self.assertEqual([d for d, _ in conflicts], ["m.com"])
+        conflicts2, recovered2 = invariants.enforce_invariants(st, self.aw_main, self.aa_block)
+        self.assertEqual(conflicts2, [], "already-conflicted must not re-report")
+        self.assertEqual(recovered2, [])
+        self.assertEqual(st["domains"]["m.com"]["status"], "conflict")
 
 
 if __name__ == "__main__":

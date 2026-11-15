@@ -84,6 +84,16 @@ class OverridesTest(unittest.TestCase):
         state.merge_domain(self.st, "y.com", mk_source(action="again"))
         self.assertEqual(self.st["domains"]["y.com"]["status"], "rejected")
 
+    def test_approve_on_conflict_stamps_but_does_not_flip(self):
+        # 章程硬规则:批准只盖背书标记,不翻 status;恢复由 invariants 全权
+        rec = state.merge_domain(self.st, "z.com", mk_source())
+        rec["status"] = "conflict"
+        self.write_overrides({"approve": ["z.com"], "deny": []})
+        approved = state.apply_overrides(self.st)
+        self.assertEqual(approved, [])
+        self.assertEqual(self.st["domains"]["z.com"]["status"], "conflict")
+        self.assertEqual(self.st["domains"]["z.com"]["approved_by"], "manual_overrides")
+
 
 class SaveLoadTest(unittest.TestCase):
     def test_roundtrip_and_normalization(self):

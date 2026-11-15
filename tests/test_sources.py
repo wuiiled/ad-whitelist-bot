@@ -161,6 +161,34 @@ class AwavenueScanTest(unittest.TestCase):
         self.assertEqual(promoted, [])
         self.assertEqual(st["issues"][AWAVENUE]["12"]["status"], "pending")
 
+    def test_confirmed_closed_but_rule_not_rebuilt_goes_pending(self):
+        # P0-2:关单与对方 CI 的竞态——挂 pending 而非 done+[] 永久漏采
+        st = state.empty_state()
+        issue = mk_issue(13, "[BUG] 某功能失效",
+                         "相关域名：\nstillblocked.example.com\n")
+        client = FakeClient({13: [c("TG-Twilight", "已经移除了", "OWNER")]})
+        confirmed = awavenue.scan_issues(client, [issue], st,
+                                         {"stillblocked.example.com"})
+        self.assertEqual(confirmed, {})
+        rec = st["issues"][AWAVENUE]["13"]
+        self.assertEqual(rec["status"], "pending")
+        self.assertEqual(rec["domains"], ["stillblocked.example.com"])
+        # 规则重建后 promote_pending 自动晋升
+        promoted = awavenue.promote_pending(st, set())
+        self.assertEqual(promoted, ["stillblocked.example.com"])
+        self.assertEqual(st["domains"]["stillblocked.example.com"]["status"], "active")
+
+    def test_confirmed_without_extractable_domains_stays_done(self):
+        # 确认了但整单提不出域名 → 维持 done+[](不得落 pending+空域 limbo)
+        st = state.empty_state()
+        issue = mk_issue(14, "[BUG] 某功能失效")
+        client = FakeClient({14: [c("TG-Twilight", "已经修复了", "OWNER")]})
+        confirmed = awavenue.scan_issues(client, [issue], st, set())
+        self.assertEqual(confirmed, {})
+        rec = st["issues"][AWAVENUE]["14"]
+        self.assertEqual(rec["status"], "done")
+        self.assertEqual(rec["domains"], [])
+
 
 if __name__ == "__main__":
     unittest.main()

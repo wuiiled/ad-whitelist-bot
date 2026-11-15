@@ -59,15 +59,26 @@ class SuffixBlockedTest(unittest.TestCase):
 class RuleLineTest(unittest.TestCase):
     def test_parse_rule_domain_line(self):
         self.assertEqual(extract.parse_rule_domain_line("||foo.bar^"), "foo.bar")
-        self.assertEqual(extract.parse_rule_domain_line("||foo.bar^$important"), "foo.bar")
         self.assertIsNone(extract.parse_rule_domain_line("! comment"))
         self.assertIsNone(extract.parse_rule_domain_line("plain.line"))
+        # 旧版把带修饰符的规则也收进来(缺陷3);新版全拒——domainset 必须纯后缀
+        self.assertIsNone(extract.parse_rule_domain_line("||foo.bar^$important"))
+
+    def test_parse_rule_domain_line_rejects_non_suffix_forms(self):
+        for line in ("||foo.bar^$badfilter", "||foo.bar^$third-party",
+                     "||foo.bar/js/sdk^", "||foo.bar*/^", "||foo.bar^junk"):
+            self.assertIsNone(extract.parse_rule_domain_line(line), line)
+
+    def test_parse_rule_domain_line_tolerates_end_anchor(self):
+        # AdGuardSDNSFilter exceptions.txt 用 `@@||x^|`;块侧 `||x^|` 若被丢,
+        # conflict 检测假阴(白名单域实际被拦而不自知)——必须容忍尾锚
+        self.assertEqual(extract.parse_rule_domain_line("||foo.bar^|"), "foo.bar")
 
     def test_blocklist_parsers(self):
         self.assertEqual(extract.parse_domain_blocklist("# c\na.com\n\nB.COM\n"),
                          {"a.com", "b.com"})
-        self.assertEqual(extract.parse_adguard_rule_domainset("||a.com^\n||b.org^$x\n"),
-                         {"a.com", "b.org"})
+        self.assertEqual(extract.parse_adguard_rule_domainset(
+            "||a.com^\n||b.org^$x\n||c.net^|\n"), {"a.com", "c.net"})
 
 
 if __name__ == "__main__":

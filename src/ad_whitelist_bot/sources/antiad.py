@@ -93,12 +93,7 @@ def commit_issue_refs(client, since_iso: str | None) -> list[int]:
 
 # -------------------------------------------------------------- issue scan
 def is_candidate(issue: dict) -> bool:
-    title = issue.get("title") or ""
-    text = title + "\n" + (issue.get("body") or "")
-    if re.search(config.SUBMISSION_RE, title, re.I) \
-            and not re.search(r"误|\[BUG\]|BUG]", title, re.I):
-        return False
-    return bool(re.search(config.CANDIDATE_RE, text, re.I))
+    return base.is_candidate(issue)  # shared gate — identical logic for both repos
 
 
 def scan_issues(client, issues: list[dict], st, full: bool = False) -> dict[str, dict]:

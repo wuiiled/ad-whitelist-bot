@@ -1,7 +1,9 @@
 """Pipeline orchestration: `seed` (build initial state) and `run` (daily update)."""
 from __future__ import annotations
 
+import json
 import logging
+import os
 from datetime import datetime, timezone
 
 from . import config, extract, invariants, render, state
@@ -10,6 +12,53 @@ from .sources import antiad, awavenue
 from .state import State, now_iso
 
 log = logging.getLogger(__name__)
+
+
+def _snapshot(st: State) -> dict:
+    """Content snapshot of everything that determines rendered artifacts.
+
+    active/pending/noref determine which domains appear in the outputs;
+    active domains' serialized sources cover provenance edits (php value or
+    comment changes, re-adds clearing php_removed, extra issue confirmations)
+    that alter whitelist_annotated.txt / PROVENANCE.md without moving domains.
+    """
+    return {
+        "active": set(render.active_domains(st)),
+        "pending": {d for d, r in st["domains"].items()
+                    if r.get("status") == "pending"},
+        "noref": dict(st.get("whitelist_php_noref") or {}),
+        "srcs": {d: sorted(json.dumps(s, sort_keys=True, ensure_ascii=False)
+                           for s in r.get("sources", []))
+                 for d, r in st["domains"].items()
+                 if r.get("status") == "active"},
+    }
+
+
+def _substantive(before: dict, after: dict) -> bool:
+    """True if any rendered artifact (beyond generated dates) would differ."""
+    return any(before[k] != after[k] for k in before)
+
+
+def _annotate_php_removals(st: State, removed: list[str], date: str) -> list[str]:
+    """Stamp php_removed on sources; demote unbacked active domains to pending.
+
+    A php whitelist entry disappearing revokes anti-AD's endorsement; domains
+    without other qualifying evidence (AWAvenue issue-confirmed / manual
+    approval) go back to the review queue. Returns demoted domains.
+    """
+    demoted: list[str] = []
+    for d in removed:
+        rec = st["domains"].get(d)
+        if not rec:
+            continue
+        for s in rec["sources"]:
+            if s.get("kind") == "whitelist-php":
+                s["php_removed"] = date
+        if rec["status"] == "active" and not invariants.has_active_backing(rec):
+            rec["status"] = "pending"
+            demoted.append(d)
+            log.info("php removed without backing: %s -> pending", d)
+    return demoted
 
 
 def _fetch_artifacts(client: GitHubClient) -> tuple[str, set[str], set[str]]:
@@ -79,6 +128,9 @@ def run(full: bool = False) -> None:
     run_info: dict = {"date": run_start[:10], "api_calls": 0,
                       "new_domains": [], "promoted": [], "conflicts": []}
 
+    # ---- 0. substantive-output snapshot (P0-3) -------------------------------
+    before = _snapshot(st)
+
     php, antiad_block, awavenue_main = _fetch_artifacts(client)
 
     # ---- 1. whitelist-php harvest (issue-provenance entries only) ----------
@@ -92,6 +144,15 @@ def run(full: bool = False) -> None:
     commit_issues = antiad.commit_issue_refs(
         client, st["checkpoints"][config.ANTIAD]) if (added or changed) else []
     if added or removed or changed:
+        # re-added entries: clear stale php_removed BEFORE merging — the fresh
+        # source dict != the stamped old one, so merging first would append a
+        # duplicate that survives the cleanup
+        for d in added:
+            rec = st["domains"].get(d)
+            if rec:
+                for s in rec["sources"]:
+                    if s.get("kind") == "whitelist-php":
+                        s.pop("php_removed", None)
         # no-ref additions attributed via commit messages become ref'd entries
         for d in added:
             if d in records or not commit_issues:
@@ -104,12 +165,9 @@ def run(full: bool = False) -> None:
         merge_new = state.merge_records(st, records)
         run_info["new_domains"].extend(
             d for d in merge_new if st["domains"][d]["status"] == "active")
-        for d in removed:  # annotate sources whose php entry disappeared
-            rec = st["domains"].get(d)
-            if rec:
-                for s in rec["sources"]:
-                    if s.get("kind") == "whitelist-php":
-                        s["php_removed"] = run_info["date"]
+        demoted = _annotate_php_removals(st, removed, run_info["date"])
+        if demoted:
+            run_info["php_demoted"] = demoted
         log.info("php changed: +%d/-%d/~%d (commit issues: %s)",
                  len(added), len(removed), len(changed), commit_issues[:10])
     st["whitelist_php_noref"] = {d: c for d, c in noref.items() if d not in records}
@@ -147,7 +205,9 @@ def run(full: bool = False) -> None:
     run_info["approved"] = state.apply_overrides(st)
 
     # ---- 4. charter invariants + cross status -------------------------------
-    run_info["conflicts"] = invariants.enforce_invariants(st, awavenue_main, antiad_block)
+    conflicts, recovered = invariants.enforce_invariants(st, awavenue_main, antiad_block)
+    run_info["conflicts"] = conflicts
+    run_info["recovered"] = recovered
     invariants.refresh_cross_status(st, awavenue_main, antiad_block)
 
     # ---- 5. checkpoint, persist, render -------------------------------------
@@ -157,9 +217,19 @@ def run(full: bool = False) -> None:
     render.render_provenance(st, config.OUTPUT_DIR)
     render.render_noref_reference(st, config.OUTPUT_DIR)
     render.render_annotated_list(st, config.OUTPUT_DIR)
+    after = _snapshot(st)
+    run_info["substantive_changed"] = _substantive(before, after)
+    flag = os.path.join(config.OUTPUT_DIR, "changed.flag")
+    if run_info["substantive_changed"]:
+        with open(flag, "w", encoding="utf-8") as f:
+            f.write(now_iso() + "\n")
+    elif os.path.exists(flag):
+        os.remove(flag)
     run_info["api_calls"] = client.calls
     render.render_report(st, config.OUTPUT_DIR, run_info)
     log.info("run done: %d active | new=%d promoted=%d approved=%d conflicts=%d "
-             "| api calls=%d", len(doms), len(run_info["new_domains"]),
+             "recovered=%d | substantive=%s | api calls=%d",
+             len(doms), len(run_info["new_domains"]),
              len(run_info["promoted"]), len(run_info.get("approved", [])),
-             len(run_info["conflicts"]), client.calls)
+             len(run_info["conflicts"]), len(run_info.get("recovered", [])),
+             run_info["substantive_changed"], client.calls)
