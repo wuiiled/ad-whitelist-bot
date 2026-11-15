@@ -8,7 +8,7 @@ from datetime import datetime, timezone
 
 from . import config, extract, invariants, render, state
 from .github import GitHubClient
-from .sources import adguardsdns, antiad, awavenue
+from .sources import adguardsdns, antiad, awavenue, referral
 from .state import State, now_iso
 
 log = logging.getLogger(__name__)
@@ -96,12 +96,14 @@ def _reapply_rejection_seeds(st: State) -> list[str]:
 
 
 def _fetch_adguard(client: GitHubClient) -> tuple[dict[str, dict], dict[str, str],
-                                                  set[str], set[str]]:
+                                                  set[str], set[str], str]:
     """AdGuard DNS filter adjudication files + published product sets.
 
-    Returns (records, noref, block, allow) — allow = the published filter's
-    own @@ exception set; a domain carrying its own exemption is not blocked
-    by the published product and must not conflict.
+    Returns (records, noref, block, allow, exceptions_text) — allow = the
+    published filter's own @@ exception set; a domain carrying its own
+    exemption is not blocked by the published product and must not conflict.
+    exceptions_text is passed through for the referral source, which harvests
+    the un-annotated remainder (one fetch, two consumers).
     """
     excl = client.get_raw(config.ADG_DNS_EXCLUSIONS_URL)
     exc = client.get_raw(config.ADG_DNS_EXCEPTIONS_URL)
@@ -113,7 +115,55 @@ def _fetch_adguard(client: GitHubClient) -> tuple[dict[str, dict], dict[str, str
     log.info("adguard artifacts: harvested=%d domains, noref=%d, "
              "published filter block=%d allow=%d", len(records), len(noref),
              len(block), len(allow))
-    return records, noref, block, allow
+    return records, noref, block, allow, exc
+
+
+def _fetch_referral(client: GitHubClient) -> tuple[str, str]:
+    """Curated referral feed files (Cats-Team/AdRules, anudeepND)."""
+    cats = client.get_raw(config.CATS_ALLOWLIST_URL)
+    anudeep = client.get_raw(config.ANUDEEP_WHITELIST_URL)
+    log.info("referral artifacts: cats=%d bytes, anudeep=%d bytes",
+             len(cats), len(anudeep))
+    return cats, anudeep
+
+
+def _merge_referral(st: State, cats_text: str, anudeep_text: str,
+                    exceptions_text: str, traced_exceptions: set[str],
+                    ) -> tuple[list[str], list[str]]:
+    """Consolidate the curated consumer feeds (2026-11-16 migration).
+
+    The consumer stack previously downloaded these three files raw; the bot
+    now harvests them so the whitelist has one synthesis point. Status-quo
+    rails: pending/rejected records are never touched (see
+    state.merge_referral), and stance conflicts (referral-only domains the
+    CN block products deliberately block) are shipped as-is but surfaced in
+    the run report for individual deny decisions.
+    """
+    records = referral.build_records(cats_text, anudeep_text,
+                                     exceptions_text, traced_exceptions)
+    added, suppressed = state.merge_referral(st, records)
+    log.info("referral merge: +%d added, %d suppressed", len(added), len(suppressed))
+    return added, suppressed
+
+
+def _referral_stance_conflicts(st: State, antiad_block: set[str],
+                               awavenue_main: set[str]) -> list[str]:
+    """Referral-only active domains the CN block products exactly block.
+
+    Cross-source stance disagreement, not a charter conflict (the referral
+    feeds have no block product of their own); reported so the maintainer
+    can deny individual entries via manual_overrides.
+    """
+    out = []
+    for d, rec in st["domains"].items():
+        if rec.get("status") != "active":
+            continue
+        kinds = {s.get("kind") for s in rec["sources"]}
+        if not kinds or not kinds <= invariants._REFERRAL_KINDS:
+            continue
+        if d in antiad_block or d in awavenue_main:
+            out.append(d)
+    return sorted(out)
 
 
 def seed() -> None:
@@ -129,8 +179,15 @@ def seed() -> None:
                                     for e in antiad.parse_white_php(php)
                                     if e["value"] != -1}
 
-    adguard_records, _, adguard_block, adguard_allow = _fetch_adguard(client)
+    adguard_records, _, adguard_block, adguard_allow, adg_exc = _fetch_adguard(client)
     state.merge_records(st, adguard_records)
+    cats_text, anudeep_text = _fetch_referral(client)
+    traced_exceptions = {d for d, r in adguard_records.items()
+                         if any(s.get("kind") == "dns-exception"
+                                for s in r["sources"])}
+    added, suppressed = _merge_referral(st, cats_text, anudeep_text,
+                                        adg_exc, traced_exceptions)
+    log.info("seed referral: +%d added, %d suppressed", len(added), len(suppressed))
 
     seed = state.load_seed_json("seed_awavenue_manual.json")
     if seed:
@@ -224,12 +281,17 @@ def run(full: bool = False) -> None:
                                "commit_issues": commit_issues[:20]}
 
     # ---- 1.5 AdGuard DNS filter harvest (file provenance) --------------------
-    adguard_records, adguard_noref, adguard_block, adguard_allow = _fetch_adguard(client)
+    adguard_records, adguard_noref, adguard_block, adguard_allow, adg_exc = \
+        _fetch_adguard(client)
     merge_adg = state.merge_records(st, adguard_records)
     run_info["new_domains"].extend(
         d for d in merge_adg if st["domains"][d]["status"] == "active")
     if adguard_noref:
         log.info("adguard noref (reference-only): %d entries", len(adguard_noref))
+    cats_text, anudeep_text = _fetch_referral(client)
+    traced_exceptions = {d for d, r in adguard_records.items()
+                         if any(s.get("kind") == "dns-exception"
+                                for s in r["sources"])}
 
     # ---- 2. issue scans -----------------------------------------------------
     since_aa = None if full else st["checkpoints"][config.ANTIAD]
@@ -253,10 +315,18 @@ def run(full: bool = False) -> None:
         if not existed and st["domains"][d]["status"] == "active":
             run_info["new_domains"].append(d)
 
-    # ---- 3. promote pending + apply human overrides -------------------------
+    # ---- 3. promote pending, consolidate referrals, apply overrides ---------
     for d in awavenue.promote_pending(st, awavenue_main):
         if st["domains"][d]["status"] == "active" and d not in run_info["promoted"]:
             run_info["promoted"].append(d)
+    # referral merge sits between promotion and overrides: promoted records
+    # gain provenance, and an approve/deny always lands on the merged state
+    # (a deny after the merge still wins — any status -> rejected)
+    added, suppressed = _merge_referral(st, cats_text, anudeep_text,
+                                        adg_exc, traced_exceptions)
+    run_info["referral_added"] = added
+    if suppressed:
+        run_info["referral_suppressed"] = suppressed
     run_info["approved"] = state.apply_overrides(st)
     rej_fixed = _reapply_rejection_seeds(st)
     if rej_fixed:
@@ -268,6 +338,9 @@ def run(full: bool = False) -> None:
     run_info["conflicts"] = conflicts
     run_info["recovered"] = recovered
     invariants.refresh_cross_status(st, awavenue_main, antiad_block, adguard_block)
+    stance = _referral_stance_conflicts(st, antiad_block, awavenue_main)
+    if stance:
+        run_info["referral_stance_conflicts"] = stance
 
     # ---- 5. checkpoint, persist, render -------------------------------------
     st["checkpoints"] = {config.ANTIAD: run_start, config.AWAVENUE: run_start}

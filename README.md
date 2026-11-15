@@ -2,7 +2,10 @@
 
 从 **anti-AD**、**AWAvenue-Ads-Rule** 与 **AdGuard DNS filter** 三个项目的
 发布产物/issue 中,自动收集"被报告为误报、且经维护者复核后处理"的域名,合并为
-一份**每个域名都带 issue 溯源**、**与来源项目各自的发布产物零交集**的白名单。
+一份**每个域名都带 issue 溯源**、**与来源项目各自的发布产物零交集**的白名单;
+同时作为消费端白名单的**唯一合成点**,收录三份策展引用源
+(Cats-Team/AdRules dns-allowlist、anudeepND/whitelist、AdGuard exceptions
+无注释条目——消费端不再自行拉取合成,只消费本仓产物)。
 
 设计为 GitHub Actions 每日定时增量运行;零第三方依赖(纯 Python 标准库)。
 
@@ -10,16 +13,22 @@
 误报白名单
  ├─ anti-AD:白名单 php 收割(adlist-maker 分支,带 issue 注释)+ issue 扫描(复核队列)
  ├─ AWAvenue:issue 扫描(维护者确认 + 主规则消失验证)
- └─ AdGuard DNS filter:exclusions/exceptions 文件收割(编译期裁决,带 issue 注释)
+ ├─ AdGuard DNS filter:exclusions/exceptions 文件收割(编译期裁决,带 issue 注释)
+ └─ 策展引用层(kind=referral):Cats-Team/AdRules dns-allowlist(注释 #N 转 issue
+    链接)+ anudeepND/whitelist(2021-12 起冻结,仍每日跟文件)+ AdGuard exceptions
+    无注释条目兜底 —— 无误报裁决语义的消费端原始源,收进本仓统一合成
 ```
 
-## 列表章程(两条硬性规则,代码强制)
+## 列表章程(硬性规则,代码强制)
 
-1. **只收带 issue 溯源的域名**。anti-AD 白名单 php 中无 issue 引用的条目
-   (维护者内部策展,约 176 条)不进主列表,单独输出到
+1. **溯源分层**。裁决型条目只收带 issue 溯源的域名——anti-AD 白名单 php 中
+   无 issue 引用的条目(维护者内部策展,约 176 条)不进主列表,单独输出到
    `output/antiad_whitelist_without_issue_ref.txt` 供参考;
    需要放行其中某条时,加入 `data/manual_overrides.json` 的 `approve`
    (人工 `approve` 允许无 issue 号破例,产物中标注「无issue号」)。
+   策展引用层(kind=referral)为文件来源,不做产物交集检查,但有三条护栏:
+   不收紧其他来源的不变量检查键、不晋升/不改写 pending/rejected 记录
+   (`state.merge_referral`)、与 CN 产物精确命中仅在报告中标注立场冲突。
 2. **逐源源内零交集**(`invariants.enforce_invariants`,每跑强制):
    列表域名不得出现在**其来源项目自己的**发布产物中——anti-AD 条目查
    `anti-ad-domains.txt`(精确),AWAvenue 条目查主规则(精确 + 祖先
@@ -150,12 +159,19 @@ python -m ad_whitelist_bot run        # 不安装也能跑(需 PYTHONPATH=src)
 
 | 文件 | 说明 |
 |---|---|
-| `merged_false_positive_whitelist.txt` | 合并列表,一行一个域名 |
+| `merged_false_positive_whitelist.txt` | **主列表(后缀档)**,一行一个域名,放行语义覆盖全部子域 |
+| `merged_false_positive_whitelist_exact.txt` | **精确档**:裸域(两段)裁决型条目,消费端须按整域精确匹配、不参与祖先连坐 |
 | `whitelist_annotated.txt` | **带溯源注释版**:每行 `域名  # 仓库 issue号(报告的问题;处置)` |
-| `merged_false_positive_whitelist_adguard.txt` | 同列表,`@@||domain^` 格式 |
+| `merged_false_positive_whitelist_adguard.txt` | 主列表的 `@@||domain^` 格式(AdGuard DNS 语义本身即后缀放行,精确档不适用此格式) |
 | `PROVENANCE.md` | 每个域名 → 来源仓库 → 判定依据 → issue 链接(表格版溯源) |
 | `antiad_whitelist_without_issue_ref.txt` | anti-AD 无 issue 引用条目(仅参考) |
-| `report.md` | 当次运行报告:新增/晋升/批准/冲突/复核队列/php 变更 |
+| `report.md` | 当次运行报告:新增/晋升/批准/冲突/复核队列/php 变更/策展引用并入与立场冲突 |
+
+**双档语义**(2026-11-16):裁决型来源(anti-AD php / AWAvenue / AdGuard DNS
+filter)的裸域条目,是上游项目在自家单源语义下的整域裁决;多源消费栈若按后缀
+放行会连坐清除其他黑名单源的同族广告规则(tanx/yximgs/ucweb/co.in 等整族,
+实测 ~1,100 条),故单列精确档。策展引用层的裸域条目(如 cloudfront.net/
+amazonaws.com)本意即基础设施放行,留在主文件按后缀档处理。
 
 ## 开发
 

@@ -40,9 +40,11 @@ def _issue_refs(line: str) -> list[dict]:
     return refs
 
 
-def _annotated_rules(text: str, rule_fn):
+def annotated_rules(text: str, rule_fn):
     """Block-level binding: one annotation block covers the run of rule
-    lines following it. Yields (domain, issues, note)."""
+    lines following it. Yields (domain, issues, note). Shared with the
+    referral source, which re-scans the exceptions file for the entries
+    this harvest leaves un-annotated."""
     refs: list[dict] = []
     notes: list[str] = []
     for raw in text.splitlines():
@@ -67,7 +69,7 @@ def _annotated_rules(text: str, rule_fn):
 def _harvest(text: str, kind: str, rule_fn) -> tuple[dict[str, dict], dict[str, str]]:
     records: dict[str, dict] = {}
     noref: dict[str, str] = {}
-    for dom, issues, note in _annotated_rules(text, rule_fn):
+    for dom, issues, note in annotated_rules(text, rule_fn):
         if issues:
             src = {"repo": config.ADG_DNS, "kind": kind,
                    "action": note or ("maintainer removed from filter"

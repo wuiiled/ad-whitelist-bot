@@ -82,6 +82,8 @@ class RuleLineTest(unittest.TestCase):
         # 其他修饰符缩窄放行范围 → 拒
         self.assertIsNone(extract.parse_allow_rule_domain_line("@@||foo.bar^$domain=x.com"))
         self.assertIsNone(extract.parse_allow_rule_domain_line("||foo.bar^"))
+        # 单首锚 `@@|x^|`(实装文件 issues #783/#1499 的写法)按同一豁免容忍
+        self.assertEqual(extract.parse_allow_rule_domain_line("@@|foo.bar^|"), "foo.bar")
 
     def test_blocklist_parsers(self):
         self.assertEqual(extract.parse_domain_blocklist("# c\na.com\n\nB.COM\n"),

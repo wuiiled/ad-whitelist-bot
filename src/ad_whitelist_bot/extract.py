@@ -109,7 +109,9 @@ def parse_allow_rule_domain_line(line: str) -> str | None:
 
     The exceptions file ships `@@||domain^|`; `$important` (raises allow
     priority without narrowing scope) is tolerated, any other `$` modifier,
-    path or wildcard disqualifies the line.
+    path or wildcard disqualifies the line. A single leading anchor
+    (`@@|domain^|`, used by several shipped entries — issues #783/#1499) is
+    tolerated as the same exemption.
     """
     s = line.strip()
     if not s.startswith("@@"):
@@ -120,6 +122,8 @@ def parse_allow_rule_domain_line(line: str) -> str | None:
         if cand == s:
             return None
         s = cand
+    if s.startswith("|") and not s.startswith("||"):
+        s = "|" + s
     return parse_rule_domain_line(s)
 
 

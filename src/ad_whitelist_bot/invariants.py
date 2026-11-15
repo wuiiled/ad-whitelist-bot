@@ -36,13 +36,21 @@ log = logging.getLogger(__name__)
 _REPO_BLOCK = {config.ANTIAD: "antiad", config.AWAVENUE: "awavenue",
                config.ADG_DNS: "adguard"}
 
+# Curated referral sources carry no adjudication of their own: they neither
+# add block products to check against nor tighten the keys of records that
+# also carry traced evidence (a php-backed domain stays php-keyed even if
+# Cats also allows it). A record backed ONLY by referral kinds has no
+# adjudication regime to contradict, so it is checked against nothing.
+_REFERRAL_KINDS = frozenset({"referral"})
+
 
 def has_active_backing(rec: dict) -> bool:
     """True if the record still carries evidence that justifies `active`."""
     if rec.get("approved_by") == "manual_overrides":
         return True
     for s in rec.get("sources", []):
-        if s.get("kind") in ("issue-confirmed", "dns-exclusion", "dns-exception"):
+        if s.get("kind") in ("issue-confirmed", "dns-exclusion", "dns-exception",
+                             "referral"):
             return True
         if s.get("kind") == "whitelist-php" and not s.get("php_removed"):
             return True
@@ -52,11 +60,16 @@ def has_active_backing(rec: dict) -> bool:
 def _checked_keys(rec: dict) -> tuple[str, ...]:
     """Which block products this record must be absent from.
 
-    Determined by the record's own source repos (per-source zero-
-    intersection); manual-only records get the strictest set (all products).
+    Determined by the record's own traced source repos (per-source zero-
+    intersection); manual-only records get the strictest set (all products);
+    referral-only records get none (see _REFERRAL_KINDS).
     """
-    repos = {s.get("repo") for s in rec.get("sources", [])
+    kinds = {s.get("kind") for s in rec.get("sources", [])
              if s.get("kind") != "rejected"}
+    if kinds and kinds <= _REFERRAL_KINDS:
+        return ()
+    repos = {s.get("repo") for s in rec.get("sources", [])
+             if s.get("kind") not in (_REFERRAL_KINDS | {"rejected"})}
     if not repos or "manual" in repos:
         return ("antiad", "awavenue", "adguard")
     return tuple({_REPO_BLOCK[r] for r in repos if r in _REPO_BLOCK})

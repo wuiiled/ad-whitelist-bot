@@ -4700,26 +4700,6 @@
    ],
    "status": "rejected"
   },
-  "cloudfront.net": {
-   "domain": "cloudfront.net",
-   "in_adguard_filter_now": false,
-   "in_antiad_block_now": false,
-   "in_awavenue_main_now": false,
-   "sources": [
-    {
-     "action": "加入白名单",
-     "issues": [
-      {
-       "n": 208,
-       "repo": "privacy-protection-tools/anti-AD"
-      }
-     ],
-     "kind": "issue-only",
-     "repo": "privacy-protection-tools/anti-AD"
-    }
-   ],
-   "status": "rejected"
-  },
   "clustrmaps.com": {
    "domain": "clustrmaps.com",
    "in_adguard_filter_now": false,

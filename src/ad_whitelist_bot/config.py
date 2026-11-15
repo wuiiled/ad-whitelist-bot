@@ -13,6 +13,8 @@ STATE_PATH = os.path.join(DATA_DIR, "state.json")
 ANTIAD = "privacy-protection-tools/anti-AD"
 AWAVENUE = "TG-Twilight/AWAvenue-Ads-Rule"
 ADG_DNS = "AdguardTeam/AdGuardSDNSFilter"
+CATS = "Cats-Team/AdRules"
+ANUDEEP = "anudeepND/whitelist"
 ALL_REPOS = (ANTIAD, AWAVENUE)
 
 # Live artifacts fetched on every run
@@ -30,6 +32,16 @@ ADG_DNS_EXCLUSIONS_URL = (
 ADG_DNS_EXCEPTIONS_URL = (
     f"https://raw.githubusercontent.com/{ADG_DNS}/master/Filters/exceptions.txt")
 ADG_DNS_FILTER_URL = "https://adguardteam.github.io/HostlistsRegistry/assets/filter_1.txt"
+
+# Curated referral sources (file provenance, no false-positive adjudication of
+# their own). These are the allowlist feeds the consumer stack previously
+# downloaded raw; consolidating them here gives the whitelist ONE synthesis
+# point. anudeepND/whitelist is archived (frozen since 2021-12) — still fetched
+# daily (one raw GET) so a revival is tracked automatically.
+CATS_ALLOWLIST_URL = (
+    f"https://raw.githubusercontent.com/{CATS}/script/mod/rules/dns-allowlist.txt")
+ANUDEEP_WHITELIST_URL = (
+    f"https://raw.githubusercontent.com/{ANUDEEP}/master/domains/whitelist.txt")
 
 # Maintainers: primary signal is GitHub author_association
 # (OWNER / MEMBER / COLLABORATOR on the respective repo); these logins are a

@@ -13,12 +13,31 @@ log = logging.getLogger(__name__)
 HEADER_NOTE = [
     "误报白名单 — 域名在 anti-AD / AWAvenue-Ads-Rule / AdGuard DNS filter 的发布产物",
     "或 issue 中被判定为误报,并经维护者复核后处理(anti-AD 白名单 / AWAvenue 从主规则",
-    "移除或移入补充规则 / AdGuard DNS filter 编译期剔除与子域豁免)。",
-    "一行一个域名;放行语义应覆盖其全部子域名。",
-    "收录章程:①全部条目带 issue 溯源(人工 approve 破例标注「无issue号」);",
-    "②逐源源内零交集——域名不出现在其来源项目自己的发布产物中(人工 approve 对全部",
-    "产物检查);跨源立场差异不剔除,仅注记。",
+    "移除或移入补充规则 / AdGuard DNS filter 编译期剔除与子域豁免);另含策展引用层",
+    "(Cats-Team/AdRules dns-allowlist、anudeepND/whitelist、AdGuard exceptions 无注释",
+    "条目 — 本文件即这三份消费端原始源的唯一合成点)。",
+    "一行一个域名;本文件为后缀档:放行语义覆盖其全部子域名。",
+    "收录章程:①溯源条目带 issue 溯源(人工 approve 破例标注「无issue号」);策展引用",
+    "层带文件来源(Cats 注释里的 #N 关联为 issue);②逐源源内零交集——裁决型条目不出现",
+    "在其来源项目自己的发布产物中(人工 approve 对全部产物检查);跨源立场差异不剔除,",
+    "仅注记;策展引用层无裁决语义,不做产物交集检查。",
+    "双档产物:裸域(两段)裁决型条目单列于 merged_false_positive_whitelist_exact.txt,",
+    "消费端应按整域精确匹配;其余条目在本文件按后缀放行。",
 ]
+
+EXACT_NOTE = [
+    "精确档白名单 — 只放行域名自身,不覆盖子域名。",
+    "成员:裸域(两段)且来自裁决型来源(anti-AD php 白名单 / AWAvenue 移除 / AdGuard",
+    "DNS filter 剔除与豁免 / 人工批准)的条目。这些是上游项目在自家单源语义下的整域",
+    "裁决;多源消费栈若按后缀放行会连坐清除其他黑名单源的同族广告规则(tanx/yximgs/",
+    "ucweb/co.in 等整族),故消费端必须按整域精确匹配本文件,不参与祖先连坐。",
+    "策展引用层的裸域条目不在本档(其本意即基础设施放行,如 cloudfront.net/",
+    "amazonaws.com),留在主文件按后缀档处理。",
+]
+
+# kinds whose project adjudicates false positives itself (vs curated referral)
+TRACED_KINDS = frozenset({"whitelist-php", "dns-exclusion", "dns-exception",
+                          "issue-confirmed", "issue-only", "manual"})
 
 
 def active_domains(st: State) -> list[str]:
@@ -26,20 +45,38 @@ def active_domains(st: State) -> list[str]:
                   if rec.get("status") == "active")
 
 
+def is_exact_tier(rec: dict) -> bool:
+    """Bare (two-label) domains backed by an adjudicating source go to the
+    exact-tier file; everything else (deep entries, curated referral) stays
+    suffix-tier in the main file."""
+    domain = rec["domain"]
+    if len(domain.split(".")) > 2:
+        return False
+    return any(s.get("kind") in TRACED_KINDS for s in rec.get("sources", []))
+
+
 def render_lists(st: State, out_dir: str) -> list[str]:
     os.makedirs(out_dir, exist_ok=True)
     doms = active_domains(st)
     today = now_iso()[:10]
+    exact = [d for d in doms if is_exact_tier(st["domains"][d])]
+    exact_set = set(exact)
+    suffix = [d for d in doms if d not in exact_set]
     with open(os.path.join(out_dir, "merged_false_positive_whitelist.txt"), "w",
               encoding="utf-8", newline="\n") as f:
-        f.write(f"# Generated: {today} | Total: {len(doms)}\n")
+        f.write(f"# Generated: {today} | Total: {len(suffix)}\n")
         f.write("\n".join("# " + h for h in HEADER_NOTE) + "\n")
-        f.write("\n".join(doms) + ("\n" if doms else ""))
+        f.write("\n".join(suffix) + ("\n" if suffix else ""))
+    with open(os.path.join(out_dir, "merged_false_positive_whitelist_exact.txt"), "w",
+              encoding="utf-8", newline="\n") as f:
+        f.write(f"# Generated: {today} | Total: {len(exact)}\n")
+        f.write("\n".join("# " + h for h in EXACT_NOTE) + "\n")
+        f.write("\n".join(exact) + ("\n" if exact else ""))
     with open(os.path.join(out_dir, "merged_false_positive_whitelist_adguard.txt"), "w",
               encoding="utf-8", newline="\n") as f:
-        f.write(f"! Generated: {today} | Total: {len(doms)}\n")
+        f.write(f"! Generated: {today} | Total: {len(suffix)}\n")
         f.write("\n".join("! " + h for h in HEADER_NOTE) + "\n")
-        f.write("\n".join(f"@@||{d}^" for d in doms) + ("\n" if doms else ""))
+        f.write("\n".join(f"@@||{d}^" for d in suffix) + ("\n" if suffix else ""))
     return doms
 
 
@@ -66,6 +103,8 @@ def render_provenance(st: State, out_dir: str) -> None:
                 judge = "AdGuard DNS filter 编译期剔除 " + (s.get("action") or "")
             elif kind == "dns-exception":
                 judge = "AdGuard DNS filter 子域豁免 " + (s.get("action") or "")
+            elif kind == "referral":
+                judge = "策展引用 " + (s.get("action") or "")
             elif kind == "manual":
                 judge = s.get("action") or "人工批准"
             else:
@@ -81,6 +120,8 @@ REPO_SHORT = {
     config.ANTIAD: "anti-AD",
     config.AWAVENUE: "AWAvenue",
     config.ADG_DNS: "AdGuard DNS",
+    config.CATS: "Cats-AdRules",
+    config.ANUDEEP: "anudeep",
     "manual": "人工",
 }
 _TEMPLATE_NOISE = re.compile(r"\[BUG\]\s*<问题标题>|\[BUG\]|\[enhancement\]|\s{2,}")
@@ -213,6 +254,17 @@ def render_report(st: State, out_dir: str, run_info: dict) -> None:
     if run_info.get("php_demoted"):
         lines.append(f"- php 白名单撤出(无其他背书,降级复核):{len(run_info['php_demoted'])}: "
                      + ", ".join(f"`{d}`" for d in run_info["php_demoted"]))
+    if run_info.get("referral_added"):
+        lines.append(f"- 策展引用并入:{len(run_info['referral_added'])}: "
+                     + ", ".join(f"`{d}`" for d in run_info["referral_added"]))
+    if run_info.get("referral_suppressed"):
+        lines.append(f"- 策展引用被压制(pending/rejected 记录,不覆盖人工状态):"
+                     f"{len(run_info['referral_suppressed'])}: "
+                     + ", ".join(f"`{d}`" for d in run_info["referral_suppressed"]))
+    if run_info.get("referral_stance_conflicts"):
+        lines.append(f"- **策展引用立场冲突(来源允许但 CN 产物精确拦截,已照常收录,"
+                     f"可逐条 deny)**:{len(run_info['referral_stance_conflicts'])}: "
+                     + ", ".join(f"`{d}`" for d in run_info["referral_stance_conflicts"]))
     php = run_info.get("php_changes") or {}
     if php:
         lines.append(f"- anti-AD 白名单php变更:+{php.get('added', 0)} / "

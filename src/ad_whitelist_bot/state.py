@@ -26,7 +26,7 @@ class IssueRef(TypedDict):
 
 class SourceRecord(TypedDict, total=False):
     repo: str
-    kind: str  # whitelist-php | issue-only | issue-confirmed | manual | rejected
+    kind: str  # whitelist-php | issue-only | issue-confirmed | manual | rejected | referral
     value: int  # anti-AD php whitelist semantics (0/1)
     comment: str
     issues: list[IssueRef]
@@ -144,6 +144,35 @@ def merge_records(st: State, records: dict[str, dict]) -> list[str]:
         if not existed:
             new.append(d)
     return new
+
+
+def merge_referral(st: State, records: dict[str, dict]) -> tuple[list[str], list[str]]:
+    """Merge referral (curated, non-adjudicating) records.
+
+    Referral evidence is weaker than any traced kind: it must never promote
+    a record out of the human review queue (pending) and never resurrect one
+    the maintainer denied (rejected — sticky). Existing records in any other
+    status keep their status and just gain the provenance; brand-new records
+    enter as active (they are the consumer's status-quo imports).
+
+    Returns (added, suppressed) — suppressed = candidates skipped because of
+    a pending/rejected record, surfaced in the run report.
+    """
+    added: list[str] = []
+    suppressed: list[str] = []
+    for d, rec in records.items():
+        existing = st["domains"].get(d)
+        if existing is not None and existing.get("status") in ("pending", "rejected"):
+            suppressed.append(d)
+            continue
+        existed = d in st["domains"]
+        domain_rec = merge_domain(st, d)
+        for src in rec["sources"]:
+            if src not in domain_rec["sources"]:
+                domain_rec["sources"].append(src)
+        if not existed:
+            added.append(d)
+    return added, suppressed
 
 
 def load_seed_json(name: str) -> Any | None:
