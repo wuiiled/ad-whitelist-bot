@@ -12,6 +12,7 @@ STATE_PATH = os.path.join(DATA_DIR, "state.json")
 
 ANTIAD = "privacy-protection-tools/anti-AD"
 AWAVENUE = "TG-Twilight/AWAvenue-Ads-Rule"
+ADG_DNS = "AdguardTeam/AdGuardSDNSFilter"
 ALL_REPOS = (ANTIAD, AWAVENUE)
 
 # Live artifacts fetched on every run
@@ -21,6 +22,14 @@ ANTIAD_WHITE_PHP_URL = (
 )
 ANTIAD_BLOCK_URL = f"https://raw.githubusercontent.com/{ANTIAD}/master/anti-ad-domains.txt"
 AWAVENUE_RULE_URL = f"https://raw.githubusercontent.com/{AWAVENUE}/main/AWAvenue-Ads-Rule.txt"
+
+# AdGuard DNS filter adjudication files (f1 upstream; file-provenance source).
+# The published product is HostlistsRegistry's filter_1 (what consumers see).
+ADG_DNS_EXCLUSIONS_URL = (
+    f"https://raw.githubusercontent.com/{ADG_DNS}/master/Filters/exclusions.txt")
+ADG_DNS_EXCEPTIONS_URL = (
+    f"https://raw.githubusercontent.com/{ADG_DNS}/master/Filters/exceptions.txt")
+ADG_DNS_FILTER_URL = "https://adguardteam.github.io/HostlistsRegistry/assets/filter_1.txt"
 
 # Maintainers: primary signal is GitHub author_association
 # (OWNER / MEMBER / COLLABORATOR on the respective repo); these logins are a

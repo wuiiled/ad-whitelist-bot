@@ -8,7 +8,7 @@ from datetime import datetime, timezone
 
 from . import config, extract, invariants, render, state
 from .github import GitHubClient
-from .sources import antiad, awavenue
+from .sources import adguardsdns, antiad, awavenue
 from .state import State, now_iso
 
 log = logging.getLogger(__name__)
@@ -73,6 +73,18 @@ def _fetch_artifacts(client: GitHubClient) -> tuple[str, set[str], set[str]]:
     return php, antiad_block, awavenue_main
 
 
+def _fetch_adguard(client: GitHubClient) -> tuple[dict[str, dict], dict[str, str], set[str]]:
+    """AdGuard DNS filter adjudication files + published block product."""
+    excl = client.get_raw(config.ADG_DNS_EXCLUSIONS_URL)
+    exc = client.get_raw(config.ADG_DNS_EXCEPTIONS_URL)
+    filt = client.get_raw(config.ADG_DNS_FILTER_URL)
+    records, noref = adguardsdns.harvest(excl, exc)
+    block = extract.parse_adguard_rule_domainset(filt)
+    log.info("adguard artifacts: harvested=%d domains, noref=%d, "
+             "published filter block=%d domains", len(records), len(noref), len(block))
+    return records, noref, block
+
+
 def seed() -> None:
     """Build data/state.json from the live whitelist php + human-audit seeds."""
     client = GitHubClient()
@@ -85,6 +97,9 @@ def seed() -> None:
     st["whitelist_php_snapshot"] = {e["domain"]: e["value"]
                                     for e in antiad.parse_white_php(php)
                                     if e["value"] != -1}
+
+    adguard_records, _, adguard_block = _fetch_adguard(client)
+    state.merge_records(st, adguard_records)
 
     seed = state.load_seed_json("seed_awavenue_manual.json")
     if seed:
@@ -113,7 +128,7 @@ def seed() -> None:
                     "title": "human-audited rejection 2026-11-05"}
 
     from . import invariants
-    invariants.enforce_invariants(st, awavenue_main, antiad_block)
+    invariants.enforce_invariants(st, awavenue_main, antiad_block, adguard_block)
     invariants.refresh_cross_status(st, awavenue_main, antiad_block)
     state.save(st)
     log.info("seeded: %d domain records, %d active",
@@ -176,6 +191,14 @@ def run(full: bool = False) -> None:
                                "changed": len(changed),
                                "commit_issues": commit_issues[:20]}
 
+    # ---- 1.5 AdGuard DNS filter harvest (file provenance) --------------------
+    adguard_records, adguard_noref, adguard_block = _fetch_adguard(client)
+    merge_adg = state.merge_records(st, adguard_records)
+    run_info["new_domains"].extend(
+        d for d in merge_adg if st["domains"][d]["status"] == "active")
+    if adguard_noref:
+        log.info("adguard noref (reference-only): %d entries", len(adguard_noref))
+
     # ---- 2. issue scans -----------------------------------------------------
     since_aa = None if full else st["checkpoints"][config.ANTIAD]
     aa_issues = client.all_issues(config.ANTIAD, since=since_aa)
@@ -205,10 +228,11 @@ def run(full: bool = False) -> None:
     run_info["approved"] = state.apply_overrides(st)
 
     # ---- 4. charter invariants + cross status -------------------------------
-    conflicts, recovered = invariants.enforce_invariants(st, awavenue_main, antiad_block)
+    conflicts, recovered = invariants.enforce_invariants(
+        st, awavenue_main, antiad_block, adguard_block)
     run_info["conflicts"] = conflicts
     run_info["recovered"] = recovered
-    invariants.refresh_cross_status(st, awavenue_main, antiad_block)
+    invariants.refresh_cross_status(st, awavenue_main, antiad_block, adguard_block)
 
     # ---- 5. checkpoint, persist, render -------------------------------------
     st["checkpoints"] = {config.ANTIAD: run_start, config.AWAVENUE: run_start}

@@ -1,15 +1,16 @@
 # ad-whitelist-bot
 
-从 **anti-AD** 与 **AWAvenue-Ads-Rule** 两个项目的 GitHub issue 中,自动收集
-"被报告为误报、且经维护者复核后加入排除名单"的域名,合并为一份**每个域名都带
-issue 溯源**、**与两个项目的广告规则发布产物零交集**的白名单。
+从 **anti-AD**、**AWAvenue-Ads-Rule** 与 **AdGuard DNS filter** 三个项目的
+发布产物/issue 中,自动收集"被报告为误报、且经维护者复核后处理"的域名,合并为
+一份**每个域名都带 issue 溯源**、**与来源项目各自的发布产物零交集**的白名单。
 
 设计为 GitHub Actions 每日定时增量运行;零第三方依赖(纯 Python 标准库)。
 
 ```
-误报白名单(424 域 @ 2026-11-05)
+误报白名单
  ├─ anti-AD:白名单 php 收割(adlist-maker 分支,带 issue 注释)+ issue 扫描(复核队列)
- └─ AWAvenue:issue 扫描(维护者确认 + 主规则消失验证)
+ ├─ AWAvenue:issue 扫描(维护者确认 + 主规则消失验证)
+ └─ AdGuard DNS filter:exclusions/exceptions 文件收割(编译期裁决,带 issue 注释)
 ```
 
 ## 列表章程(两条硬性规则,代码强制)
@@ -19,12 +20,15 @@ issue 溯源**、**与两个项目的广告规则发布产物零交集**的白�
    `output/antiad_whitelist_without_issue_ref.txt` 供参考;
    需要放行其中某条时,加入 `data/manual_overrides.json` 的 `approve`
    (人工 `approve` 允许无 issue 号破例,产物中标注「无issue号」)。
-2. **与广告规则发布产物零交集**(`invariants.enforce_invariants`,每跑强制):
-   主列表域名不得出现在 `anti-ad-domains.txt`(精确)或 AWAvenue 主规则
-   (精确 + 祖先 `||rule^`)中,违者剔除并记入 `report.md` 的"冲突"节。
-   anti-AD 祖先被拦但本域未拦的情形(其 `@@` 白名单语义)仅作
-   `partial_block` 信息标注,不剔除(仅存于 state 供审计,不渲染进产物)。
-   人工批准不能豁免本规则。
+2. **逐源源内零交集**(`invariants.enforce_invariants`,每跑强制):
+   列表域名不得出现在**其来源项目自己的**发布产物中——anti-AD 条目查
+   `anti-ad-domains.txt`(精确),AWAvenue 条目查主规则(精确 + 祖先
+   `||rule^`),AdGuard DNS filter 条目查发布版 filter 块规则(精确),
+   违者剔除并记入 `report.md` 的"冲突"节;人工 `approve`(无来源仓库)
+   按最严格口径对全部产物检查,不能豁免本规则。祖先被拦但本域未拦的情形
+   仅作信息标注(`partial_block` / `adguard_ancestor_block`),不剔除。
+   跨源立场差异不剔除,由 `refresh_cross_status` 注记(2026-11-15 门槛
+   实测:全局互检会消灭 AdGuard 新源 295/630 条价值并错杀现役 21 条)。
 
 ## 判定方法(核心)
 
@@ -62,8 +66,10 @@ issue 溯源**、**与两个项目的广告规则发布产物零交集**的白�
 
 ### 反转与冲突检测(每日自动)
 
-- 任何列表域出现在 `anti-ad-domains.txt`(精确)或 AWAvenue 主规则(精确/
-  祖先)→ 标记 `conflict`,移出列表。
+- 逐源源内零交集:列表域出现在**其来源项目**的发布产物中(anti-AD 域在
+  `anti-ad-domains.txt` 精确命中 / AWAvenue 域在主规则精确+祖先命中 /
+  AdGuard DNS filter 域在发布版 filter 块规则精确命中)→ 标记 `conflict`,
+  移出列表;上游解除后按剩余证据自动恢复(active/pending)。
   (典型案例:AWAvenue [#183](https://github.com/TG-Twilight/AWAvenue-Ads-Rule/issues/183)
   的 `feed-image.baidu.com` 先移除后加回;anti-AD 与 AWAvenue 对
   `audid-api.taobao.com`、`mobilelog.kugou.com` 等域立场相反。)
@@ -107,7 +113,8 @@ ad-whitelist-bot/
 │   └── sources/
 │       ├── base.py              # 共享 issue 扫描骨架(锁定/缓存/候选闸门)
 │       ├── antiad.py            # anti-AD:php 解析/收割/commit 归因/issue 扫描
-│       └── awavenue.py          # AWAvenue:issue 扫描/主规则验证/晋升
+│       ├── awavenue.py          # AWAvenue:issue 扫描/主规则验证/晋升
+│       └── adguardsdns.py       # AdGuard DNS filter:exclusions/exceptions 收割
 ├── tests/                       # unittest 套件(CI 四版本矩阵)
 ├── data/
 │   ├── state.json               # 运行状态(CI 提交回仓库 = 跨日记忆)
@@ -137,7 +144,7 @@ python -m ad_whitelist_bot run        # 不安装也能跑(需 PYTHONPATH=src)
 
 - **daily.yml**:每天 UTC 21:30(北京 05:30)自动增量运行,把
   `data/state.json` 与 `output/` 的变更提交回仓库;手动触发时可勾选全量。
-- **ci.yml**:push/PR 时在 Python 3.10 / 3.11 / 3.12 / 3.13 四个版本跑测试。
+- **ci.yml**:push/PR 时在 Python 3.12 单版本跑冒烟测试(全量多版本矩阵在本地跑)。
 
 ## 输出(`output/`)
 

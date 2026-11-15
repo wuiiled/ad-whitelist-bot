@@ -74,6 +74,15 @@ class RuleLineTest(unittest.TestCase):
         # conflict 检测假阴(白名单域实际被拦而不自知)——必须容忍尾锚
         self.assertEqual(extract.parse_rule_domain_line("||foo.bar^|"), "foo.bar")
 
+    def test_parse_allow_rule_domain_line(self):
+        self.assertEqual(extract.parse_allow_rule_domain_line("@@||foo.bar^|"), "foo.bar")
+        self.assertEqual(extract.parse_allow_rule_domain_line("@@||foo.bar^"), "foo.bar")
+        # $important 提优先级不缩范围 → 容忍
+        self.assertEqual(extract.parse_allow_rule_domain_line("@@||foo.bar^$important"), "foo.bar")
+        # 其他修饰符缩窄放行范围 → 拒
+        self.assertIsNone(extract.parse_allow_rule_domain_line("@@||foo.bar^$domain=x.com"))
+        self.assertIsNone(extract.parse_allow_rule_domain_line("||foo.bar^"))
+
     def test_blocklist_parsers(self):
         self.assertEqual(extract.parse_domain_blocklist("# c\na.com\n\nB.COM\n"),
                          {"a.com", "b.com"})

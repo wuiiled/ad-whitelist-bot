@@ -1,7 +1,7 @@
 import unittest
 
 from ad_whitelist_bot import invariants, state
-from ad_whitelist_bot.config import ANTIAD, AWAVENUE
+from ad_whitelist_bot.config import ADG_DNS, ANTIAD, AWAVENUE
 
 
 def build(domains_spec):
@@ -139,6 +139,53 @@ class ConflictRecoveryTest(unittest.TestCase):
         self.assertEqual(conflicts2, [], "already-conflicted must not re-report")
         self.assertEqual(recovered2, [])
         self.assertEqual(st["domains"]["m.com"]["status"], "conflict")
+
+
+class PerSourceInvariantTest(unittest.TestCase):
+    """逐源源内零交集(11-15 门槛实测:全局互检会灭新源 295/630 并错杀现役 21 条)"""
+
+    def setUp(self):
+        self.aa_block = {"blocked.example"}
+        self.aw_main = {"ad.aw"}
+        self.adg_block = {"fp.adguard.test"}
+
+    def test_adguard_exact_hit_conflicts_for_adguard_source(self):
+        st = build({"fp.adguard.test": [{"repo": ADG_DNS, "kind": "dns-exclusion",
+                                         "issues": [{"n": 1, "repo": ADG_DNS}]}]})
+        conflicts, _ = invariants.enforce_invariants(
+            st, self.aw_main, self.aa_block, self.adg_block)
+        self.assertEqual([d for d, _ in conflicts], ["fp.adguard.test"])
+
+    def test_cross_source_disagreement_is_not_a_conflict(self):
+        # anti-AD 背书的域名被 AdGuard DNS filter 精确拦(236 条实测场景)
+        # → 逐源语义下不剔除,refresh_cross_status 注记
+        st = build({"cn-func.com": [{"repo": ANTIAD, "kind": "whitelist-php",
+                                     "value": 0, "issues": [{"n": 1, "repo": ANTIAD}]}]})
+        adg_block = self.adg_block | {"cn-func.com"}
+        conflicts, recovered = invariants.enforce_invariants(
+            st, self.aw_main, self.aa_block, adg_block)
+        invariants.refresh_cross_status(st, self.aw_main, self.aa_block, adg_block)
+        self.assertEqual(conflicts, [])
+        self.assertEqual(recovered, [])
+        self.assertEqual(st["domains"]["cn-func.com"]["status"], "active")
+        self.assertTrue(st["domains"]["cn-func.com"]["in_adguard_filter_now"])
+
+    def test_manual_checked_against_all_products(self):
+        st = build({"m.com": [{"repo": "manual", "kind": "manual", "issues": []}]})
+        self.adg_block.add("m.com")
+        conflicts, _ = invariants.enforce_invariants(
+            st, self.aw_main, self.aa_block, self.adg_block)
+        self.assertEqual([d for d, _ in conflicts], ["m.com"])
+
+    def test_adguard_ancestor_is_informational(self):
+        self.adg_block.add("parent.adg")
+        st = build({"sub.parent.adg": [{"repo": ADG_DNS, "kind": "dns-exception",
+                                        "issues": [{"n": 2, "repo": ADG_DNS}]}]})
+        conflicts, _ = invariants.enforce_invariants(
+            st, self.aw_main, self.aa_block, self.adg_block)
+        self.assertEqual(conflicts, [])
+        self.assertEqual(st["domains"]["sub.parent.adg"]["status"], "active")
+        self.assertIn("adguard_ancestor_block", st["domains"]["sub.parent.adg"])
 
 
 if __name__ == "__main__":

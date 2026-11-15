@@ -104,6 +104,25 @@ def parse_rule_domain_line(line: str) -> str | None:
     return dom
 
 
+def parse_allow_rule_domain_line(line: str) -> str | None:
+    """Extract the domain from an AdGuard `@@||domain^` exception line.
+
+    The exceptions file ships `@@||domain^|`; `$important` (raises allow
+    priority without narrowing scope) is tolerated, any other `$` modifier,
+    path or wildcard disqualifies the line.
+    """
+    s = line.strip()
+    if not s.startswith("@@"):
+        return None
+    s = s[2:]
+    if "$" in s:
+        cand = re.sub(r"\$important\|?$", "", s)
+        if cand == s:
+            return None
+        s = cand
+    return parse_rule_domain_line(s)
+
+
 def parse_domain_blocklist(text: str) -> set[str]:
     """Parse a plain hosts/domains blocklist (one domain per line, # comments)."""
     return {ln.strip().lower() for ln in text.splitlines()

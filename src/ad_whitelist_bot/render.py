@@ -59,6 +59,10 @@ def render_provenance(st: State, out_dir: str) -> None:
                          + (s.get("comment") or "")[:60]).strip()
             elif kind == "issue-only":
                 judge = "issue确认(进复核队列后人工批准) " + (s.get("action") or "")
+            elif kind == "dns-exclusion":
+                judge = "AdGuard DNS filter 编译期剔除 " + (s.get("action") or "")
+            elif kind == "dns-exception":
+                judge = "AdGuard DNS filter 子域豁免 " + (s.get("action") or "")
             elif kind == "manual":
                 judge = s.get("action") or "人工批准"
             else:
@@ -73,6 +77,7 @@ def render_provenance(st: State, out_dir: str) -> None:
 REPO_SHORT = {
     config.ANTIAD: "anti-AD",
     config.AWAVENUE: "AWAvenue",
+    config.ADG_DNS: "AdGuard DNS",
     "manual": "人工",
 }
 _TEMPLATE_NOISE = re.compile(r"\[BUG\]\s*<问题标题>|\[BUG\]|\[enhancement\]|\s{2,}")
