@@ -1,9 +1,23 @@
 {
  "checkpoints": {
-  "TG-Twilight/AWAvenue-Ads-Rule": "2026-11-15T13:53:01Z",
-  "privacy-protection-tools/anti-AD": "2026-11-15T13:53:01Z"
+  "TG-Twilight/AWAvenue-Ads-Rule": "2026-11-15T19:23:08Z",
+  "privacy-protection-tools/anti-AD": "2026-11-15T19:23:08Z"
  },
  "domains": {
+  "0.client-channel.google.com": {
+   "domain": "0.client-channel.google.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
   "07c225f3.online": {
    "domain": "07c225f3.online",
    "in_adguard_filter_now": false,
@@ -44,6 +58,20 @@
    ],
    "status": "rejected"
   },
+  "1drv.com": {
+   "domain": "1drv.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
   "1sapp.com": {
    "domain": "1sapp.com",
    "in_adguard_filter_now": false,
@@ -61,6 +89,20 @@
      "kind": "whitelist-php",
      "repo": "privacy-protection-tools/anti-AD",
      "value": 0
+    }
+   ],
+   "status": "active"
+  },
+  "2.android.pool.ntp.org": {
+   "domain": "2.android.pool.ntp.org",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
     }
    ],
    "status": "active"
@@ -308,6 +350,11 @@
      ],
      "kind": "issue-only",
      "repo": "privacy-protection-tools/anti-AD"
+    },
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -650,6 +697,17 @@
      "kind": "whitelist-php",
      "repo": "privacy-protection-tools/anti-AD",
      "value": 0
+    },
+    {
+     "action": "curated allowlist entry",
+     "issues": [
+      {
+       "n": 151,
+       "repo": "Cats-Team/AdRules"
+      }
+     ],
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -671,6 +729,11 @@
      "kind": "whitelist-php",
      "repo": "privacy-protection-tools/anti-AD",
      "value": 0
+    },
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -692,6 +755,20 @@
      ],
      "kind": "dns-exception",
      "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
+  "activity.app.autohome.com.cn": {
+   "domain": "activity.app.autohome.com.cn",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -753,6 +830,20 @@
      ],
      "kind": "dns-exclusion",
      "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
+  "ad.mcloud.139.com": {
+   "domain": "ad.mcloud.139.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -898,6 +989,20 @@
    ],
    "status": "active"
   },
+  "adm.10jqka.com.cn": {
+   "domain": "adm.10jqka.com.cn",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
   "admeira.ch": {
    "domain": "admeira.ch",
    "in_adguard_filter_now": false,
@@ -980,6 +1085,27 @@
    ],
    "status": "active"
   },
+  "ads.adsterra.com": {
+   "adguard_ancestor_block": "ancestor blocked in published AdGuard DNS filter",
+   "domain": "ads.adsterra.com",
+   "in_adguard_filter_now": true,
+   "in_antiad_block_now": true,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "maintainer exempted subdomain",
+     "issues": [
+      {
+       "n": 783,
+       "repo": "AdguardTeam/AdGuardSDNSFilter"
+      }
+     ],
+     "kind": "dns-exception",
+     "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
   "ads.cdn.tvb.com": {
    "domain": "ads.cdn.tvb.com",
    "in_adguard_filter_now": false,
@@ -1025,7 +1151,7 @@
   "ads.google.com": {
    "approved_by": "manual_overrides",
    "conflict": {
-    "detected": "2026-11-15T13:53:03Z",
+    "detected": "2026-11-15T19:23:10Z",
     "where": "anti-ad-domains.txt (exact)"
    },
    "domain": "ads.google.com",
@@ -1108,6 +1234,27 @@
    ],
    "status": "active"
   },
+  "adsterra.com": {
+   "adguard_ancestor_block": "ancestor blocked in published AdGuard DNS filter",
+   "domain": "adsterra.com",
+   "in_adguard_filter_now": true,
+   "in_antiad_block_now": true,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "maintainer exempted subdomain",
+     "issues": [
+      {
+       "n": 783,
+       "repo": "AdguardTeam/AdGuardSDNSFilter"
+      }
+     ],
+     "kind": "dns-exception",
+     "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
   "adswizz.com": {
    "domain": "adswizz.com",
    "in_adguard_filter_now": false,
@@ -1124,6 +1271,20 @@
      ],
      "kind": "dns-exclusion",
      "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
+  "adtidy.org": {
+   "domain": "adtidy.org",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -1243,6 +1404,47 @@
    ],
    "status": "active"
   },
+  "affiliate.notion.so": {
+   "domain": "affiliate.notion.so",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "Blocked by CNAME grsm.io",
+     "issues": [
+      {
+       "n": 1911,
+       "repo": "AdguardTeam/AdGuardSDNSFilter"
+      }
+     ],
+     "kind": "dns-exception",
+     "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
+  "affiliates.adsterra.com": {
+   "adguard_ancestor_block": "ancestor blocked in published AdGuard DNS filter",
+   "domain": "affiliates.adsterra.com",
+   "in_adguard_filter_now": true,
+   "in_antiad_block_now": true,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "maintainer exempted subdomain",
+     "issues": [
+      {
+       "n": 783,
+       "repo": "AdguardTeam/AdGuardSDNSFilter"
+      }
+     ],
+     "kind": "dns-exception",
+     "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
   "affiliatly.com": {
    "domain": "affiliatly.com",
    "in_adguard_filter_now": false,
@@ -1284,10 +1486,7 @@
    "status": "active"
   },
   "afi-b.com": {
-   "conflict": {
-    "detected": "2026-11-15T13:53:03Z",
-    "where": "AdGuard DNS filter (exact)"
-   },
+   "adguard_ancestor_block": "ancestor blocked in published AdGuard DNS filter",
    "domain": "afi-b.com",
    "in_adguard_filter_now": true,
    "in_antiad_block_now": true,
@@ -1305,7 +1504,7 @@
      "repo": "AdguardTeam/AdGuardSDNSFilter"
     }
    ],
-   "status": "conflict"
+   "status": "active"
   },
   "afiliados.hostgator.com.br": {
    "domain": "afiliados.hostgator.com.br",
@@ -1514,6 +1713,48 @@
    ],
    "status": "active"
   },
+  "akamaihd.net": {
+   "domain": "akamaihd.net",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
+  "akamaitechnologies.com": {
+   "domain": "akamaitechnologies.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
+  "akamaized.net": {
+   "domain": "akamaized.net",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
   "albacross.com": {
    "domain": "albacross.com",
    "in_adguard_filter_now": false,
@@ -1636,6 +1877,20 @@
    ],
    "status": "active"
   },
+  "als.baidu.com": {
+   "domain": "als.baidu.com",
+   "in_adguard_filter_now": true,
+   "in_antiad_block_now": true,
+   "in_awavenue_main_now": true,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
   "alsc-buy2.ele.me": {
    "domain": "alsc-buy2.ele.me",
    "in_adguard_filter_now": false,
@@ -1654,6 +1909,20 @@
      "kind": "issue-confirmed",
      "note": "饿了么功能异常",
      "repo": "TG-Twilight/AWAvenue-Ads-Rule"
+    }
+   ],
+   "status": "active"
+  },
+  "amazonaws.com": {
+   "domain": "amazonaws.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
     }
    ],
    "status": "active"
@@ -1686,6 +1955,25 @@
      ],
      "kind": "issue-only",
      "repo": "privacy-protection-tools/anti-AD"
+    },
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
+  "amos.alicdn.com": {
+   "domain": "amos.alicdn.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -1794,10 +2082,7 @@
    "status": "active"
   },
   "analytics.cibc.com": {
-   "conflict": {
-    "detected": "2026-11-15T13:53:03Z",
-    "where": "AdGuard DNS filter (exact)"
-   },
+   "adguard_ancestor_block": "ancestor blocked in published AdGuard DNS filter",
    "domain": "analytics.cibc.com",
    "in_adguard_filter_now": true,
    "in_antiad_block_now": true,
@@ -1815,7 +2100,7 @@
      "repo": "AdguardTeam/AdGuardSDNSFilter"
     }
    ],
-   "status": "conflict"
+   "status": "active"
   },
   "analytics.meituan.net": {
    "domain": "analytics.meituan.net",
@@ -1878,6 +2163,20 @@
    ],
    "status": "active"
   },
+  "android.clients.google.com": {
+   "domain": "android.clients.google.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
   "anexia-it.com": {
    "domain": "anexia-it.com",
    "in_adguard_filter_now": false,
@@ -1894,6 +2193,20 @@
      ],
      "kind": "dns-exclusion",
      "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
+  "animalmobile.happyelements.cn": {
+   "domain": "animalmobile.happyelements.cn",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -2040,6 +2353,20 @@
    ],
    "status": "active"
   },
+  "api-shoulei-ssl.xunlei.com": {
+   "domain": "api-shoulei-ssl.xunlei.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
   "api.amplitude.com": {
    "domain": "api.amplitude.com",
    "in_adguard_filter_now": false,
@@ -2129,6 +2456,11 @@
      ],
      "kind": "dns-exclusion",
      "repo": "AdguardTeam/AdGuardSDNSFilter"
+    },
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
     }
    ],
    "status": "active"
@@ -2150,6 +2482,11 @@
      "kind": "whitelist-php",
      "repo": "privacy-protection-tools/anti-AD",
      "value": 0
+    },
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -2195,6 +2532,40 @@
    ],
    "status": "active"
   },
+  "api.mosoteach.cn": {
+   "domain": "api.mosoteach.cn",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
+  "api.msn.com": {
+   "domain": "api.msn.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "issues": [
+      {
+       "n": 202,
+       "repo": "Cats-Team/AdRules"
+      }
+     ],
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
   "api.open.uc.cn": {
    "domain": "api.open.uc.cn",
    "in_adguard_filter_now": false,
@@ -2212,6 +2583,25 @@
      "kind": "whitelist-php",
      "repo": "privacy-protection-tools/anti-AD",
      "value": 0
+    },
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
+  "api.rlje.net": {
+   "domain": "api.rlje.net",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
     }
    ],
    "status": "active"
@@ -2232,6 +2622,20 @@
      ],
      "kind": "dns-exclusion",
      "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
+  "api.sec.miui.com": {
+   "domain": "api.sec.miui.com",
+   "in_adguard_filter_now": true,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -2257,6 +2661,41 @@
      "kind": "whitelist-php",
      "repo": "privacy-protection-tools/anti-AD",
      "value": 0
+    }
+   ],
+   "status": "active"
+  },
+  "api.taboola.com": {
+   "adguard_ancestor_block": "ancestor blocked in published AdGuard DNS filter",
+   "domain": "api.taboola.com",
+   "in_adguard_filter_now": true,
+   "in_antiad_block_now": true,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "Blocked by CNAME data.adobedc.net; https://github.com/AdguardTeam/AdGuardSDNSFilter/issues/; Blocked by CNAME omtrdc.net; taboolanews.com",
+     "issues": [
+      {
+       "n": 2058,
+       "repo": "AdguardTeam/AdGuardSDNSFilter"
+      }
+     ],
+     "kind": "dns-exception",
+     "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
+  "api.vip.miui.com": {
+   "domain": "api.vip.miui.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -2302,11 +2741,22 @@
    ],
    "status": "active"
   },
+  "app-api.ted.com": {
+   "domain": "app-api.ted.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
   "app.adjust.com": {
-   "conflict": {
-    "detected": "2026-11-15T13:53:03Z",
-    "where": "AdGuard DNS filter (exact)"
-   },
+   "adguard_ancestor_block": "ancestor blocked in published AdGuard DNS filter",
    "domain": "app.adjust.com",
    "in_adguard_filter_now": true,
    "in_antiad_block_now": true,
@@ -2324,7 +2774,7 @@
      "repo": "AdguardTeam/AdGuardSDNSFilter"
     }
    ],
-   "status": "conflict"
+   "status": "active"
   },
   "app.adjust.net.in": {
    "domain": "app.adjust.net.in",
@@ -2347,10 +2797,7 @@
    "status": "active"
   },
   "app.appsflyer.com": {
-   "conflict": {
-    "detected": "2026-11-15T13:53:03Z",
-    "where": "AdGuard DNS filter (exact)"
-   },
+   "adguard_ancestor_block": "ancestor blocked in published AdGuard DNS filter",
    "domain": "app.appsflyer.com",
    "in_adguard_filter_now": true,
    "in_antiad_block_now": true,
@@ -2368,7 +2815,7 @@
      "repo": "AdguardTeam/AdGuardSDNSFilter"
     }
    ],
-   "status": "conflict"
+   "status": "active"
   },
   "app.chat.xiaomi.net": {
    "domain": "app.chat.xiaomi.net",
@@ -2398,6 +2845,41 @@
      ],
      "kind": "dns-exclusion",
      "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
+  "app.crazyegg.com": {
+   "adguard_ancestor_block": "ancestor blocked in published AdGuard DNS filter",
+   "domain": "app.crazyegg.com",
+   "in_adguard_filter_now": true,
+   "in_antiad_block_now": true,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "Fixing crazyegg.com login page",
+     "issues": [
+      {
+       "n": 114908,
+       "repo": "AdguardTeam/AdguardFilters"
+      }
+     ],
+     "kind": "dns-exception",
+     "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
+  "app.jameswoof.com": {
+   "domain": "app.jameswoof.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -2443,6 +2925,20 @@
    ],
    "status": "active"
   },
+  "appconf.heytapdownload.com": {
+   "domain": "appconf.heytapdownload.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
   "appdownload.alicdn.com": {
    "domain": "appdownload.alicdn.com",
    "in_adguard_filter_now": false,
@@ -2464,6 +2960,62 @@
    ],
    "status": "active"
   },
+  "appleid.apple.com": {
+   "domain": "appleid.apple.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
+  "apps.skype.com": {
+   "domain": "apps.skype.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
+  "appsbackup-pa.clients6.google.com": {
+   "domain": "appsbackup-pa.clients6.google.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
+  "appsbackup-pa.googleapis.com": {
+   "domain": "appsbackup-pa.googleapis.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
   "appsflyer-report.honkaiimpact3.com": {
    "domain": "appsflyer-report.honkaiimpact3.com",
    "in_adguard_filter_now": false,
@@ -2480,6 +3032,34 @@
      ],
      "kind": "dns-exclusion",
      "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
+  "appspot-preview.l.google.com": {
+   "domain": "appspot-preview.l.google.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
+  "apt.sonarr.tv": {
+   "domain": "apt.sonarr.tv",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
     }
    ],
    "status": "active"
@@ -2546,6 +3126,20 @@
    ],
    "status": "active"
   },
+  "aspnetcdn.com": {
+   "domain": "aspnetcdn.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
   "assets.ckjr001.com": {
    "domain": "assets.ckjr001.com",
    "in_adguard_filter_now": false,
@@ -2567,6 +3161,20 @@
    ],
    "status": "active"
   },
+  "assets.msn.cn": {
+   "domain": "assets.msn.cn",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
   "atatus.com": {
    "domain": "atatus.com",
    "in_adguard_filter_now": false,
@@ -2583,6 +3191,20 @@
      ],
      "kind": "dns-exclusion",
      "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
+  "attestation.xboxlive.com": {
+   "domain": "attestation.xboxlive.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
     }
    ],
    "status": "active"
@@ -2711,10 +3333,7 @@
    "status": "active"
   },
   "awin1.com": {
-   "conflict": {
-    "detected": "2026-11-15T13:53:03Z",
-    "where": "AdGuard DNS filter (exact)"
-   },
+   "adguard_ancestor_block": "ancestor blocked in published AdGuard DNS filter",
    "domain": "awin1.com",
    "in_adguard_filter_now": true,
    "in_antiad_block_now": true,
@@ -2732,7 +3351,7 @@
      "repo": "AdguardTeam/AdGuardSDNSFilter"
     }
    ],
-   "status": "conflict"
+   "status": "active"
   },
   "awstrack.me": {
    "domain": "awstrack.me",
@@ -2782,6 +3401,20 @@
      ],
      "kind": "dns-exclusion",
      "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
+  "ax.phobos.apple.com.edgesuite.net": {
+   "domain": "ax.phobos.apple.com.edgesuite.net",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
     }
    ],
    "status": "active"
@@ -2920,6 +3553,20 @@
    ],
    "status": "active"
   },
+  "bcsp2p.baidu.com": {
+   "domain": "bcsp2p.baidu.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
   "bdad.123pan.cn": {
    "domain": "bdad.123pan.cn",
    "in_adguard_filter_now": false,
@@ -2981,10 +3628,7 @@
    "status": "active"
   },
   "belgium.wolterskluwer.com": {
-   "conflict": {
-    "detected": "2026-11-15T13:53:03Z",
-    "where": "AdGuard DNS filter (exact)"
-   },
+   "adguard_ancestor_block": "ancestor blocked in published AdGuard DNS filter",
    "domain": "belgium.wolterskluwer.com",
    "in_adguard_filter_now": true,
    "in_antiad_block_now": false,
@@ -3002,7 +3646,7 @@
      "repo": "AdguardTeam/AdGuardSDNSFilter"
     }
    ],
-   "status": "conflict"
+   "status": "active"
   },
   "benelph.de": {
    "domain": "benelph.de",
@@ -3039,6 +3683,69 @@
       }
      ],
      "kind": "dns-exclusion",
+     "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
+  "beta.affiliates.adsterra.com": {
+   "adguard_ancestor_block": "ancestor blocked in published AdGuard DNS filter",
+   "domain": "beta.affiliates.adsterra.com",
+   "in_adguard_filter_now": true,
+   "in_antiad_block_now": true,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "maintainer exempted subdomain",
+     "issues": [
+      {
+       "n": 783,
+       "repo": "AdguardTeam/AdGuardSDNSFilter"
+      }
+     ],
+     "kind": "dns-exception",
+     "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
+  "beta.partners.adsterra.com": {
+   "adguard_ancestor_block": "ancestor blocked in published AdGuard DNS filter",
+   "domain": "beta.partners.adsterra.com",
+   "in_adguard_filter_now": true,
+   "in_antiad_block_now": true,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "maintainer exempted subdomain",
+     "issues": [
+      {
+       "n": 783,
+       "repo": "AdguardTeam/AdGuardSDNSFilter"
+      }
+     ],
+     "kind": "dns-exception",
+     "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
+  "beta.publishers.adsterra.com": {
+   "adguard_ancestor_block": "ancestor blocked in published AdGuard DNS filter",
+   "domain": "beta.publishers.adsterra.com",
+   "in_adguard_filter_now": true,
+   "in_antiad_block_now": true,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "maintainer exempted subdomain",
+     "issues": [
+      {
+       "n": 783,
+       "repo": "AdguardTeam/AdGuardSDNSFilter"
+      }
+     ],
+     "kind": "dns-exception",
      "repo": "AdguardTeam/AdGuardSDNSFilter"
     }
    ],
@@ -3274,6 +3981,11 @@
      "kind": "whitelist-php",
      "repo": "privacy-protection-tools/anti-AD",
      "value": 0
+    },
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -3338,6 +4050,20 @@
    ],
    "status": "active"
   },
+  "brightcove.net": {
+   "domain": "brightcove.net",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
   "browser.events.data.microsoft.com": {
    "domain": "browser.events.data.microsoft.com",
    "in_adguard_filter_now": false,
@@ -3354,6 +4080,20 @@
      ],
      "kind": "dns-exclusion",
      "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
+  "browser.gwdang.com": {
+   "domain": "browser.gwdang.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -3375,6 +4115,30 @@
      "kind": "whitelist-php",
      "repo": "privacy-protection-tools/anti-AD",
      "value": 0
+    }
+   ],
+   "status": "active"
+  },
+  "browser.pipe.aria.microsoft.com": {
+   "domain": "browser.pipe.aria.microsoft.com",
+   "in_adguard_filter_now": true,
+   "in_antiad_block_now": true,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "issues": [
+      {
+       "n": 199,
+       "repo": "Cats-Team/AdRules"
+      },
+      {
+       "n": 188,
+       "repo": "Cats-Team/AdRules"
+      }
+     ],
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -3472,6 +4236,20 @@
    ],
    "status": "active"
   },
+  "buy.ele.me": {
+   "domain": "buy.ele.me",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
   "buyeasy.by": {
    "domain": "buyeasy.by",
    "in_adguard_filter_now": false,
@@ -3508,6 +4286,30 @@
      ],
      "kind": "dns-exclusion",
      "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
+  "c.bing.com": {
+   "domain": "c.bing.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": true,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "issues": [
+      {
+       "n": 199,
+       "repo": "Cats-Team/AdRules"
+      },
+      {
+       "n": 188,
+       "repo": "Cats-Team/AdRules"
+      }
+     ],
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -3574,6 +4376,20 @@
    ],
    "status": "active"
   },
+  "c.s-microsoft.com": {
+   "domain": "c.s-microsoft.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
   "c.youdao.com": {
    "domain": "c.youdao.com",
    "in_adguard_filter_now": false,
@@ -3591,6 +4407,30 @@
      "kind": "whitelist-php",
      "repo": "privacy-protection-tools/anti-AD",
      "value": 0
+    }
+   ],
+   "status": "active"
+  },
+  "c1.skype.com": {
+   "domain": "c1.skype.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "issues": [
+      {
+       "n": 199,
+       "repo": "Cats-Team/AdRules"
+      },
+      {
+       "n": 188,
+       "repo": "Cats-Team/AdRules"
+      }
+     ],
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -3733,6 +4573,20 @@
      ],
      "kind": "dns-exclusion",
      "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
+  "cashier.ele.me": {
+   "domain": "cashier.ele.me",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -3902,6 +4756,20 @@
    ],
    "status": "active"
   },
+  "cdn.cloudflare.net": {
+   "domain": "cdn.cloudflare.net",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
   "cdn.cnbj1.fds.api.mi-img.com": {
    "domain": "cdn.cnbj1.fds.api.mi-img.com",
    "in_adguard_filter_now": false,
@@ -3943,6 +4811,34 @@
    ],
    "status": "active"
   },
+  "cdn.embedly.com": {
+   "domain": "cdn.embedly.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
+  "cdn.optimizely.com": {
+   "domain": "cdn.optimizely.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "rejected"
+  },
   "cdn.rollbar.com": {
    "domain": "cdn.rollbar.com",
    "in_adguard_filter_now": false,
@@ -3983,6 +4879,83 @@
    ],
    "status": "active"
   },
+  "cdn.taboola.com": {
+   "adguard_ancestor_block": "ancestor blocked in published AdGuard DNS filter",
+   "domain": "cdn.taboola.com",
+   "in_adguard_filter_now": true,
+   "in_antiad_block_now": true,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "Blocked by CNAME data.adobedc.net; https://github.com/AdguardTeam/AdGuardSDNSFilter/issues/; Blocked by CNAME omtrdc.net; taboolanews.com",
+     "issues": [
+      {
+       "n": 2058,
+       "repo": "AdguardTeam/AdGuardSDNSFilter"
+      }
+     ],
+     "kind": "dns-exception",
+     "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
+  "cdn.vidible.tv": {
+   "domain": "cdn.vidible.tv",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "rejected"
+  },
+  "cdn2.optimizely.com": {
+   "domain": "cdn2.optimizely.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "rejected"
+  },
+  "cdn3.optimizely.com": {
+   "domain": "cdn3.optimizely.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "rejected"
+  },
+  "cdnjs.cloudflare.com": {
+   "domain": "cdnjs.cloudflare.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
   "cedexis.net": {
    "domain": "cedexis.net",
    "in_adguard_filter_now": false,
@@ -4003,6 +4976,20 @@
    ],
    "status": "active"
   },
+  "cert.mgt.xboxlive.com": {
+   "domain": "cert.mgt.xboxlive.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
   "cglms.com": {
    "domain": "cglms.com",
    "in_adguard_filter_now": false,
@@ -4019,6 +5006,20 @@
      ],
      "kind": "dns-exclusion",
      "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
+  "chat.xiaomi.net": {
+   "domain": "chat.xiaomi.net",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -4071,6 +5072,26 @@
      ],
      "kind": "issue-only",
      "repo": "privacy-protection-tools/anti-AD"
+    }
+   ],
+   "status": "active"
+  },
+  "christianitytoday.activehosted.com": {
+   "domain": "christianitytoday.activehosted.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": true,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "issues": [
+      {
+       "n": 167,
+       "repo": "Cats-Team/AdRules"
+      }
+     ],
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -4476,6 +5497,20 @@
    ],
    "status": "active"
   },
+  "click.mz.simba.taobao.com": {
+   "domain": "click.mz.simba.taobao.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": true,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
   "click.redditmail.com": {
    "domain": "click.redditmail.com",
    "in_adguard_filter_now": false,
@@ -4617,6 +5652,20 @@
    ],
    "status": "active"
   },
+  "client-uc.heytapmobi.com": {
+   "domain": "client-uc.heytapmobi.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
   "client.app.coc.10086.cn": {
    "domain": "client.app.coc.10086.cn",
    "in_adguard_filter_now": false,
@@ -4639,6 +5688,20 @@
    ],
    "status": "active"
   },
+  "clientconfig.passport.net": {
+   "domain": "clientconfig.passport.net",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
   "clientlog3.music.163.com": {
    "domain": "clientlog3.music.163.com",
    "in_adguard_filter_now": true,
@@ -4656,6 +5719,90 @@
      "kind": "whitelist-php",
      "repo": "privacy-protection-tools/anti-AD",
      "value": 0
+    }
+   ],
+   "status": "active"
+  },
+  "clients1.google.com": {
+   "domain": "clients1.google.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
+  "clients2.google.com": {
+   "domain": "clients2.google.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
+  "clients3.google.com": {
+   "domain": "clients3.google.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
+  "clients4.google.com": {
+   "domain": "clients4.google.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
+  "clients5.google.com": {
+   "domain": "clients5.google.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
+  "clients6.google.com": {
+   "domain": "clients6.google.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
     }
    ],
    "status": "active"
@@ -4699,6 +5846,40 @@
     }
    ],
    "status": "rejected"
+  },
+  "cloudflareinsights.com": {
+   "domain": "cloudflareinsights.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": true,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "issues": [
+      {
+       "n": 237,
+       "repo": "Cats-Team/AdRules"
+      }
+     ],
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
+  "cloudfront.net": {
+   "domain": "cloudfront.net",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
   },
   "clustrmaps.com": {
    "domain": "clustrmaps.com",
@@ -4798,6 +5979,34 @@
      ],
      "kind": "dns-exception",
      "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
+  "cmpassport.com": {
+   "domain": "cmpassport.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
+  "cn.app.chat.xiaomi.net": {
+   "domain": "cn.app.chat.xiaomi.net",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -5103,6 +6312,48 @@
    ],
    "status": "active"
   },
+  "connectivitycheck.android.com": {
+   "domain": "connectivitycheck.android.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
+  "connectivitycheck.gstatic.com": {
+   "domain": "connectivitycheck.gstatic.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
+  "consent.cmp.oath.com": {
+   "domain": "consent.cmp.oath.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
   "consent.cookiefirst.com": {
    "domain": "consent.cookiefirst.com",
    "in_adguard_filter_now": false,
@@ -5139,6 +6390,17 @@
      ],
      "kind": "dns-exclusion",
      "repo": "AdguardTeam/AdGuardSDNSFilter"
+    },
+    {
+     "action": "curated allowlist entry",
+     "issues": [
+      {
+       "n": 209,
+       "repo": "Cats-Team/AdRules"
+      }
+     ],
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -5202,6 +6464,11 @@
      "kind": "whitelist-php",
      "repo": "privacy-protection-tools/anti-AD",
      "value": 0
+    },
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
     }
    ],
    "status": "active"
@@ -5261,6 +6528,27 @@
       }
      ],
      "kind": "dns-exclusion",
+     "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
+  "core.crazyegg.com": {
+   "adguard_ancestor_block": "ancestor blocked in published AdGuard DNS filter",
+   "domain": "core.crazyegg.com",
+   "in_adguard_filter_now": true,
+   "in_antiad_block_now": true,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "Fixing crazyegg.com login page",
+     "issues": [
+      {
+       "n": 114908,
+       "repo": "AdguardTeam/AdguardFilters"
+      }
+     ],
+     "kind": "dns-exception",
      "repo": "AdguardTeam/AdGuardSDNSFilter"
     }
    ],
@@ -5346,6 +6634,34 @@
     }
    ],
    "status": "active"
+  },
+  "cpms.spop10.ams.plex.bz": {
+   "domain": "cpms.spop10.ams.plex.bz",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "rejected"
+  },
+  "cpms35.spop10.ams.plex.bz": {
+   "domain": "cpms35.spop10.ams.plex.bz",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "rejected"
   },
   "crakmedia.com": {
    "domain": "crakmedia.com",
@@ -5469,6 +6785,20 @@
    ],
    "status": "active"
   },
+  "cse.google.com": {
+   "domain": "cse.google.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
   "csm.cxpublic.com": {
    "domain": "csm.cxpublic.com",
    "in_adguard_filter_now": false,
@@ -5529,6 +6859,20 @@
    ],
    "status": "active"
   },
+  "ctldl.windowsupdate.com": {
+   "domain": "ctldl.windowsupdate.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
   "ctrip.com": {
    "domain": "ctrip.com",
    "in_adguard_filter_now": false,
@@ -5572,6 +6916,34 @@
    ],
    "status": "active"
   },
+  "cu-cn-north00001.gala.convection.cn": {
+   "domain": "cu-cn-north00001.gala.convection.cn",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
+  "cu-cn-north00002.gala.convection.cn": {
+   "domain": "cu-cn-north00002.gala.convection.cn",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
   "cupfox.app": {
    "domain": "cupfox.app",
    "in_adguard_filter_now": false,
@@ -5589,6 +6961,20 @@
      "kind": "whitelist-php",
      "repo": "privacy-protection-tools/anti-AD",
      "value": 0
+    }
+   ],
+   "status": "active"
+  },
+  "cupid.iqiyi.com": {
+   "domain": "cupid.iqiyi.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": true,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -5652,6 +7038,20 @@
     }
    ],
    "status": "active"
+  },
+  "cws.conviva.com": {
+   "domain": "cws.conviva.com",
+   "in_adguard_filter_now": true,
+   "in_antiad_block_now": true,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "rejected"
   },
   "cxpublic.com": {
    "domain": "cxpublic.com",
@@ -5796,6 +7196,54 @@
     }
    ],
    "status": "active"
+  },
+  "d2c8v52ll5s99u.cloudfront.net": {
+   "domain": "d2c8v52ll5s99u.cloudfront.net",
+   "in_adguard_filter_now": true,
+   "in_antiad_block_now": true,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "rejected"
+  },
+  "d2cmedia.ca": {
+   "domain": "d2cmedia.ca",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "issues": [
+      {
+       "n": 246,
+       "repo": "Cats-Team/AdRules"
+      }
+     ],
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
+  "d2gatte9o95jao.cloudfront.net": {
+   "domain": "d2gatte9o95jao.cloudfront.net",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "rejected"
   },
   "d2na2p72vtqyok.cloudfront.net": {
    "domain": "d2na2p72vtqyok.cloudfront.net",
@@ -6003,6 +7451,11 @@
      "kind": "whitelist-php",
      "repo": "privacy-protection-tools/anti-AD",
      "value": 0
+    },
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -6024,6 +7477,41 @@
      ],
      "kind": "dns-exception",
      "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
+  "daraz.com": {
+   "adguard_ancestor_block": "ancestor blocked in published AdGuard DNS filter",
+   "domain": "daraz.com",
+   "in_adguard_filter_now": true,
+   "in_antiad_block_now": true,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "maintainer exempted subdomain",
+     "issues": [
+      {
+       "n": 1822,
+       "repo": "AdguardTeam/AdGuardSDNSFilter"
+      }
+     ],
+     "kind": "dns-exception",
+     "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
+  "dashboard.plex.tv": {
+   "domain": "dashboard.plex.tv",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
     }
    ],
    "status": "active"
@@ -6070,10 +7558,7 @@
    "status": "active"
   },
   "data.digital.costco.ca": {
-   "conflict": {
-    "detected": "2026-11-15T13:53:03Z",
-    "where": "AdGuard DNS filter (exact)"
-   },
+   "adguard_ancestor_block": "ancestor blocked in published AdGuard DNS filter",
    "domain": "data.digital.costco.ca",
    "in_adguard_filter_now": true,
    "in_antiad_block_now": true,
@@ -6091,13 +7576,10 @@
      "repo": "AdguardTeam/AdGuardSDNSFilter"
     }
    ],
-   "status": "conflict"
+   "status": "active"
   },
   "data.digital.costco.com": {
-   "conflict": {
-    "detected": "2026-11-15T13:53:03Z",
-    "where": "AdGuard DNS filter (exact)"
-   },
+   "adguard_ancestor_block": "ancestor blocked in published AdGuard DNS filter",
    "domain": "data.digital.costco.com",
    "in_adguard_filter_now": true,
    "in_antiad_block_now": true,
@@ -6115,13 +7597,10 @@
      "repo": "AdguardTeam/AdGuardSDNSFilter"
     }
    ],
-   "status": "conflict"
+   "status": "active"
   },
   "data.email.premierleague.com": {
-   "conflict": {
-    "detected": "2026-11-15T13:53:03Z",
-    "where": "AdGuard DNS filter (exact)"
-   },
+   "adguard_ancestor_block": "ancestor blocked in published AdGuard DNS filter",
    "domain": "data.email.premierleague.com",
    "in_adguard_filter_now": true,
    "in_antiad_block_now": false,
@@ -6139,7 +7618,7 @@
      "repo": "AdguardTeam/AdGuardSDNSFilter"
     }
    ],
-   "status": "conflict"
+   "status": "active"
   },
   "data.email.tangerine.ca": {
    "domain": "data.email.tangerine.ca",
@@ -6162,10 +7641,7 @@
    "status": "active"
   },
   "data.notify.macys.com": {
-   "conflict": {
-    "detected": "2026-11-15T13:53:03Z",
-    "where": "AdGuard DNS filter (exact)"
-   },
+   "adguard_ancestor_block": "ancestor blocked in published AdGuard DNS filter",
    "domain": "data.notify.macys.com",
    "in_adguard_filter_now": true,
    "in_antiad_block_now": false,
@@ -6183,13 +7659,10 @@
      "repo": "AdguardTeam/AdGuardSDNSFilter"
     }
    ],
-   "status": "conflict"
+   "status": "active"
   },
   "data.orders.costco.ca": {
-   "conflict": {
-    "detected": "2026-11-15T13:53:03Z",
-    "where": "AdGuard DNS filter (exact)"
-   },
+   "adguard_ancestor_block": "ancestor blocked in published AdGuard DNS filter",
    "domain": "data.orders.costco.ca",
    "in_adguard_filter_now": true,
    "in_antiad_block_now": false,
@@ -6207,13 +7680,10 @@
      "repo": "AdguardTeam/AdGuardSDNSFilter"
     }
    ],
-   "status": "conflict"
+   "status": "active"
   },
   "data.orders.costco.com": {
-   "conflict": {
-    "detected": "2026-11-15T13:53:03Z",
-    "where": "AdGuard DNS filter (exact)"
-   },
+   "adguard_ancestor_block": "ancestor blocked in published AdGuard DNS filter",
    "domain": "data.orders.costco.com",
    "in_adguard_filter_now": true,
    "in_antiad_block_now": true,
@@ -6231,13 +7701,10 @@
      "repo": "AdguardTeam/AdGuardSDNSFilter"
     }
    ],
-   "status": "conflict"
+   "status": "active"
   },
   "data.promo.timhortons.ca": {
-   "conflict": {
-    "detected": "2026-11-15T13:53:03Z",
-    "where": "AdGuard DNS filter (exact)"
-   },
+   "adguard_ancestor_block": "ancestor blocked in published AdGuard DNS filter",
    "domain": "data.promo.timhortons.ca",
    "in_adguard_filter_now": true,
    "in_antiad_block_now": true,
@@ -6255,7 +7722,7 @@
      "repo": "AdguardTeam/AdGuardSDNSFilter"
     }
    ],
-   "status": "conflict"
+   "status": "active"
   },
   "data.sec.miui.com": {
    "approved_by": "manual_overrides",
@@ -6274,6 +7741,17 @@
      ],
      "kind": "issue-only",
      "repo": "privacy-protection-tools/anti-AD"
+    },
+    {
+     "action": "curated allowlist entry",
+     "issues": [
+      {
+       "n": 195,
+       "repo": "Cats-Team/AdRules"
+      }
+     ],
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -6473,6 +7951,20 @@
    ],
    "status": "active"
   },
+  "dataplicity.com": {
+   "domain": "dataplicity.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
   "datayi.cn": {
    "domain": "datayi.cn",
    "in_adguard_filter_now": false,
@@ -6640,6 +8132,20 @@
    ],
    "status": "active"
   },
+  "def-vef.xboxlive.com": {
+   "domain": "def-vef.xboxlive.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
   "deliver.kuwo.cn": {
    "domain": "deliver.kuwo.cn",
    "in_adguard_filter_now": false,
@@ -6657,6 +8163,34 @@
      "kind": "whitelist-php",
      "repo": "privacy-protection-tools/anti-AD",
      "value": 0
+    }
+   ],
+   "status": "active"
+  },
+  "delivery.vidible.tv": {
+   "domain": "delivery.vidible.tv",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "rejected"
+  },
+  "dev.virtualearth.net": {
+   "domain": "dev.virtualearth.net",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
     }
    ],
    "status": "active"
@@ -6701,6 +8235,20 @@
    ],
    "status": "rejected"
   },
+  "device.auth.xboxlive.com": {
+   "domain": "device.auth.xboxlive.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
   "dfcfw.com": {
    "domain": "dfcfw.com",
    "in_adguard_filter_now": false,
@@ -6729,6 +8277,11 @@
      ],
      "kind": "issue-only",
      "repo": "privacy-protection-tools/anti-AD"
+    },
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -6778,7 +8331,7 @@
   "dig.bdurl.net": {
    "approved_by": "manual_overrides",
    "conflict": {
-    "detected": "2026-11-15T13:53:03Z",
+    "detected": "2026-11-15T19:23:10Z",
     "where": "anti-ad-domains.txt (exact)"
    },
    "domain": "dig.bdurl.net",
@@ -6873,6 +8426,110 @@
    ],
    "status": "active"
   },
+  "display.ugc.bazaarvoice.com": {
+   "domain": "display.ugc.bazaarvoice.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "rejected"
+  },
+  "displaycatalog.mp.microsoft.com": {
+   "domain": "displaycatalog.mp.microsoft.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
+  "dl.delivery.mp.microsoft.com": {
+   "domain": "dl.delivery.mp.microsoft.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
+  "dl.dropbox.com": {
+   "domain": "dl.dropbox.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
+  "dl.dropboxusercontent.com": {
+   "domain": "dl.dropboxusercontent.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
+  "dl.reg.163.com": {
+   "domain": "dl.reg.163.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "issues": [
+      {
+       "n": 140,
+       "repo": "Cats-Team/AdRules"
+      }
+     ],
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
+  "dl.zuimeitianqi.com": {
+   "domain": "dl.zuimeitianqi.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
   "dlswbr.baidu.com": {
    "domain": "dlswbr.baidu.com",
    "in_adguard_filter_now": false,
@@ -6898,6 +8555,20 @@
      "kind": "whitelist-php",
      "repo": "privacy-protection-tools/anti-AD",
      "value": 0
+    }
+   ],
+   "status": "active"
+  },
+  "dns.msftncsi.com": {
+   "domain": "dns.msftncsi.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
     }
    ],
    "status": "active"
@@ -7030,6 +8701,20 @@
    ],
    "status": "active"
   },
+  "download.sonarr.tv": {
+   "domain": "download.sonarr.tv",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
   "download.windowsupdate.com": {
    "approved_by": "manual_overrides",
    "domain": "download.windowsupdate.com",
@@ -7089,6 +8774,17 @@
      "kind": "issue-confirmed",
      "note": "华为天气域名",
      "repo": "TG-Twilight/AWAvenue-Ads-Rule"
+    },
+    {
+     "action": "curated allowlist entry",
+     "issues": [
+      {
+       "n": 256,
+       "repo": "Cats-Team/AdRules"
+      }
+     ],
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -7109,6 +8805,25 @@
      ],
      "kind": "dns-exclusion",
      "repo": "AdguardTeam/AdGuardSDNSFilter"
+    },
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
+  "driftt.com": {
+   "domain": "driftt.com",
+   "in_adguard_filter_now": true,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
     }
    ],
    "status": "active"
@@ -7232,6 +8947,20 @@
      ],
      "kind": "dns-exclusion",
      "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
+  "dynupdate.no-ip.com": {
+   "domain": "dynupdate.no-ip.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
     }
    ],
    "status": "active"
@@ -7374,6 +9103,31 @@
      "kind": "whitelist-php",
      "repo": "privacy-protection-tools/anti-AD",
      "value": 0
+    },
+    {
+     "action": "curated allowlist entry",
+     "issues": [
+      {
+       "n": 178,
+       "repo": "Cats-Team/AdRules"
+      }
+     ],
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
+  "ecn.dev.virtualearth.net": {
+   "domain": "ecn.dev.virtualearth.net",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
     }
    ],
    "status": "active"
@@ -7463,6 +9217,20 @@
    ],
    "status": "active"
   },
+  "edge.api.brightcove.com": {
+   "domain": "edge.api.brightcove.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
   "edith.xiaohongshu.com": {
    "approved_by": "manual_overrides",
    "domain": "edith.xiaohongshu.com",
@@ -7484,6 +9252,20 @@
    ],
    "status": "active"
   },
+  "eds.xboxlive.com": {
+   "domain": "eds.xboxlive.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
   "eksiup.com": {
    "domain": "eksiup.com",
    "in_adguard_filter_now": false,
@@ -7500,6 +9282,20 @@
      ],
      "kind": "dns-exclusion",
      "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
+  "email-link.adtidy.org": {
+   "domain": "email-link.adtidy.org",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -7809,6 +9605,46 @@
    ],
    "status": "active"
   },
+  "epochtimes.com": {
+   "domain": "epochtimes.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "issues": [
+      {
+       "n": 49,
+       "repo": "Cats-Team/AdRules"
+      }
+     ],
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
+  "epochtimes.org": {
+   "domain": "epochtimes.org",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "issues": [
+      {
+       "n": 49,
+       "repo": "Cats-Team/AdRules"
+      }
+     ],
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
   "eq.10jqka.com.cn": {
    "domain": "eq.10jqka.com.cn",
    "in_adguard_filter_now": false,
@@ -7826,6 +9662,31 @@
      "kind": "whitelist-php",
      "repo": "privacy-protection-tools/anti-AD",
      "value": 0
+    },
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
+  "erebor.douban.com": {
+   "domain": "erebor.douban.com",
+   "in_adguard_filter_now": true,
+   "in_antiad_block_now": true,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "issues": [
+      {
+       "n": 233,
+       "repo": "Cats-Team/AdRules"
+      }
+     ],
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -7932,6 +9793,44 @@
    ],
    "status": "active"
   },
+  "events.data.microsoft.com": {
+   "domain": "events.data.microsoft.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": true,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "issues": [
+      {
+       "n": 199,
+       "repo": "Cats-Team/AdRules"
+      },
+      {
+       "n": 188,
+       "repo": "Cats-Team/AdRules"
+      }
+     ],
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
+  "evtubescms.phncdn.com": {
+   "domain": "evtubescms.phncdn.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
   "evyy.net": {
    "domain": "evyy.net",
    "in_adguard_filter_now": false,
@@ -8033,6 +9932,27 @@
    ],
    "status": "active"
   },
+  "ezodn.com": {
+   "adguard_ancestor_block": "ancestor blocked in published AdGuard DNS filter",
+   "domain": "ezodn.com",
+   "in_adguard_filter_now": true,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "line25.com - not able to accept cookies to use the page",
+     "issues": [
+      {
+       "n": 1412,
+       "repo": "AdguardTeam/AdGuardSDNSFilter"
+      }
+     ],
+     "kind": "dns-exception",
+     "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
   "f-gear.ec-optimizer.com": {
    "adguard_ancestor_block": "ancestor blocked in published AdGuard DNS filter",
    "domain": "f-gear.ec-optimizer.com",
@@ -8050,6 +9970,20 @@
      ],
      "kind": "dns-exception",
      "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
+  "f8.market.xiaomi.com": {
+   "domain": "f8.market.xiaomi.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -8245,6 +10179,11 @@
      "kind": "whitelist-php",
      "repo": "privacy-protection-tools/anti-AD",
      "value": 0
+    },
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -8265,6 +10204,20 @@
      ],
      "kind": "dns-exclusion",
      "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
+  "firebaseremoteconfig.googleapis.com": {
+   "domain": "firebaseremoteconfig.googleapis.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -8429,6 +10382,20 @@
    ],
    "status": "active"
   },
+  "fonts.gstatic.com": {
+   "domain": "fonts.gstatic.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
   "forexprostools.com": {
    "domain": "forexprostools.com",
    "in_adguard_filter_now": false,
@@ -8465,6 +10432,34 @@
      ],
      "kind": "dns-exception",
      "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
+  "forums.sonarr.tv": {
+   "domain": "forums.sonarr.tv",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
+  "fp-upload.dun.163.com": {
+   "domain": "fp-upload.dun.163.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": true,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -8507,6 +10502,31 @@
      "kind": "whitelist-php",
      "repo": "privacy-protection-tools/anti-AD",
      "value": 1
+    },
+    {
+     "action": "curated allowlist entry",
+     "issues": [
+      {
+       "n": 153,
+       "repo": "Cats-Team/AdRules"
+      }
+     ],
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
+  "free-adsmind.ugdtimg.com": {
+   "domain": "free-adsmind.ugdtimg.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": true,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -8552,6 +10572,26 @@
    ],
    "status": "active"
   },
+  "ftp.bmp.ovh": {
+   "domain": "ftp.bmp.ovh",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "Blocked by ||relevant-digital.com^; Reported via Telegram: https://t.me/AdGuard_chinese/13741",
+     "issues": [
+      {
+       "n": 574,
+       "repo": "AdguardTeam/AdGuardSDNSFilter"
+      }
+     ],
+     "kind": "dns-exception",
+     "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
   "fwmrm.net": {
    "domain": "fwmrm.net",
    "in_adguard_filter_now": false,
@@ -8568,6 +10608,20 @@
      ],
      "kind": "dns-exclusion",
      "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
+  "g.live.com": {
+   "domain": "g.live.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
     }
    ],
    "status": "active"
@@ -8715,6 +10769,20 @@
    ],
    "status": "active"
   },
+  "geo-prod.do.dsp.mp.microsoft.com": {
+   "domain": "geo-prod.do.dsp.mp.microsoft.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
   "geo.ngtv.io": {
    "domain": "geo.ngtv.io",
    "in_adguard_filter_now": false,
@@ -8752,6 +10820,20 @@
      "kind": "whitelist-php",
      "repo": "privacy-protection-tools/anti-AD",
      "value": 0
+    }
+   ],
+   "status": "active"
+  },
+  "geo3.ggpht.com": {
+   "domain": "geo3.ggpht.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
     }
    ],
    "status": "active"
@@ -8860,6 +10942,20 @@
    ],
    "status": "active"
   },
+  "get.sogou.com": {
+   "domain": "get.sogou.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
   "get3.adobe.com": {
    "domain": "get3.adobe.com",
    "in_adguard_filter_now": false,
@@ -8921,6 +11017,34 @@
    ],
    "status": "active"
   },
+  "gfwsl.geforce.com": {
+   "domain": "gfwsl.geforce.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
+  "gia.jd.com": {
+   "domain": "gia.jd.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
   "gift.douyucdn.cn": {
    "domain": "gift.douyucdn.cn",
    "in_adguard_filter_now": false,
@@ -8938,6 +11062,53 @@
      "kind": "whitelist-php",
      "repo": "privacy-protection-tools/anti-AD",
      "value": 0
+    },
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
+  "giphy.com": {
+   "domain": "giphy.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
+  "github.com": {
+   "domain": "github.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
+  "github.io": {
+   "domain": "github.io",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
     }
    ],
    "status": "active"
@@ -8980,6 +11151,11 @@
      "kind": "whitelist-php",
      "repo": "privacy-protection-tools/anti-AD",
      "value": 0
+    },
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -9177,6 +11353,20 @@
    ],
    "status": "active"
   },
+  "googleapis.com": {
+   "domain": "googleapis.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "rejected"
+  },
   "goto.target.com": {
    "domain": "goto.target.com",
    "in_adguard_filter_now": false,
@@ -9213,6 +11403,20 @@
      ],
      "kind": "dns-exception",
      "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
+  "gotoip55.com": {
+   "domain": "gotoip55.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -9258,6 +11462,34 @@
    ],
    "status": "active"
   },
+  "graph.facebook.com": {
+   "domain": "graph.facebook.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
+  "gravatar.com": {
+   "domain": "gravatar.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
   "group-ib.ru": {
    "domain": "group-ib.ru",
    "in_adguard_filter_now": false,
@@ -9298,6 +11530,20 @@
    ],
    "status": "active"
   },
+  "grpc.biliapi.net": {
+   "domain": "grpc.biliapi.net",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
   "gs.statcounter.com": {
    "domain": "gs.statcounter.com",
    "in_adguard_filter_now": false,
@@ -9314,6 +11560,40 @@
      ],
      "kind": "dns-exception",
      "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
+  "gsp0.baidu.com": {
+   "domain": "gsp0.baidu.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "issues": [
+      {
+       "n": 146,
+       "repo": "Cats-Team/AdRules"
+      }
+     ],
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
+  "gstatic.com": {
+   "domain": "gstatic.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
     }
    ],
    "status": "active"
@@ -9392,6 +11672,20 @@
    ],
    "status": "active"
   },
+  "h-adashx.ut.ele.me": {
+   "domain": "h-adashx.ut.ele.me",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": true,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
   "h5hosting.dbankcdn.com": {
    "domain": "h5hosting.dbankcdn.com",
    "in_adguard_filter_now": false,
@@ -9437,10 +11731,7 @@
    "status": "active"
   },
   "hb.afl.rakuten.co.jp": {
-   "conflict": {
-    "detected": "2026-11-15T13:53:03Z",
-    "where": "AdGuard DNS filter (exact)"
-   },
+   "adguard_ancestor_block": "ancestor blocked in published AdGuard DNS filter",
    "domain": "hb.afl.rakuten.co.jp",
    "in_adguard_filter_now": true,
    "in_antiad_block_now": false,
@@ -9458,7 +11749,7 @@
      "repo": "AdguardTeam/AdGuardSDNSFilter"
     }
    ],
-   "status": "conflict"
+   "status": "active"
   },
   "health.halodoc.com": {
    "domain": "health.halodoc.com",
@@ -9476,6 +11767,41 @@
      ],
      "kind": "dns-exception",
      "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
+  "help-advertisers.adsterra.com": {
+   "adguard_ancestor_block": "ancestor blocked in published AdGuard DNS filter",
+   "domain": "help-advertisers.adsterra.com",
+   "in_adguard_filter_now": true,
+   "in_antiad_block_now": true,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "maintainer exempted subdomain",
+     "issues": [
+      {
+       "n": 783,
+       "repo": "AdguardTeam/AdGuardSDNSFilter"
+      }
+     ],
+     "kind": "dns-exception",
+     "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
+  "help.ui.xboxlive.com": {
+   "domain": "help.ui.xboxlive.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
     }
    ],
    "status": "active"
@@ -9565,6 +11891,20 @@
      "kind": "issue-confirmed",
      "note": "海信电视封面图",
      "repo": "TG-Twilight/AWAvenue-Ads-Rule"
+    }
+   ],
+   "status": "active"
+  },
+  "hls.ted.com": {
+   "domain": "hls.ted.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
     }
    ],
    "status": "active"
@@ -9852,6 +12192,17 @@
      ],
      "kind": "dns-exclusion",
      "repo": "AdguardTeam/AdGuardSDNSFilter"
+    },
+    {
+     "action": "curated allowlist entry",
+     "issues": [
+      {
+       "n": 209,
+       "repo": "Cats-Team/AdRules"
+      }
+     ],
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -9959,6 +12310,17 @@
      "kind": "issue-confirmed",
      "note": "华为天气域名",
      "repo": "TG-Twilight/AWAvenue-Ads-Rule"
+    },
+    {
+     "action": "curated allowlist entry",
+     "issues": [
+      {
+       "n": 256,
+       "repo": "Cats-Team/AdRules"
+      }
+     ],
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -10065,6 +12427,34 @@
    ],
    "status": "active"
   },
+  "i.ytimg.com": {
+   "domain": "i.ytimg.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
+  "i1.ytimg.com": {
+   "domain": "i1.ytimg.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
   "i18n-pglstatp.com": {
    "domain": "i18n-pglstatp.com",
    "in_adguard_filter_now": false,
@@ -10123,6 +12513,25 @@
      "kind": "whitelist-php",
      "repo": "privacy-protection-tools/anti-AD",
      "value": 0
+    },
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
+  "ic.snssdk.com": {
+   "domain": "ic.snssdk.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": true,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -10180,6 +12589,20 @@
    ],
    "status": "active"
   },
+  "id6.me": {
+   "domain": "id6.me",
+   "in_adguard_filter_now": true,
+   "in_antiad_block_now": true,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
   "image.box.xiaomi.com": {
    "domain": "image.box.xiaomi.com",
    "in_adguard_filter_now": false,
@@ -10218,6 +12641,20 @@
      "kind": "whitelist-php",
      "repo": "privacy-protection-tools/anti-AD",
      "value": 0
+    }
+   ],
+   "status": "active"
+  },
+  "imagesak.secureserver.net": {
+   "domain": "imagesak.secureserver.net",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
     }
    ],
    "status": "active"
@@ -10285,6 +12722,20 @@
    ],
    "status": "rejected"
   },
+  "img.vidible.tv": {
+   "domain": "img.vidible.tv",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "rejected"
+  },
   "img1.sj.qq.com": {
    "domain": "img1.sj.qq.com",
    "in_adguard_filter_now": false,
@@ -10306,6 +12757,62 @@
    ],
    "status": "active"
   },
+  "img2.autoimg.cn": {
+   "domain": "img2.autoimg.cn",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
+  "imgcdn.umiwi.com": {
+   "domain": "imgcdn.umiwi.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
+  "imgix.net": {
+   "domain": "imgix.net",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
+  "imgs.xkcd.com": {
+   "domain": "imgs.xkcd.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
   "imop.com": {
    "domain": "imop.com",
    "in_adguard_filter_now": false,
@@ -10323,6 +12830,20 @@
      "kind": "whitelist-php",
      "repo": "privacy-protection-tools/anti-AD",
      "value": 0
+    }
+   ],
+   "status": "active"
+  },
+  "info.pinyin.sogou.com": {
+   "domain": "info.pinyin.sogou.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": true,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -10404,6 +12925,11 @@
      ],
      "kind": "issue-only",
      "repo": "privacy-protection-tools/anti-AD"
+    },
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -10465,6 +12991,45 @@
      "kind": "whitelist-php",
      "repo": "privacy-protection-tools/anti-AD",
      "value": 0
+    },
+    {
+     "action": "curated allowlist entry",
+     "issues": [
+      {
+       "n": 215,
+       "repo": "Cats-Team/AdRules"
+      }
+     ],
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
+  "instantmessaging-pa.googleapis.com": {
+   "domain": "instantmessaging-pa.googleapis.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
+  "intercom.io": {
+   "domain": "intercom.io",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
     }
    ],
    "status": "active"
@@ -10921,6 +13486,11 @@
      "kind": "whitelist-php",
      "repo": "privacy-protection-tools/anti-AD",
      "value": 0
+    },
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -11199,6 +13769,20 @@
    ],
    "status": "active"
   },
+  "jquery.com": {
+   "domain": "jquery.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
   "js.datadome.co": {
    "domain": "js.datadome.co",
    "in_adguard_filter_now": false,
@@ -11235,6 +13819,20 @@
      ],
      "kind": "dns-exception",
      "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
+  "jsdelivr.net": {
+   "domain": "jsdelivr.net",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
     }
    ],
    "status": "active"
@@ -11318,6 +13916,17 @@
      "kind": "whitelist-php",
      "repo": "privacy-protection-tools/anti-AD",
      "value": 0
+    },
+    {
+     "action": "curated allowlist entry",
+     "issues": [
+      {
+       "n": 144,
+       "repo": "Cats-Team/AdRules"
+      }
+     ],
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -11488,6 +14097,20 @@
    ],
    "status": "rejected"
   },
+  "keystone.mwbsys.com": {
+   "domain": "keystone.mwbsys.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
   "kinesis.eu-west-1.amazonaws.com": {
    "domain": "kinesis.eu-west-1.amazonaws.com",
    "in_adguard_filter_now": false,
@@ -11641,6 +14264,20 @@
    ],
    "status": "active"
   },
+  "lastfm-img2.akamaized.net": {
+   "domain": "lastfm-img2.akamaized.net",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
   "lc-cn-n1-shared.com": {
    "domain": "lc-cn-n1-shared.com",
    "in_adguard_filter_now": false,
@@ -11658,6 +14295,11 @@
      "kind": "whitelist-php",
      "repo": "privacy-protection-tools/anti-AD",
      "value": 0
+    },
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -11740,6 +14382,20 @@
      "kind": "whitelist-php",
      "repo": "privacy-protection-tools/anti-AD",
      "value": 0
+    }
+   ],
+   "status": "active"
+  },
+  "licensing.xboxlive.com": {
+   "domain": "licensing.xboxlive.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
     }
    ],
    "status": "active"
@@ -12008,6 +14664,25 @@
      ],
      "kind": "issue-only",
      "repo": "privacy-protection-tools/anti-AD"
+    },
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
+  "live.com": {
+   "domain": "live.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
     }
    ],
    "status": "active"
@@ -12054,6 +14729,20 @@
    ],
    "status": "active"
   },
+  "livepassdl.conviva.com": {
+   "domain": "livepassdl.conviva.com",
+   "in_adguard_filter_now": true,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "rejected"
+  },
   "livere.com": {
    "domain": "livere.com",
    "in_adguard_filter_now": false,
@@ -12091,6 +14780,20 @@
      ],
      "kind": "dns-exclusion",
      "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
+  "livewebbs2.msstatic.com": {
+   "domain": "livewebbs2.msstatic.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -12179,7 +14882,7 @@
   "log.amemv.com": {
    "approved_by": "manual_overrides",
    "conflict": {
-    "detected": "2026-11-15T13:53:03Z",
+    "detected": "2026-11-15T19:23:10Z",
     "where": "anti-ad-domains.txt (exact)"
    },
    "domain": "log.amemv.com",
@@ -12284,10 +14987,7 @@
    "status": "rejected"
   },
   "logentries.com": {
-   "conflict": {
-    "detected": "2026-11-15T13:53:03Z",
-    "where": "AdGuard DNS filter (exact)"
-   },
+   "adguard_ancestor_block": "ancestor blocked in published AdGuard DNS filter",
    "domain": "logentries.com",
    "in_adguard_filter_now": true,
    "in_antiad_block_now": true,
@@ -12305,7 +15005,7 @@
      "repo": "AdguardTeam/AdGuardSDNSFilter"
     }
    ],
-   "status": "conflict"
+   "status": "active"
   },
   "loggly.com": {
    "domain": "loggly.com",
@@ -12323,6 +15023,34 @@
      ],
      "kind": "dns-exclusion",
      "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
+  "login.live.com": {
+   "domain": "login.live.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
+  "login.microsoftonline.com": {
+   "domain": "login.microsoftonline.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
     }
    ],
    "status": "active"
@@ -12395,6 +15123,17 @@
      ],
      "kind": "dns-exclusion",
      "repo": "AdguardTeam/AdGuardSDNSFilter"
+    },
+    {
+     "action": "curated allowlist entry",
+     "issues": [
+      {
+       "n": 206,
+       "repo": "Cats-Team/AdRules"
+      }
+     ],
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -12455,6 +15194,20 @@
      ],
      "kind": "dns-exclusion",
      "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
+  "loli.net": {
+   "domain": "loli.net",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -12687,11 +15440,22 @@
    ],
    "status": "active"
   },
+  "manifest.googlevideo.com": {
+   "domain": "manifest.googlevideo.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
   "marketing.net.idealo-partner.com": {
-   "conflict": {
-    "detected": "2026-11-15T13:53:03Z",
-    "where": "AdGuard DNS filter (exact)"
-   },
+   "adguard_ancestor_block": "ancestor blocked in published AdGuard DNS filter",
    "domain": "marketing.net.idealo-partner.com",
    "in_adguard_filter_now": true,
    "in_antiad_block_now": true,
@@ -12709,7 +15473,7 @@
      "repo": "AdguardTeam/AdGuardSDNSFilter"
     }
    ],
-   "status": "conflict"
+   "status": "active"
   },
   "marketo.com": {
    "domain": "marketo.com",
@@ -12886,6 +15650,20 @@
    ],
    "status": "active"
   },
+  "mcs.snssdk.com": {
+   "domain": "mcs.snssdk.com",
+   "in_adguard_filter_now": true,
+   "in_antiad_block_now": true,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
   "meatballsandads.com": {
    "domain": "meatballsandads.com",
    "in_adguard_filter_now": false,
@@ -12988,6 +15766,62 @@
    ],
    "status": "active"
   },
+  "meta-db-worker02.pop.ric.plex.bz": {
+   "domain": "meta-db-worker02.pop.ric.plex.bz",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "rejected"
+  },
+  "meta.plex.bz": {
+   "domain": "meta.plex.bz",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "rejected"
+  },
+  "meta.plex.tv": {
+   "domain": "meta.plex.tv",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
+  "metric.ccc.cmbchina.com": {
+   "domain": "metric.ccc.cmbchina.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
   "metricool.com": {
    "domain": "metricool.com",
    "in_adguard_filter_now": false,
@@ -13045,6 +15879,20 @@
      ],
      "kind": "dns-exclusion",
      "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
+  "microsoftonline.com": {
+   "domain": "microsoftonline.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
     }
    ],
    "status": "active"
@@ -13119,9 +15967,14 @@
      "kind": "rejected",
      "note": "上传输入内容,维护者保留拦截",
      "repo": "TG-Twilight/AWAvenue-Ads-Rule"
+    },
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
-   "status": "active"
+   "status": "rejected"
   },
   "minergate.com": {
    "domain": "minergate.com",
@@ -13197,6 +16050,26 @@
    ],
    "status": "active"
   },
+  "miniapp.bilibili.com": {
+   "domain": "miniapp.bilibili.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": true,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "issues": [
+      {
+       "n": 122,
+       "repo": "Cats-Team/AdRules"
+      }
+     ],
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
   "mix.sina.com.cn": {
    "domain": "mix.sina.com.cn",
    "in_adguard_filter_now": false,
@@ -13260,6 +16133,20 @@
    ],
    "status": "active"
   },
+  "mmstat.com": {
+   "domain": "mmstat.com",
+   "in_adguard_filter_now": true,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
   "mo.res.wpscdn.cn": {
    "domain": "mo.res.wpscdn.cn",
    "in_adguard_filter_now": false,
@@ -13277,6 +16164,30 @@
      "kind": "whitelist-php",
      "repo": "privacy-protection-tools/anti-AD",
      "value": 0
+    }
+   ],
+   "status": "active"
+  },
+  "mobile.pipe.aria.microsoft.com": {
+   "domain": "mobile.pipe.aria.microsoft.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": true,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "issues": [
+      {
+       "n": 199,
+       "repo": "Cats-Team/AdRules"
+      },
+      {
+       "n": 188,
+       "repo": "Cats-Team/AdRules"
+      }
+     ],
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -13358,6 +16269,17 @@
      ],
      "kind": "dns-exclusion",
      "repo": "AdguardTeam/AdGuardSDNSFilter"
+    },
+    {
+     "action": "curated allowlist entry",
+     "issues": [
+      {
+       "n": 236,
+       "repo": "Cats-Team/AdRules"
+      }
+     ],
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -13463,6 +16385,31 @@
      "kind": "whitelist-php",
      "repo": "privacy-protection-tools/anti-AD",
      "value": 0
+    },
+    {
+     "action": "curated allowlist entry",
+     "issues": [
+      {
+       "n": 234,
+       "repo": "Cats-Team/AdRules"
+      }
+     ],
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
+  "msftncsi.com": {
+   "domain": "msftncsi.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
     }
    ],
    "status": "active"
@@ -13560,6 +16507,20 @@
    ],
    "status": "active"
   },
+  "mvconf.f.360.cn": {
+   "domain": "mvconf.f.360.cn",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
   "my-material.zone1.meitudata.com": {
    "domain": "my-material.zone1.meitudata.com",
    "in_adguard_filter_now": false,
@@ -13577,6 +16538,20 @@
      "kind": "whitelist-php",
      "repo": "privacy-protection-tools/anti-AD",
      "value": 0
+    }
+   ],
+   "status": "active"
+  },
+  "my.plexapp.com": {
+   "domain": "my.plexapp.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
     }
    ],
    "status": "active"
@@ -13787,6 +16762,20 @@
    ],
    "status": "rejected"
   },
+  "newloc.map.n.shifen.com": {
+   "domain": "newloc.map.n.shifen.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
   "newrelic.com": {
    "domain": "newrelic.com",
    "in_adguard_filter_now": false,
@@ -13868,6 +16857,40 @@
    ],
    "status": "active"
   },
+  "newvector.map.baidu.com": {
+   "domain": "newvector.map.baidu.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "issues": [
+      {
+       "n": 201,
+       "repo": "Cats-Team/AdRules"
+      }
+     ],
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
+  "nexusrules.officeapps.live.com": {
+   "domain": "nexusrules.officeapps.live.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": true,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
   "ngenix.net": {
    "domain": "ngenix.net",
    "in_adguard_filter_now": false,
@@ -13924,6 +16947,20 @@
      ],
      "kind": "dns-exclusion",
      "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
+  "nine.plugins.plexapp.com": {
+   "domain": "nine.plugins.plexapp.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
     }
    ],
    "status": "active"
@@ -13991,6 +17028,34 @@
    ],
    "status": "active"
   },
+  "no-ip.com": {
+   "domain": "no-ip.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
+  "node.plexapp.com": {
+   "domain": "node.plexapp.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
   "non.li": {
    "domain": "non.li",
    "in_adguard_filter_now": false,
@@ -14051,6 +17116,20 @@
    ],
    "status": "active"
   },
+  "notify.xboxlive.com": {
+   "domain": "notify.xboxlive.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
   "now.sh": {
    "domain": "now.sh",
    "in_adguard_filter_now": false,
@@ -14068,6 +17147,48 @@
      "kind": "whitelist-php",
      "repo": "privacy-protection-tools/anti-AD",
      "value": 0
+    }
+   ],
+   "status": "active"
+  },
+  "npr-news.streaming.adswizz.com": {
+   "domain": "npr-news.streaming.adswizz.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": true,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "rejected"
+  },
+  "ns1.dropbox.com": {
+   "domain": "ns1.dropbox.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
+  "ns2.dropbox.com": {
+   "domain": "ns2.dropbox.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
     }
    ],
    "status": "active"
@@ -14093,6 +17214,34 @@
    ],
    "status": "active"
   },
+  "ntp.msn.cn": {
+   "domain": "ntp.msn.cn",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
+  "ntp.msn.com": {
+   "domain": "ntp.msn.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
   "ntv.io": {
    "domain": "ntv.io",
    "in_adguard_filter_now": false,
@@ -14109,6 +17258,34 @@
      ],
      "kind": "dns-exclusion",
      "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
+  "o1.email.plex.tv": {
+   "domain": "o1.email.plex.tv",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
+  "o2.sg0.plex.tv": {
+   "domain": "o2.sg0.plex.tv",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
     }
    ],
    "status": "active"
@@ -14248,6 +17425,20 @@
    ],
    "status": "active"
   },
+  "ocsp.apple.com": {
+   "domain": "ocsp.apple.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
   "octafx.com": {
    "domain": "octafx.com",
    "in_adguard_filter_now": false,
@@ -14264,6 +17455,62 @@
      ],
      "kind": "dns-exclusion",
      "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
+  "office.com": {
+   "domain": "office.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
+  "office.net": {
+   "domain": "office.net",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
+  "office365.com": {
+   "domain": "office365.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
+  "officeclient.microsoft.com": {
+   "domain": "officeclient.microsoft.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
     }
    ],
    "status": "active"
@@ -14309,10 +17556,7 @@
    "status": "active"
   },
   "om-ssl.consorsbank.de": {
-   "conflict": {
-    "detected": "2026-11-15T13:53:03Z",
-    "where": "AdGuard DNS filter (exact)"
-   },
+   "adguard_ancestor_block": "ancestor blocked in published AdGuard DNS filter",
    "domain": "om-ssl.consorsbank.de",
    "in_adguard_filter_now": true,
    "in_antiad_block_now": true,
@@ -14330,13 +17574,24 @@
      "repo": "AdguardTeam/AdGuardSDNSFilter"
     }
    ],
-   "status": "conflict"
+   "status": "active"
+  },
+  "om.cbsi.com": {
+   "domain": "om.cbsi.com",
+   "in_adguard_filter_now": true,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "rejected"
   },
   "omniture.walmart.com": {
-   "conflict": {
-    "detected": "2026-11-15T13:53:03Z",
-    "where": "AdGuard DNS filter (exact)"
-   },
+   "adguard_ancestor_block": "ancestor blocked in published AdGuard DNS filter",
    "domain": "omniture.walmart.com",
    "in_adguard_filter_now": true,
    "in_antiad_block_now": true,
@@ -14354,13 +17609,10 @@
      "repo": "AdguardTeam/AdGuardSDNSFilter"
     }
    ],
-   "status": "conflict"
+   "status": "active"
   },
   "omsc.kpn.com": {
-   "conflict": {
-    "detected": "2026-11-15T13:53:03Z",
-    "where": "AdGuard DNS filter (exact)"
-   },
+   "adguard_ancestor_block": "ancestor blocked in published AdGuard DNS filter",
    "domain": "omsc.kpn.com",
    "in_adguard_filter_now": true,
    "in_antiad_block_now": true,
@@ -14378,7 +17630,21 @@
      "repo": "AdguardTeam/AdGuardSDNSFilter"
     }
    ],
-   "status": "conflict"
+   "status": "active"
+  },
+  "onedrive.live.com": {
+   "domain": "onedrive.live.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
   },
   "oneline.nextday.media": {
    "domain": "oneline.nextday.media",
@@ -14544,6 +17810,34 @@
    ],
    "status": "active"
   },
+  "outlook.live.com": {
+   "domain": "outlook.live.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
+  "outlook.office365.com": {
+   "domain": "outlook.office365.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
   "ozone.10jqka.com.cn": {
    "domain": "ozone.10jqka.com.cn",
    "in_adguard_filter_now": false,
@@ -14582,6 +17876,20 @@
      "kind": "whitelist-php",
      "repo": "privacy-protection-tools/anti-AD",
      "value": 0
+    }
+   ],
+   "status": "active"
+  },
+  "p.bokecc.com": {
+   "domain": "p.bokecc.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -14666,6 +17974,20 @@
    ],
    "status": "rejected"
   },
+  "p3-ad-sign.byteimg.com": {
+   "domain": "p3-ad-sign.byteimg.com",
+   "in_adguard_filter_now": true,
+   "in_antiad_block_now": true,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
   "p3-tube.adukwai.com": {
    "domain": "p3-tube.adukwai.com",
    "in_adguard_filter_now": false,
@@ -14747,6 +18069,26 @@
    ],
    "status": "active"
   },
+  "pan.tenire.com": {
+   "domain": "pan.tenire.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "issues": [
+      {
+       "n": 168,
+       "repo": "Cats-Team/AdRules"
+      }
+     ],
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
   "panglelog.gz.bcebos.com": {
    "domain": "panglelog.gz.bcebos.com",
    "in_adguard_filter_now": false,
@@ -14801,6 +18143,27 @@
       {
        "n": 237216,
        "repo": "AdguardTeam/AdguardFilters"
+      }
+     ],
+     "kind": "dns-exception",
+     "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
+  "partners.adsterra.com": {
+   "adguard_ancestor_block": "ancestor blocked in published AdGuard DNS filter",
+   "domain": "partners.adsterra.com",
+   "in_adguard_filter_now": true,
+   "in_antiad_block_now": true,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "maintainer exempted subdomain",
+     "issues": [
+      {
+       "n": 783,
+       "repo": "AdguardTeam/AdGuardSDNSFilter"
       }
      ],
      "kind": "dns-exception",
@@ -15048,6 +18411,34 @@
    ],
    "status": "active"
   },
+  "ping.pinyin.sogou.com": {
+   "domain": "ping.pinyin.sogou.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": true,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
+  "pings.conviva.com": {
+   "domain": "pings.conviva.com",
+   "in_adguard_filter_now": true,
+   "in_antiad_block_now": true,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "rejected"
+  },
   "pinpoll.com": {
    "domain": "pinpoll.com",
    "in_adguard_filter_now": false,
@@ -15120,6 +18511,34 @@
    ],
    "status": "active"
   },
+  "placehold.it": {
+   "domain": "placehold.it",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
+  "placeholdit.imgix.net": {
+   "domain": "placeholdit.imgix.net",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
   "pladform.ru": {
    "domain": "pladform.ru",
    "in_adguard_filter_now": false,
@@ -15170,6 +18589,20 @@
     }
    ],
    "status": "rejected"
+  },
+  "players.brightcove.net": {
+   "domain": "players.brightcove.net",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
   },
   "playhydrax.com": {
    "domain": "playhydrax.com",
@@ -15354,6 +18787,46 @@
    ],
    "status": "active"
   },
+  "pr.nss.netease.com": {
+   "domain": "pr.nss.netease.com",
+   "in_adguard_filter_now": true,
+   "in_antiad_block_now": true,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "issues": [
+      {
+       "n": 257,
+       "repo": "Cats-Team/AdRules"
+      }
+     ],
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
+  "presence.teams.live.com": {
+   "domain": "presence.teams.live.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": true,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "issues": [
+      {
+       "n": 242,
+       "repo": "Cats-Team/AdRules"
+      }
+     ],
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
   "prf.hn": {
    "domain": "prf.hn",
    "in_adguard_filter_now": false,
@@ -15370,6 +18843,20 @@
      ],
      "kind": "dns-exclusion",
      "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
+  "pricelist.skype.com": {
+   "domain": "pricelist.skype.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
     }
    ],
    "status": "active"
@@ -15432,6 +18919,20 @@
      ],
      "kind": "dns-exception",
      "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
+  "products.office.com": {
+   "domain": "products.office.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
     }
    ],
    "status": "active"
@@ -15530,10 +19031,7 @@
    "status": "active"
   },
   "proto2ad.durasite.net": {
-   "conflict": {
-    "detected": "2026-11-15T13:53:03Z",
-    "where": "AdGuard DNS filter (exact)"
-   },
+   "adguard_ancestor_block": "ancestor blocked in published AdGuard DNS filter",
    "domain": "proto2ad.durasite.net",
    "in_adguard_filter_now": true,
    "in_antiad_block_now": true,
@@ -15551,7 +19049,49 @@
      "repo": "AdguardTeam/AdGuardSDNSFilter"
     }
    ],
-   "status": "conflict"
+   "status": "active"
+  },
+  "proxy.plex.bz": {
+   "domain": "proxy.plex.bz",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "rejected"
+  },
+  "proxy.plex.tv": {
+   "domain": "proxy.plex.tv",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
+  "proxy02.pop.ord.plex.bz": {
+   "domain": "proxy02.pop.ord.plex.bz",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "rejected"
   },
   "pt.afl.rakuten.co.jp": {
    "domain": "pt.afl.rakuten.co.jp",
@@ -15589,6 +19129,55 @@
      ],
      "kind": "dns-exception",
      "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
+  "publishers.adsterra.com": {
+   "adguard_ancestor_block": "ancestor blocked in published AdGuard DNS filter",
+   "domain": "publishers.adsterra.com",
+   "in_adguard_filter_now": true,
+   "in_antiad_block_now": true,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "maintainer exempted subdomain",
+     "issues": [
+      {
+       "n": 783,
+       "repo": "AdguardTeam/AdGuardSDNSFilter"
+      }
+     ],
+     "kind": "dns-exception",
+     "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
+  "pubsub.plex.bz": {
+   "domain": "pubsub.plex.bz",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "rejected"
+  },
+  "pubsub.plex.tv": {
+   "domain": "pubsub.plex.tv",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
     }
    ],
    "status": "active"
@@ -15849,6 +19438,11 @@
      "kind": "whitelist-php",
      "repo": "privacy-protection-tools/anti-AD",
      "value": 0
+    },
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -16074,6 +19668,20 @@
      ],
      "kind": "issue-only",
      "repo": "privacy-protection-tools/anti-AD"
+    }
+   ],
+   "status": "active"
+  },
+  "raw.githubusercontent.com": {
+   "domain": "raw.githubusercontent.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
     }
    ],
    "status": "active"
@@ -16344,6 +19952,20 @@
    ],
    "status": "active"
   },
+  "redirector.googlevideo.com": {
+   "domain": "redirector.googlevideo.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
   "redventures.io": {
    "domain": "redventures.io",
    "in_adguard_filter_now": false,
@@ -16400,6 +20022,20 @@
      ],
      "kind": "dns-exception",
      "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
+  "register.xmpush.xiaomi.com": {
+   "domain": "register.xmpush.xiaomi.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -16525,6 +20161,20 @@
    ],
    "status": "active"
   },
+  "res.cloudinary.com": {
+   "domain": "res.cloudinary.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
   "researchintel.com": {
    "domain": "researchintel.com",
    "in_adguard_filter_now": false,
@@ -16541,6 +20191,20 @@
      ],
      "kind": "dns-exclusion",
      "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
+  "resolver.msg.xiaomi.net": {
+   "domain": "resolver.msg.xiaomi.net",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -16748,6 +20412,34 @@
    ],
    "status": "active"
   },
+  "s.gateway.messenger.live.com": {
+   "domain": "s.gateway.messenger.live.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
+  "s.marketwatch.com": {
+   "domain": "s.marketwatch.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
   "s.sick.com": {
    "domain": "s.sick.com",
    "in_adguard_filter_now": false,
@@ -16784,6 +20476,25 @@
      ],
      "kind": "dns-exclusion",
      "repo": "AdguardTeam/AdGuardSDNSFilter"
+    },
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
+  "s.ytimg.com": {
+   "domain": "s.ytimg.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
     }
    ],
    "status": "active"
@@ -16805,6 +20516,11 @@
      "kind": "whitelist-php",
      "repo": "privacy-protection-tools/anti-AD",
      "value": 0
+    },
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
     }
    ],
    "status": "active"
@@ -16841,6 +20557,48 @@
    ],
    "status": "active"
   },
+  "s2.youtube.com": {
+   "domain": "s2.youtube.com",
+   "in_adguard_filter_now": true,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
+  "s3.amazonaws.com": {
+   "domain": "s3.amazonaws.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
+  "sa.symcb.com": {
+   "domain": "sa.symcb.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
   "safebrowsing.googleapis.com": {
    "domain": "safebrowsing.googleapis.com",
    "in_adguard_filter_now": false,
@@ -16859,6 +20617,11 @@
      "kind": "issue-confirmed",
      "note": "Google安全浏览API",
      "repo": "TG-Twilight/AWAvenue-Ads-Rule"
+    },
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -17239,6 +21002,48 @@
    ],
    "status": "active"
   },
+  "secure.avangate.com": {
+   "domain": "secure.avangate.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
+  "secure.brightcove.com": {
+   "domain": "secure.brightcove.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
+  "secure.surveymonkey.com": {
+   "domain": "secure.surveymonkey.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
   "secureimage.securedataimages.com": {
    "domain": "secureimage.securedataimages.com",
    "in_adguard_filter_now": false,
@@ -17255,6 +21060,20 @@
      ],
      "kind": "dns-exception",
      "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
+  "securemetrics.apple.com": {
+   "domain": "securemetrics.apple.com",
+   "in_adguard_filter_now": true,
+   "in_antiad_block_now": true,
+   "in_awavenue_main_now": true,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -17278,13 +21097,10 @@
      "repo": "TG-Twilight/AWAvenue-Ads-Rule"
     }
    ],
-   "status": "active"
+   "status": "rejected"
   },
   "sedge.nfl.com": {
-   "conflict": {
-    "detected": "2026-11-15T13:53:03Z",
-    "where": "AdGuard DNS filter (exact)"
-   },
+   "adguard_ancestor_block": "ancestor blocked in published AdGuard DNS filter",
    "domain": "sedge.nfl.com",
    "in_adguard_filter_now": true,
    "in_antiad_block_now": true,
@@ -17302,12 +21118,12 @@
      "repo": "AdguardTeam/AdGuardSDNSFilter"
     }
    ],
-   "status": "conflict"
+   "status": "active"
   },
   "seeip.org": {
    "approved_by": "manual_overrides",
    "conflict": {
-    "detected": "2026-11-15T13:53:03Z",
+    "detected": "2026-11-15T19:23:10Z",
     "where": "anti-ad-domains.txt (exact)"
    },
    "domain": "seeip.org",
@@ -17426,6 +21242,20 @@
      "kind": "whitelist-php",
      "repo": "privacy-protection-tools/anti-AD",
      "value": 0
+    }
+   ],
+   "status": "active"
+  },
+  "services.sonarr.tv": {
+   "domain": "services.sonarr.tv",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
     }
    ],
    "status": "active"
@@ -17562,6 +21392,26 @@
      "kind": "whitelist-php",
      "repo": "privacy-protection-tools/anti-AD",
      "value": 0
+    }
+   ],
+   "status": "active"
+  },
+  "sgali-mcs.byteoversea.com": {
+   "domain": "sgali-mcs.byteoversea.com",
+   "in_adguard_filter_now": true,
+   "in_antiad_block_now": true,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "issues": [
+      {
+       "n": 255,
+       "repo": "Cats-Team/AdRules"
+      }
+     ],
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -17849,6 +21699,11 @@
      "kind": "whitelist-php",
      "repo": "privacy-protection-tools/anti-AD",
      "value": 0
+    },
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -17963,6 +21818,20 @@
      ],
      "kind": "issue-only",
      "repo": "privacy-protection-tools/anti-AD"
+    }
+   ],
+   "status": "active"
+  },
+  "skyhook.sonarr.tv": {
+   "domain": "skyhook.sonarr.tv",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
     }
    ],
    "status": "active"
@@ -18183,6 +22052,20 @@
    ],
    "status": "rejected"
   },
+  "sobot.com": {
+   "domain": "sobot.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
   "society6.com": {
    "domain": "society6.com",
    "in_adguard_filter_now": false,
@@ -18282,6 +22165,20 @@
      ],
      "kind": "dns-exclusion",
      "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
+  "solitaireevents.microsoftcasualgames.com": {
+   "domain": "solitaireevents.microsoftcasualgames.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -18404,6 +22301,20 @@
      ],
      "kind": "dns-exception",
      "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
+  "spclient.wg.spotify.com": {
+   "domain": "spclient.wg.spotify.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
     }
    ],
    "status": "active"
@@ -18574,6 +22485,20 @@
    ],
    "status": "active"
   },
+  "ssl.p.jwpcdn.com": {
+   "domain": "ssl.p.jwpcdn.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
   "sstats.adobe.com": {
    "domain": "sstats.adobe.com",
    "in_adguard_filter_now": false,
@@ -18631,6 +22556,20 @@
      "kind": "whitelist-php",
      "repo": "privacy-protection-tools/anti-AD",
      "value": 0
+    }
+   ],
+   "status": "active"
+  },
+  "staging.plex.tv": {
+   "domain": "staging.plex.tv",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
     }
    ],
    "status": "active"
@@ -18718,6 +22657,26 @@
    ],
    "status": "active"
   },
+  "statcounter.com": {
+   "domain": "statcounter.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "maintainer exempted subdomain",
+     "issues": [
+      {
+       "n": 1499,
+       "repo": "AdguardTeam/AdGuardSDNSFilter"
+      }
+     ],
+     "kind": "dns-exception",
+     "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
   "static.addtoany.com": {
    "domain": "static.addtoany.com",
    "in_adguard_filter_now": false,
@@ -18734,6 +22693,20 @@
      ],
      "kind": "dns-exclusion",
      "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
+  "static.cloud.coveo.com": {
+   "domain": "static.cloud.coveo.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -18756,6 +22729,20 @@
      "kind": "issue-confirmed",
      "note": "微信小程序订单页",
      "repo": "TG-Twilight/AWAvenue-Ads-Rule"
+    }
+   ],
+   "status": "active"
+  },
+  "static.zongheng.com": {
+   "domain": "static.zongheng.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": true,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -18814,6 +22801,20 @@
    ],
    "status": "active"
   },
+  "statistics.pandadastudio.com": {
+   "domain": "statistics.pandadastudio.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
   "stats.gc.apple.com": {
    "domain": "stats.gc.apple.com",
    "in_adguard_filter_now": false,
@@ -18831,6 +22832,11 @@
      "kind": "whitelist-php",
      "repo": "privacy-protection-tools/anti-AD",
      "value": 0
+    },
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -18916,6 +22922,20 @@
      "kind": "whitelist-php",
      "repo": "privacy-protection-tools/anti-AD",
      "value": 0
+    }
+   ],
+   "status": "active"
+  },
+  "status.plex.tv": {
+   "domain": "status.plex.tv",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
     }
    ],
    "status": "active"
@@ -19282,6 +23302,20 @@
    ],
    "status": "active"
   },
+  "sv.map.baidu.com": {
+   "domain": "sv.map.baidu.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
   "sw.broadcom.com": {
    "domain": "sw.broadcom.com",
    "in_adguard_filter_now": false,
@@ -19303,10 +23337,7 @@
    "status": "active"
   },
   "swasc.homedepot.com": {
-   "conflict": {
-    "detected": "2026-11-15T13:53:03Z",
-    "where": "AdGuard DNS filter (exact)"
-   },
+   "adguard_ancestor_block": "ancestor blocked in published AdGuard DNS filter",
    "domain": "swasc.homedepot.com",
    "in_adguard_filter_now": true,
    "in_antiad_block_now": false,
@@ -19324,7 +23355,7 @@
      "repo": "AdguardTeam/AdGuardSDNSFilter"
     }
    ],
-   "status": "conflict"
+   "status": "active"
   },
   "sysdig.com": {
    "domain": "sysdig.com",
@@ -19396,6 +23427,53 @@
      "kind": "whitelist-php",
      "repo": "privacy-protection-tools/anti-AD",
      "value": 0
+    },
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
+  "t.co": {
+   "domain": "t.co",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
+  "t0.ssl.ak.dynamic.tiles.virtualearth.net": {
+   "domain": "t0.ssl.ak.dynamic.tiles.virtualearth.net",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
+  "t0.ssl.ak.tiles.virtualearth.net": {
+   "domain": "t0.ssl.ak.tiles.virtualearth.net",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
     }
    ],
    "status": "active"
@@ -19481,6 +23559,26 @@
      "kind": "issue-confirmed",
      "note": "爱奇艺封面",
      "repo": "TG-Twilight/AWAvenue-Ads-Rule"
+    }
+   ],
+   "status": "active"
+  },
+  "ta.pinduoduo.com": {
+   "domain": "ta.pinduoduo.com",
+   "in_adguard_filter_now": true,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "issues": [
+      {
+       "n": 224,
+       "repo": "Cats-Team/AdRules"
+      }
+     ],
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -19634,6 +23732,11 @@
      ],
      "kind": "dns-exclusion",
      "repo": "AdguardTeam/AdGuardSDNSFilter"
+    },
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -19654,6 +23757,20 @@
      ],
      "kind": "dns-exclusion",
      "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
+  "tawk.to": {
+   "domain": "tawk.to",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": true,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
     }
    ],
    "status": "active"
@@ -19709,6 +23826,17 @@
      "kind": "issue-confirmed",
      "note": "QQ安全中心验证码同步",
      "repo": "TG-Twilight/AWAvenue-Ads-Rule"
+    },
+    {
+     "action": "curated allowlist entry",
+     "issues": [
+      {
+       "n": 208,
+       "repo": "Cats-Team/AdRules"
+      }
+     ],
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -19753,6 +23881,20 @@
    ],
    "status": "active"
   },
+  "tedcdn.com": {
+   "domain": "tedcdn.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
   "telemetry.mozilla.org": {
    "domain": "telemetry.mozilla.org",
    "in_adguard_filter_now": false,
@@ -19791,6 +23933,37 @@
      "kind": "issue-confirmed",
      "note": "华为智慧生活门锁插件",
      "repo": "TG-Twilight/AWAvenue-Ads-Rule"
+    },
+    {
+     "action": "curated allowlist entry",
+     "issues": [
+      {
+       "n": 239,
+       "repo": "Cats-Team/AdRules"
+      }
+     ],
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
+  "th.pinduoduo.com": {
+   "domain": "th.pinduoduo.com",
+   "in_adguard_filter_now": true,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "issues": [
+      {
+       "n": 224,
+       "repo": "Cats-Team/AdRules"
+      }
+     ],
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -19815,6 +23988,20 @@
    ],
    "status": "active"
   },
+  "themoviedb.com": {
+   "domain": "themoviedb.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
   "thepiratebay.org": {
    "domain": "thepiratebay.org",
    "in_adguard_filter_now": false,
@@ -19831,6 +24018,20 @@
      ],
      "kind": "manual",
      "repo": "manual"
+    }
+   ],
+   "status": "active"
+  },
+  "thetvdb.com": {
+   "domain": "thetvdb.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
     }
    ],
    "status": "active"
@@ -19928,6 +24129,20 @@
    ],
    "status": "active"
   },
+  "tianshu.gtimg.cn": {
+   "domain": "tianshu.gtimg.cn",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": true,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
   "time.izatcloud.net": {
    "approved_by": "manual_overrides",
    "domain": "time.izatcloud.net",
@@ -19945,6 +24160,48 @@
      ],
      "kind": "issue-only",
      "repo": "privacy-protection-tools/anti-AD"
+    }
+   ],
+   "status": "active"
+  },
+  "tinyurl.com": {
+   "domain": "tinyurl.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
+  "title.auth.xboxlive.com": {
+   "domain": "title.auth.xboxlive.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
+  "title.mgt.xboxlive.com": {
+   "domain": "title.mgt.xboxlive.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
     }
    ],
    "status": "active"
@@ -20090,10 +24347,7 @@
    "status": "active"
   },
   "tms.capitalone.com": {
-   "conflict": {
-    "detected": "2026-11-15T13:53:03Z",
-    "where": "AdGuard DNS filter (exact)"
-   },
+   "adguard_ancestor_block": "ancestor blocked in published AdGuard DNS filter",
    "domain": "tms.capitalone.com",
    "in_adguard_filter_now": true,
    "in_antiad_block_now": false,
@@ -20111,7 +24365,367 @@
      "repo": "AdguardTeam/AdGuardSDNSFilter"
     }
    ],
-   "status": "conflict"
+   "status": "active"
+  },
+  "tnc-boot.capcutapi.com": {
+   "domain": "tnc-boot.capcutapi.com",
+   "in_adguard_filter_now": true,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "issues": [
+      {
+       "n": 238,
+       "repo": "Cats-Team/AdRules"
+      }
+     ],
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
+  "tnc-sg.capcutapi.com": {
+   "domain": "tnc-sg.capcutapi.com",
+   "in_adguard_filter_now": true,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "issues": [
+      {
+       "n": 238,
+       "repo": "Cats-Team/AdRules"
+      }
+     ],
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
+  "tnc0-aliec2.zijieapi.com": {
+   "domain": "tnc0-aliec2.zijieapi.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "issues": [
+      {
+       "n": 238,
+       "repo": "Cats-Team/AdRules"
+      }
+     ],
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
+  "tnc0-alisc1.zijieapi.com": {
+   "domain": "tnc0-alisc1.zijieapi.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "issues": [
+      {
+       "n": 238,
+       "repo": "Cats-Team/AdRules"
+      }
+     ],
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
+  "tnc0-bjlgy.zijieapi.com": {
+   "domain": "tnc0-bjlgy.zijieapi.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": true,
+   "in_awavenue_main_now": true,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "issues": [
+      {
+       "n": 238,
+       "repo": "Cats-Team/AdRules"
+      }
+     ],
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
+  "tnc16-alisg.isnssdk.com": {
+   "domain": "tnc16-alisg.isnssdk.com",
+   "in_adguard_filter_now": true,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "issues": [
+      {
+       "n": 238,
+       "repo": "Cats-Team/AdRules"
+      }
+     ],
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
+  "tnc16-useast1a.isnssdk.com": {
+   "domain": "tnc16-useast1a.isnssdk.com",
+   "in_adguard_filter_now": true,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "issues": [
+      {
+       "n": 238,
+       "repo": "Cats-Team/AdRules"
+      }
+     ],
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
+  "tnc3-aliec1.toutiaoapi.com": {
+   "domain": "tnc3-aliec1.toutiaoapi.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": true,
+   "in_awavenue_main_now": true,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "issues": [
+      {
+       "n": 238,
+       "repo": "Cats-Team/AdRules"
+      }
+     ],
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
+  "tnc3-aliec2.bytedance.com": {
+   "domain": "tnc3-aliec2.bytedance.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": true,
+   "in_awavenue_main_now": true,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "issues": [
+      {
+       "n": 238,
+       "repo": "Cats-Team/AdRules"
+      }
+     ],
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
+  "tnc3-aliec2.snssdk.com": {
+   "domain": "tnc3-aliec2.snssdk.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": true,
+   "in_awavenue_main_now": true,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "issues": [
+      {
+       "n": 238,
+       "repo": "Cats-Team/AdRules"
+      }
+     ],
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
+  "tnc3-aliec2.toutiaoapi.com": {
+   "domain": "tnc3-aliec2.toutiaoapi.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": true,
+   "in_awavenue_main_now": true,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "issues": [
+      {
+       "n": 238,
+       "repo": "Cats-Team/AdRules"
+      }
+     ],
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
+  "tnc3-alisc1.bytedance.com": {
+   "domain": "tnc3-alisc1.bytedance.com",
+   "in_adguard_filter_now": true,
+   "in_antiad_block_now": true,
+   "in_awavenue_main_now": true,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "issues": [
+      {
+       "n": 238,
+       "repo": "Cats-Team/AdRules"
+      }
+     ],
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
+  "tnc3-alisc1.snssdk.com": {
+   "domain": "tnc3-alisc1.snssdk.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": true,
+   "in_awavenue_main_now": true,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "issues": [
+      {
+       "n": 238,
+       "repo": "Cats-Team/AdRules"
+      }
+     ],
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
+  "tnc3-alisc1.toutiaoapi.com": {
+   "domain": "tnc3-alisc1.toutiaoapi.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": true,
+   "in_awavenue_main_now": true,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "issues": [
+      {
+       "n": 238,
+       "repo": "Cats-Team/AdRules"
+      }
+     ],
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
+  "tnc3-alisc2.zijieapi.com": {
+   "domain": "tnc3-alisc2.zijieapi.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "issues": [
+      {
+       "n": 238,
+       "repo": "Cats-Team/AdRules"
+      }
+     ],
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
+  "tnc3-bjlgy.bytedance.com": {
+   "domain": "tnc3-bjlgy.bytedance.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": true,
+   "in_awavenue_main_now": true,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "issues": [
+      {
+       "n": 238,
+       "repo": "Cats-Team/AdRules"
+      }
+     ],
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
+  "tnc3-bjlgy.snssdk.com": {
+   "domain": "tnc3-bjlgy.snssdk.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": true,
+   "in_awavenue_main_now": true,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "issues": [
+      {
+       "n": 238,
+       "repo": "Cats-Team/AdRules"
+      }
+     ],
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
+  "tnc3-bjlgy.toutiaoapi.com": {
+   "domain": "tnc3-bjlgy.toutiaoapi.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": true,
+   "in_awavenue_main_now": true,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "issues": [
+      {
+       "n": 238,
+       "repo": "Cats-Team/AdRules"
+      }
+     ],
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
   },
   "tns-sifo.se": {
    "domain": "tns-sifo.se",
@@ -20581,6 +25195,20 @@
    ],
    "status": "active"
   },
+  "traffic.libsyn.com": {
+   "domain": "traffic.libsyn.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
   "trafficmanager.net": {
    "domain": "trafficmanager.net",
    "in_adguard_filter_now": false,
@@ -20803,6 +25431,34 @@
    ],
    "status": "rejected"
   },
+  "tvdb2.plex.tv": {
+   "domain": "tvdb2.plex.tv",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
+  "tvthemes.plexapp.com": {
+   "domain": "tvthemes.plexapp.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
   "tvzhe.com": {
    "domain": "tvzhe.com",
    "in_adguard_filter_now": false,
@@ -20860,6 +25516,20 @@
      ],
      "kind": "dns-exclusion",
      "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
+  "twimg.com": {
+   "domain": "twimg.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
     }
    ],
    "status": "active"
@@ -20990,6 +25660,20 @@
    ],
    "status": "active"
   },
+  "ui.skype.com": {
+   "domain": "ui.skype.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
   "uim.tifbs.net": {
    "domain": "uim.tifbs.net",
    "in_adguard_filter_now": false,
@@ -21113,10 +25797,7 @@
    "status": "active"
   },
   "unsubscribe.email.premierleague.com": {
-   "conflict": {
-    "detected": "2026-11-15T13:53:03Z",
-    "where": "AdGuard DNS filter (exact)"
-   },
+   "adguard_ancestor_block": "ancestor blocked in published AdGuard DNS filter",
    "domain": "unsubscribe.email.premierleague.com",
    "in_adguard_filter_now": true,
    "in_antiad_block_now": false,
@@ -21134,7 +25815,7 @@
      "repo": "AdguardTeam/AdGuardSDNSFilter"
     }
    ],
-   "status": "conflict"
+   "status": "active"
   },
   "unsubscribe.lhinsights.com": {
    "adguard_ancestor_block": "ancestor blocked in published AdGuard DNS filter",
@@ -21456,6 +26137,26 @@
    ],
    "status": "active"
   },
+  "va.huya.com": {
+   "domain": "va.huya.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "issues": [
+      {
+       "n": 177,
+       "repo": "Cats-Team/AdRules"
+      }
+     ],
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
   "valf.atm.cp31.ott.cibntv.net": {
    "domain": "valf.atm.cp31.ott.cibntv.net",
    "in_adguard_filter_now": false,
@@ -21546,6 +26247,11 @@
      ],
      "kind": "issue-only",
      "repo": "privacy-protection-tools/anti-AD"
+    },
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -21592,6 +26298,34 @@
    ],
    "status": "active"
   },
+  "vcs.snssdk.com": {
+   "domain": "vcs.snssdk.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
+  "verify.snssdk.com": {
+   "domain": "verify.snssdk.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
   "veta.naver.com": {
    "domain": "veta.naver.com",
    "in_adguard_filter_now": false,
@@ -21608,6 +26342,20 @@
      ],
      "kind": "dns-exclusion",
      "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
+  "video-stats.l.google.com": {
+   "domain": "video-stats.l.google.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
     }
    ],
    "status": "active"
@@ -21633,6 +26381,34 @@
     }
    ],
    "status": "active"
+  },
+  "videos.vidible.tv": {
+   "domain": "videos.vidible.tv",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "rejected"
+  },
+  "vidtech.cbsinteractive.com": {
+   "domain": "vidtech.cbsinteractive.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "rejected"
   },
   "vip.cainiaofx.com": {
    "domain": "vip.cainiaofx.com",
@@ -21691,6 +26467,26 @@
      ],
      "kind": "dns-exclusion",
      "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
+  "vs-api.voodoo-tech.io": {
+   "domain": "vs-api.voodoo-tech.io",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "issues": [
+      {
+       "n": 219,
+       "repo": "Cats-Team/AdRules"
+      }
+     ],
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -21973,6 +26769,11 @@
      "kind": "whitelist-php",
      "repo": "privacy-protection-tools/anti-AD",
      "value": 0
+    },
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -22061,6 +26862,20 @@
    ],
    "status": "active"
   },
+  "widget-cdn.rpxnow.com": {
+   "domain": "widget-cdn.rpxnow.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
   "widget.gleamjs.io": {
    "domain": "widget.gleamjs.io",
    "in_adguard_filter_now": false,
@@ -22109,6 +26924,20 @@
      ],
      "kind": "manual",
      "repo": "manual"
+    }
+   ],
+   "status": "active"
+  },
+  "win10.ipv6.microsoft.com": {
+   "domain": "win10.ipv6.microsoft.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": true,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
     }
    ],
    "status": "active"
@@ -22218,6 +27047,20 @@
    ],
    "status": "active"
   },
+  "wp.com": {
+   "domain": "wp.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
   "wpnrtnmrewunrtok.xyz": {
    "domain": "wpnrtnmrewunrtok.xyz",
    "in_adguard_filter_now": false,
@@ -22259,6 +27102,20 @@
    ],
    "status": "active"
   },
+  "ws.audioscrobbler.com": {
+   "domain": "ws.audioscrobbler.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
   "wtradv.market.xiaomi.com": {
    "domain": "wtradv.market.xiaomi.com",
    "in_adguard_filter_now": false,
@@ -22276,6 +27133,11 @@
      "kind": "whitelist-php",
      "repo": "privacy-protection-tools/anti-AD",
      "value": 0
+    },
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -22383,11 +27245,28 @@
    ],
    "status": "active"
   },
+  "www.daraz.pk": {
+   "domain": "www.daraz.pk",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "maintainer exempted subdomain",
+     "issues": [
+      {
+       "n": 1822,
+       "repo": "AdguardTeam/AdGuardSDNSFilter"
+      }
+     ],
+     "kind": "dns-exception",
+     "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
   "www.datadoghq-browser-agent.com": {
-   "conflict": {
-    "detected": "2026-11-15T13:53:03Z",
-    "where": "AdGuard DNS filter (exact)"
-   },
+   "adguard_ancestor_block": "ancestor blocked in published AdGuard DNS filter",
    "domain": "www.datadoghq-browser-agent.com",
    "in_adguard_filter_now": true,
    "in_antiad_block_now": true,
@@ -22405,7 +27284,21 @@
      "repo": "AdguardTeam/AdGuardSDNSFilter"
     }
    ],
-   "status": "conflict"
+   "status": "active"
+  },
+  "www.dataplicity.com": {
+   "domain": "www.dataplicity.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
   },
   "www.dogpile.com": {
    "domain": "www.dogpile.com",
@@ -22444,6 +27337,20 @@
      ],
      "kind": "dns-exception",
      "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
+  "www.googleapis.com": {
+   "domain": "www.googleapis.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
     }
    ],
    "status": "active"
@@ -22552,6 +27459,62 @@
    ],
    "status": "active"
   },
+  "www.mosoteach.cn": {
+   "domain": "www.mosoteach.cn",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
+  "www.msftconnecttest.com": {
+   "domain": "www.msftconnecttest.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
+  "www.msftncsi.com": {
+   "domain": "www.msftncsi.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
+  "www.no-ip.com": {
+   "domain": "www.no-ip.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
   "www.npttech.com": {
    "domain": "www.npttech.com",
    "in_adguard_filter_now": false,
@@ -22573,10 +27536,7 @@
    "status": "active"
   },
   "www.statcounter.com": {
-   "conflict": {
-    "detected": "2026-11-15T13:53:03Z",
-    "where": "AdGuard DNS filter (exact)"
-   },
+   "adguard_ancestor_block": "ancestor blocked in published AdGuard DNS filter",
    "domain": "www.statcounter.com",
    "in_adguard_filter_now": true,
    "in_antiad_block_now": false,
@@ -22594,7 +27554,7 @@
      "repo": "AdguardTeam/AdGuardSDNSFilter"
     }
    ],
-   "status": "conflict"
+   "status": "active"
   },
   "www.supportxmr.com": {
    "domain": "www.supportxmr.com",
@@ -22634,6 +27594,41 @@
      "kind": "whitelist-php",
      "repo": "privacy-protection-tools/anti-AD",
      "value": 0
+    }
+   ],
+   "status": "active"
+  },
+  "www.youtube-nocookie.com": {
+   "domain": "www.youtube-nocookie.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
+  "www3.doubleclick.net": {
+   "adguard_ancestor_block": "ancestor blocked in published AdGuard DNS filter",
+   "domain": "www3.doubleclick.net",
+   "in_adguard_filter_now": true,
+   "in_antiad_block_now": true,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "Blocked by CNAME grsm.io; Popular anti-adblock bait",
+     "issues": [
+      {
+       "n": 1911,
+       "repo": "AdguardTeam/AdGuardSDNSFilter"
+      }
+     ],
+     "kind": "dns-exception",
+     "repo": "AdguardTeam/AdGuardSDNSFilter"
     }
    ],
    "status": "active"
@@ -22696,6 +27691,48 @@
      ],
      "kind": "dns-exclusion",
      "repo": "AdguardTeam/AdGuardSDNSFilter"
+    }
+   ],
+   "status": "active"
+  },
+  "xbox.ipv6.microsoft.com": {
+   "domain": "xbox.ipv6.microsoft.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
+  "xboxexperiencesprod.experimentation.xboxlive.com": {
+   "domain": "xboxexperiencesprod.experimentation.xboxlive.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
+  "xflight.xboxlive.com": {
+   "domain": "xflight.xboxlive.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
     }
    ],
    "status": "active"
@@ -22806,6 +27843,20 @@
    ],
    "status": "active"
   },
+  "xkms.xboxlive.com": {
+   "domain": "xkms.xboxlive.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
   "xmpush.xiaomi.com": {
    "domain": "xmpush.xiaomi.com",
    "in_adguard_filter_now": false,
@@ -22848,6 +27899,25 @@
      "kind": "whitelist-php",
      "repo": "privacy-protection-tools/anti-AD",
      "value": 0
+    },
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
+    }
+   ],
+   "status": "active"
+  },
+  "xsts.auth.xboxlive.com": {
+   "domain": "xsts.auth.xboxlive.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
     }
    ],
    "status": "active"
@@ -22912,6 +27982,34 @@
    ],
    "status": "active"
   },
+  "youtu.be": {
+   "domain": "youtu.be",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
+  "youtube-nocookie.com": {
+   "domain": "youtube-nocookie.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "active"
+  },
   "yql.yahoo.com": {
    "domain": "yql.yahoo.com",
    "in_adguard_filter_now": false,
@@ -22929,6 +28027,20 @@
      "kind": "whitelist-php",
      "repo": "privacy-protection-tools/anti-AD",
      "value": 0
+    }
+   ],
+   "status": "active"
+  },
+  "yt3.ggpht.com": {
+   "domain": "yt3.ggpht.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
     }
    ],
    "status": "active"
@@ -22971,6 +28083,20 @@
      "kind": "whitelist-php",
      "repo": "privacy-protection-tools/anti-AD",
      "value": 0
+    }
+   ],
+   "status": "active"
+  },
+  "z4a.net": {
+   "domain": "z4a.net",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": false,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "Cats-Team/AdRules"
     }
    ],
    "status": "active"
@@ -23079,6 +28205,20 @@
     }
    ],
    "status": "active"
+  },
+  "zee.cws.conviva.com": {
+   "domain": "zee.cws.conviva.com",
+   "in_adguard_filter_now": true,
+   "in_antiad_block_now": true,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "curated allowlist entry",
+     "kind": "referral",
+     "repo": "anudeepND/whitelist"
+    }
+   ],
+   "status": "rejected"
   },
   "zenaps.com": {
    "domain": "zenaps.com",
@@ -23256,7 +28396,7 @@
    "status": "active"
   }
  },
- "generated_at": "2026-11-15T13:53:03Z",
+ "generated_at": "2026-11-15T19:23:10Z",
  "issues": {
   "TG-Twilight/AWAvenue-Ads-Rule": {
    "112": {
