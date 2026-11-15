@@ -164,21 +164,21 @@ class MergeReferralTest(unittest.TestCase):
 
     def _self_demoted_pending(self, st, domain):
         rec = state.merge_domain(st, domain, {
-            "repo": CATS, "kind": "referral", "action": "curated",
-            "referral_removed": "2026-11-15"})
+            "repo": CATS, "kind": "referral", "action": "curated"})
         rec["status"] = "pending"
         rec["demoted_by"] = "referral-removal"
         return rec
 
     def test_self_demoted_pending_restored_on_readd(self):
         # 上游把删掉的域名加回来: 机器自降级的 pending 随正常合并复活
+        # (flag 已由 pipeline 对账层按 repo 清除, merge 只负责放行与翻转)
         st = state.empty_state()
         self._self_demoted_pending(st, "r.com")
         added, supp = state.merge_referral(st, self._rec("r.com"))
         self.assertEqual((added, supp), ([], []))
         rec = st["domains"]["r.com"]
         self.assertEqual(rec["status"], "active")
-        self.assertNotIn("referral_removed", rec["sources"][0])
+        self.assertEqual(len(rec["sources"]), 1)  # 对账后 source 相等, 不重复追加
         self.assertNotIn("demoted_by", rec)
 
     def test_issue_queued_pending_never_restored_by_referral(self):
@@ -204,8 +204,7 @@ class MergeReferralTest(unittest.TestCase):
         rec["status"] = "rejected"
         added, supp = state.merge_referral(st, self._rec("r.com"))
         self.assertEqual((added, supp), ([], ["r.com"]))
-        self.assertEqual(st["domains"]["r.com"]["status"], "rejected")
-        self.assertTrue(st["domains"]["r.com"]["sources"][0].get("referral_removed"))
+        self.assertEqual(st["domains"]["r.com"]["status"], "rejected")  # 拒绝粘滞
 
 
 class InvariantKeysTest(unittest.TestCase):

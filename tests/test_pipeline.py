@@ -4,7 +4,7 @@ import tempfile
 import unittest
 
 from ad_whitelist_bot import pipeline, state
-from ad_whitelist_bot.config import ANTIAD, AWAVENUE, CATS
+from ad_whitelist_bot.config import ANTIAD, ANUDEEP, AWAVENUE, CATS
 
 
 class PhpRemovalTest(unittest.TestCase):
@@ -128,6 +128,49 @@ class ReferralRetirementTest(unittest.TestCase):
         live = {CATS: {"d0.com", "d1.com", "d2.com", "extra.com"}}  # 增不减,健康
         pipeline._guard_referral_feeds(st, live)
         self.assertEqual(live[CATS], {"d0.com", "d1.com", "d2.com", "extra.com"})
+
+    def test_readd_clears_flag_before_merge_no_duplicate(self):
+        # 双背书 active 记录(php+cats): cats 删→标记(status 保持 active)→
+        # cats 加回→对账层先清标记, merge 字典相等不产生重复 source
+        st = state.empty_state()
+        rec = state.merge_domain(st, "dual.com", {
+            "repo": ANTIAD, "kind": "whitelist-php", "value": 0, "issues": []})
+        state.merge_domain(st, "dual.com", {
+            "repo": CATS, "kind": "referral", "action": "curated"})
+        pipeline._annotate_referral_removals(st, {CATS: set()}, "2026-11-15")
+        cats_src = [s for s in rec["sources"] if s["kind"] == "referral"][0]
+        self.assertEqual(cats_src.get("referral_removed"), "2026-11-15")
+        self.assertEqual(rec["status"], "active")  # php 背书, 不降级
+        # 仍缺席: setdefault 保留首次退役日期
+        pipeline._annotate_referral_removals(st, {CATS: set()}, "2026-11-16")
+        self.assertEqual(cats_src["referral_removed"], "2026-11-15")
+        # 恢复: 对账层清标记 → merge 字典相等, 零重复
+        pipeline._annotate_referral_removals(st, {CATS: {"dual.com"}}, "2026-11-17")
+        self.assertNotIn("referral_removed", cats_src)
+        state.merge_referral(st, {"dual.com": {
+            "domain": "dual.com",
+            "sources": [{"repo": CATS, "kind": "referral", "action": "curated"}]}})
+        self.assertEqual([s for s in rec["sources"] if s["kind"] == "referral"],
+                         [cats_src])
+        self.assertEqual(rec["status"], "active")
+
+    def test_readd_pop_is_per_repo(self):
+        # cats+anudeep 双退役降级 pending, 仅 cats 恢复: 只清 cats 标记,
+        # anudeep 退役标记保留(不随全量 pop 误清)
+        st = state.empty_state()
+        rec = state.merge_domain(st, "x.com", {
+            "repo": CATS, "kind": "referral", "action": "curated"})
+        state.merge_domain(st, "x.com", {
+            "repo": ANUDEEP, "kind": "referral", "action": "curated"})
+        pipeline._annotate_referral_removals(
+            st, {CATS: set(), ANUDEEP: set()}, "2026-11-15")
+        self.assertEqual(rec["status"], "pending")
+        self.assertEqual(rec.get("demoted_by"), "referral-removal")
+        pipeline._annotate_referral_removals(
+            st, {CATS: {"x.com"}, ANUDEEP: set()}, "2026-11-16")
+        cats_src, anu_src = rec["sources"][0], rec["sources"][1]
+        self.assertNotIn("referral_removed", cats_src)
+        self.assertEqual(anu_src["referral_removed"], "2026-11-15")  # 未恢复, 保留
 
 
 class RejectionSeedTest(unittest.TestCase):

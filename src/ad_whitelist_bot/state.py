@@ -162,8 +162,11 @@ def merge_referral(st: State, records: dict[str, dict]) -> tuple[list[str], list
     for upstream absence (`demoted_by: "referral-removal"`, set by
     pipeline._annotate_referral_removals, with no open issue-only review)
     goes back through the normal merge when its feed carries the domain
-    again — merge_domain's pending→active flip restores it. Issue-queued
-    and rejected records are never touched by referral evidence.
+    again — the liveness pass already cleared restored sources'
+    `referral_removed` flags per-repo (pre-merge, so re-entry never
+    duplicates sources), and merge_domain's pending→active flip clears
+    `demoted_by`. Issue-queued and rejected records are never touched by
+    referral evidence.
 
     Returns (added, suppressed) — suppressed = candidates skipped because of
     a pending/rejected record, surfaced in the run report.
@@ -173,16 +176,11 @@ def merge_referral(st: State, records: dict[str, dict]) -> tuple[list[str], list
     for d, rec in records.items():
         existing = st["domains"].get(d)
         if existing is not None and existing.get("status") in ("pending", "rejected"):
-            if existing.get("status") == "pending" \
-                    and existing.get("demoted_by") == "referral-removal" \
-                    and not any(s.get("kind") == "issue-only"
-                                for s in existing.get("sources", [])):
-                # upstream re-added a domain the bot itself retired: restore
-                # its backing and let the merge below re-activate it
-                for s in existing["sources"]:
-                    s.pop("referral_removed", None)
-                existing.pop("demoted_by", None)
-            else:
+            readdable = (existing.get("status") == "pending"
+                         and existing.get("demoted_by") == "referral-removal"
+                         and not any(s.get("kind") == "issue-only"
+                                     for s in existing.get("sources", [])))
+            if not readdable:
                 suppressed.append(d)
                 continue
         existed = d in st["domains"]

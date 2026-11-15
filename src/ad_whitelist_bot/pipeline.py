@@ -165,17 +165,26 @@ def _guard_referral_feeds(st: State, live: dict[str, set[str] | None]) -> None:
 
 def _annotate_referral_removals(st: State, live: dict[str, set[str] | None],
                                 date: str) -> list[str]:
-    """Stamp referral_removed on sources absent from this run's feeds and
-    demote unbacked actives to the review queue (mirror of
-    _annotate_php_removals). Returns demoted domains."""
+    """Liveness reconciliation, per referral source: stamp `referral_removed`
+    on sources absent from this run's feed (keeping the first retirement
+    date), and CLEAR the flag from sources their feed carries again — before
+    `merge_referral` runs, so a re-added domain's source dict compares equal
+    and never duplicates (dual-backed actives never enter the demotion path,
+    so the pending-only closure would miss them). Then demote unbacked
+    actives to the review queue (mirror of _annotate_php_removals). Returns
+    demoted domains."""
     demoted: list[str] = []
     for d, rec in st["domains"].items():
         for s in rec.get("sources", []):
-            if s.get("kind") != "referral" or s.get("referral_removed"):
+            if s.get("kind") != "referral":
                 continue
             feed = live.get(s.get("repo"))
-            if feed is not None and d not in feed:
-                s["referral_removed"] = date
+            if feed is None:  # guard-disabled feed: leave flags untouched
+                continue
+            if d not in feed:
+                s.setdefault("referral_removed", date)
+            else:
+                s.pop("referral_removed", None)
         if rec.get("status") == "active" \
                 and not invariants.has_active_backing(rec) \
                 and any(s.get("referral_removed")
