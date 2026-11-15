@@ -26,9 +26,11 @@
    `output/antiad_whitelist_without_issue_ref.txt` 供参考;
    需要放行其中某条时,加入 `data/manual_overrides.json` 的 `approve`
    (人工 `approve` 允许无 issue 号破例,产物中标注「无issue号」)。
-   策展引用层(kind=referral)为文件来源,不做产物交集检查,但有三条护栏:
+   策展引用层(kind=referral)为文件来源,不做产物交集检查,但有四条护栏:
    不收紧其他来源的不变量检查键、不晋升/不改写 pending/rejected 记录
-   (`state.merge_referral`)、与 CN 产物精确命中仅在报告中标注立场冲突。
+   (`state.merge_referral`)、上游文件不再收录的条目逐源标记退役并降级
+   复核(`referral_removed`,上游恢复自动复活;feed 空返回/异常收缩时
+   跳过对账防误标)、与 CN 产物精确命中仅在报告中标注立场冲突。
 2. **逐源源内零交集**(`invariants.enforce_invariants`,每跑强制):
    列表域名不得出现在**其来源项目自己的**发布产物中——anti-AD 条目查
    `anti-ad-domains.txt`(精确),AWAvenue 条目查主规则(精确 + 祖先

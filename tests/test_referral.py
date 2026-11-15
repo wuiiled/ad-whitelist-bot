@@ -106,6 +106,18 @@ class HarvestTest(unittest.TestCase):
         srcs = recs["0.client-channel.google.com"]["sources"]
         self.assertEqual({s["repo"] for s in srcs}, {CATS, ANUDEEP})
 
+    def test_comment_after_domain_resets_refs(self):
+        # 真实文件实测(2026-11-16): 消费过域名后再遇注释行必须清掉上一轮 refs,
+        # 否则 `#百度地图 #201` 会污染 `#额外` 块的 sv.map.baidu.com
+        text = ("#百度地图 #201\n"
+                "newvector.map.baidu.com\n"
+                "#额外\n"
+                "sv.map.baidu.com\n")
+        recs = referral.harvest_cats(text)
+        self.assertEqual(recs["newvector.map.baidu.com"]["sources"][0]["issues"],
+                         [{"n": 201, "repo": CATS}])
+        self.assertNotIn("issues", recs["sv.map.baidu.com"]["sources"][0])
+
 
 class MergeReferralTest(unittest.TestCase):
     def _rec(self, domain):
@@ -150,6 +162,51 @@ class MergeReferralTest(unittest.TestCase):
         self.assertEqual({s["kind"] for s in st["domains"]["c.com"]["sources"]},
                          {"whitelist-php", "referral"})
 
+    def _self_demoted_pending(self, st, domain):
+        rec = state.merge_domain(st, domain, {
+            "repo": CATS, "kind": "referral", "action": "curated",
+            "referral_removed": "2026-11-15"})
+        rec["status"] = "pending"
+        rec["demoted_by"] = "referral-removal"
+        return rec
+
+    def test_self_demoted_pending_restored_on_readd(self):
+        # 上游把删掉的域名加回来: 机器自降级的 pending 随正常合并复活
+        st = state.empty_state()
+        self._self_demoted_pending(st, "r.com")
+        added, supp = state.merge_referral(st, self._rec("r.com"))
+        self.assertEqual((added, supp), ([], []))
+        rec = st["domains"]["r.com"]
+        self.assertEqual(rec["status"], "active")
+        self.assertNotIn("referral_removed", rec["sources"][0])
+        self.assertNotIn("demoted_by", rec)
+
+    def test_issue_queued_pending_never_restored_by_referral(self):
+        # 交错场景: referral 活跃域收到 issue 确认转人工 → 上游删/加回,
+        # referral 证据不得把人工队列里的记录晋升出去(章程护栏)
+        st = state.empty_state()
+        rec = state.merge_domain(st, "q.com", {
+            "repo": "antiad", "kind": "issue-only", "issues": []})
+        rec["status"] = "pending"
+        rec["demoted_by"] = "referral-removal"
+        rec["sources"].append({"repo": CATS, "kind": "referral",
+                               "action": "curated",
+                               "referral_removed": "2026-11-15"})
+        added, supp = state.merge_referral(st, self._rec("q.com"))
+        self.assertEqual((added, supp), ([], ["q.com"]))
+        self.assertEqual(st["domains"]["q.com"]["status"], "pending")
+        # flag 未被清除(仍处于人工队列, 复活须走人工或新 traced 证据)
+        self.assertTrue(st["domains"]["q.com"]["sources"][1].get("referral_removed"))
+
+    def test_rejected_never_restored(self):
+        st = state.empty_state()
+        rec = self._self_demoted_pending(st, "r.com")
+        rec["status"] = "rejected"
+        added, supp = state.merge_referral(st, self._rec("r.com"))
+        self.assertEqual((added, supp), ([], ["r.com"]))
+        self.assertEqual(st["domains"]["r.com"]["status"], "rejected")
+        self.assertTrue(st["domains"]["r.com"]["sources"][0].get("referral_removed"))
+
 
 class InvariantKeysTest(unittest.TestCase):
     def test_referral_only_no_keys(self):
@@ -176,6 +233,10 @@ class InvariantKeysTest(unittest.TestCase):
     def test_referral_counts_as_backing(self):
         rec = {"sources": [{"repo": CATS, "kind": "referral"}]}
         self.assertTrue(invariants.has_active_backing(rec))
+        # 已退役(上游删除)的 referral 源不再构成背书 — 同 php_removed 语义
+        retired = {"sources": [{"repo": CATS, "kind": "referral",
+                                "referral_removed": "2026-11-16"}]}
+        self.assertFalse(invariants.has_active_backing(retired))
 
 
 class TierSplitTest(unittest.TestCase):

@@ -47,6 +47,7 @@ class DomainRecord(TypedDict, total=False):
     sources: list[SourceRecord]
     status: str  # active | pending | rejected | conflict
     approved_by: str
+    demoted_by: str  # "referral-removal": machine-demoted, eligible for re-add
     conflict: ReversalInfo
     partial_block: str  # informational: ancestor blocked in anti-ad-domains.txt
     in_awavenue_main_now: bool
@@ -122,6 +123,7 @@ def merge_domain(st: State, domain: str, source: SourceRecord | None = None) -> 
 
     `pending` flips back to `active` when new evidence arrives, EXCEPT for
     domains a human explicitly approved — manual decisions are never demoted.
+    The flip also clears a referral-removal demotion marker.
     """
     rec: DomainRecord = st["domains"].setdefault(
         domain, {"domain": domain, "sources": [], "status": "active"})
@@ -129,6 +131,7 @@ def merge_domain(st: State, domain: str, source: SourceRecord | None = None) -> 
         rec["sources"].append(source)
     if rec["status"] == "pending" and not rec.get("approved_by"):
         rec["status"] = "active"
+        rec.pop("demoted_by", None)
     return rec
 
 
@@ -155,6 +158,13 @@ def merge_referral(st: State, records: dict[str, dict]) -> tuple[list[str], list
     status keep their status and just gain the provenance; brand-new records
     enter as active (they are the consumer's status-quo imports).
 
+    Exception to the pending suppression: a pending the BOT itself demoted
+    for upstream absence (`demoted_by: "referral-removal"`, set by
+    pipeline._annotate_referral_removals, with no open issue-only review)
+    goes back through the normal merge when its feed carries the domain
+    again — merge_domain's pending→active flip restores it. Issue-queued
+    and rejected records are never touched by referral evidence.
+
     Returns (added, suppressed) — suppressed = candidates skipped because of
     a pending/rejected record, surfaced in the run report.
     """
@@ -163,8 +173,18 @@ def merge_referral(st: State, records: dict[str, dict]) -> tuple[list[str], list
     for d, rec in records.items():
         existing = st["domains"].get(d)
         if existing is not None and existing.get("status") in ("pending", "rejected"):
-            suppressed.append(d)
-            continue
+            if existing.get("status") == "pending" \
+                    and existing.get("demoted_by") == "referral-removal" \
+                    and not any(s.get("kind") == "issue-only"
+                                for s in existing.get("sources", [])):
+                # upstream re-added a domain the bot itself retired: restore
+                # its backing and let the merge below re-activate it
+                for s in existing["sources"]:
+                    s.pop("referral_removed", None)
+                existing.pop("demoted_by", None)
+            else:
+                suppressed.append(d)
+                continue
         existed = d in st["domains"]
         domain_rec = merge_domain(st, d)
         for src in rec["sources"]:

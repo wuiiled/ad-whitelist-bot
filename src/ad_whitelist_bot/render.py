@@ -74,9 +74,14 @@ def render_lists(st: State, out_dir: str) -> list[str]:
         f.write("\n".join(exact) + ("\n" if exact else ""))
     with open(os.path.join(out_dir, "merged_false_positive_whitelist_adguard.txt"), "w",
               encoding="utf-8", newline="\n") as f:
-        f.write(f"! Generated: {today} | Total: {len(suffix)}\n")
+        f.write(f"! Generated: {today} | Total: {len(suffix) + len(exact)}\n")
         f.write("\n".join("! " + h for h in HEADER_NOTE) + "\n")
         f.write("\n".join(f"@@||{d}^" for d in suffix) + ("\n" if suffix else ""))
+        if exact:
+            # single leading anchor = exact-hostname match (no subdomains);
+            # AdGuard semantics for the exact-tier file
+            f.write("\n! — 精确档: @@|domain^ = 精确主机名, 不覆盖子域 —\n")
+            f.write("\n".join(f"@@|{d}^" for d in exact) + "\n")
     return doms
 
 
@@ -261,6 +266,10 @@ def render_report(st: State, out_dir: str, run_info: dict) -> None:
         lines.append(f"- 策展引用被压制(pending/rejected 记录,不覆盖人工状态):"
                      f"{len(run_info['referral_suppressed'])}: "
                      + ", ".join(f"`{d}`" for d in run_info["referral_suppressed"]))
+    if run_info.get("referral_demoted"):
+        lines.append(f"- 策展引用失效退役(上游删除且无其他背书,降级复核;上游恢复自动"
+                     f"复活):{len(run_info['referral_demoted'])}: "
+                     + ", ".join(f"`{d}`" for d in run_info["referral_demoted"]))
     if run_info.get("referral_stance_conflicts"):
         lines.append(f"- **策展引用立场冲突(来源允许但 CN 产物精确拦截,已照常收录,"
                      f"可逐条 deny)**:{len(run_info['referral_stance_conflicts'])}: "

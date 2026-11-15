@@ -45,14 +45,21 @@ _REFERRAL_KINDS = frozenset({"referral"})
 
 
 def has_active_backing(rec: dict) -> bool:
-    """True if the record still carries evidence that justifies `active`."""
+    """True if the record still carries evidence that justifies `active`.
+
+    Retired evidence does not count: a referral source stamped
+    `referral_removed` (feed no longer carries the domain) backs nothing,
+    same as a php whitelist entry stamped `php_removed`."""
     if rec.get("approved_by") == "manual_overrides":
         return True
     for s in rec.get("sources", []):
-        if s.get("kind") in ("issue-confirmed", "dns-exclusion", "dns-exception",
-                             "referral"):
+        if s.get("kind") == "referral":
+            if not s.get("referral_removed"):
+                return True
+        elif s.get("kind") in ("issue-confirmed", "dns-exclusion",
+                               "dns-exception"):
             return True
-        if s.get("kind") == "whitelist-php" and not s.get("php_removed"):
+        elif s.get("kind") == "whitelist-php" and not s.get("php_removed"):
             return True
     return False
 

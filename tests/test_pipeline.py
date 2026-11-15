@@ -4,7 +4,7 @@ import tempfile
 import unittest
 
 from ad_whitelist_bot import pipeline, state
-from ad_whitelist_bot.config import ANTIAD, AWAVENUE
+from ad_whitelist_bot.config import ANTIAD, AWAVENUE, CATS
 
 
 class PhpRemovalTest(unittest.TestCase):
@@ -75,6 +75,59 @@ class SubstantiveTest(unittest.TestCase):
         st["generated_at"] = "2099-01-01T00:00:00Z"  # 时间戳不算实质变更
         st["checkpoints"][ANTIAD] = "2099-01-01T00:00:00Z"
         self.assertFalse(pipeline._substantive(before, pipeline._snapshot(st)))
+
+
+class ReferralRetirementTest(unittest.TestCase):
+    """referral 存活对账: 标记 + 降级 + feed 健康防呆(镜像 php 撤除)。"""
+
+    def test_mark_and_demote_unbacked_active(self):
+        st = state.empty_state()
+        rec = state.merge_domain(st, "cats-only.com", {
+            "repo": CATS, "kind": "referral", "action": "curated"})
+        state.merge_domain(st, "backed.com", {
+            "repo": CATS, "kind": "referral", "action": "curated"})
+        state.merge_domain(st, "backed.com", {
+            "repo": ANTIAD, "kind": "whitelist-php", "value": 0,
+            "issues": [{"n": 1, "repo": ANTIAD}]})
+        live = {CATS: {"backed.com"}}
+        demoted = pipeline._annotate_referral_removals(st, live, "2026-11-16")
+        self.assertEqual(demoted, ["cats-only.com"])
+        self.assertEqual(rec["status"], "pending")
+        self.assertEqual(rec.get("demoted_by"), "referral-removal")
+        self.assertEqual(rec["sources"][0].get("referral_removed"), "2026-11-16")
+        self.assertEqual(st["domains"]["backed.com"]["status"], "active")
+        self.assertNotIn("referral_removed",
+                         st["domains"]["backed.com"]["sources"][0])
+
+    def test_empty_feed_skips_marking(self):
+        # 一轮坏抓取(空文件)不得把整个策展层静默退役
+        st = state.empty_state()
+        rec = state.merge_domain(st, "cats-only.com", {
+            "repo": CATS, "kind": "referral", "action": "curated"})
+        live = {CATS: set()}
+        pipeline._guard_referral_feeds(st, live)
+        self.assertIsNone(live[CATS])
+        self.assertEqual(pipeline._annotate_referral_removals(st, live, "2026-11-16"), [])
+        self.assertIsNone(rec["sources"][0].get("referral_removed"))
+        self.assertEqual(rec["status"], "active")
+
+    def test_collapsed_feed_skips_marking(self):
+        st = state.empty_state()
+        for i in range(4):
+            state.merge_domain(st, f"d{i}.com", {
+                "repo": CATS, "kind": "referral", "action": "curated"})
+        live = {CATS: {"d0.com"}}  # 1 live vs 4 backed in state -> 收缩异常
+        pipeline._guard_referral_feeds(st, live)
+        self.assertIsNone(live[CATS])
+
+    def test_healthy_feed_marks_removals(self):
+        st = state.empty_state()
+        for i in range(4):
+            state.merge_domain(st, f"d{i}.com", {
+                "repo": CATS, "kind": "referral", "action": "curated"})
+        live = {CATS: {"d0.com", "d1.com", "d2.com", "extra.com"}}  # 增不减,健康
+        pipeline._guard_referral_feeds(st, live)
+        self.assertEqual(live[CATS], {"d0.com", "d1.com", "d2.com", "extra.com"})
 
 
 class RejectionSeedTest(unittest.TestCase):

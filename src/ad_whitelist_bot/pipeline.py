@@ -127,23 +127,94 @@ def _fetch_referral(client: GitHubClient) -> tuple[str, str]:
     return cats, anudeep
 
 
+def _referral_live_sets(cats_text: str, anudeep_text: str,
+                        exceptions_text: str, traced_exceptions: set[str],
+                        ) -> dict[str, set[str]]:
+    """Per-feed live domain sets for liveness marking. Re-parses the three
+    small texts (build_records keeps its single-map signature)."""
+    return {
+        config.CATS: set(referral.harvest_cats(cats_text)),
+        config.ANUDEEP: set(referral.harvest_anudeep(anudeep_text)),
+        config.ADG_DNS: set(referral.harvest_exceptions_noref(
+            exceptions_text, traced_exceptions)),
+    }
+
+
+def _guard_referral_feeds(st: State, live: dict[str, set[str] | None]) -> None:
+    """A feed that comes back empty or collapses against the bot's own memory
+    is a fetch anomaly, not a mass retirement: skip liveness marking for it —
+    one bad fetch must never silently retire a whole curated layer (mirror of
+    the consumer's stale-cache refusal to synthesize from suspicious data)."""
+    for repo, feed in live.items():
+        if feed is None:
+            continue
+        prev = sum(1 for r in st["domains"].values()
+                   for s in r.get("sources", [])
+                   if s.get("kind") == "referral" and s.get("repo") == repo
+                   and not s.get("referral_removed"))
+        if not feed:
+            log.warning("referral feed %s came back empty — liveness marking "
+                        "skipped for this feed", repo)
+            live[repo] = None
+        elif prev and len(feed) * 2 < prev:
+            log.warning("referral feed %s collapsed (%d live vs ~%d backed in "
+                        "state) — liveness marking skipped for this feed",
+                        repo, len(feed), prev)
+            live[repo] = None
+
+
+def _annotate_referral_removals(st: State, live: dict[str, set[str] | None],
+                                date: str) -> list[str]:
+    """Stamp referral_removed on sources absent from this run's feeds and
+    demote unbacked actives to the review queue (mirror of
+    _annotate_php_removals). Returns demoted domains."""
+    demoted: list[str] = []
+    for d, rec in st["domains"].items():
+        for s in rec.get("sources", []):
+            if s.get("kind") != "referral" or s.get("referral_removed"):
+                continue
+            feed = live.get(s.get("repo"))
+            if feed is not None and d not in feed:
+                s["referral_removed"] = date
+        if rec.get("status") == "active" \
+                and not invariants.has_active_backing(rec) \
+                and any(s.get("referral_removed")
+                        for s in rec.get("sources", [])):
+            rec["status"] = "pending"
+            rec["demoted_by"] = "referral-removal"
+            demoted.append(d)
+            log.info("referral removed without backing: %s -> pending", d)
+    return demoted
+
+
 def _merge_referral(st: State, cats_text: str, anudeep_text: str,
                     exceptions_text: str, traced_exceptions: set[str],
-                    ) -> tuple[list[str], list[str]]:
+                    date: str,
+                    ) -> tuple[list[str], list[str], list[str]]:
     """Consolidate the curated consumer feeds (2026-11-16 migration).
 
     The consumer stack previously downloaded these three files raw; the bot
     now harvests them so the whitelist has one synthesis point. Status-quo
     rails: pending/rejected records are never touched (see
-    state.merge_referral), and stance conflicts (referral-only domains the
-    CN block products deliberately block) are shipped as-is but surfaced in
-    the run report for individual deny decisions.
+    state.merge_referral — except the bot's own referral-removal demotions,
+    which re-activate when the feed carries the domain again), liveness is
+    reconciled per feed with a fetch-anomaly guard, and stance conflicts
+    (referral-only domains the CN block products deliberately block) are
+    shipped as-is but surfaced in the run report for individual deny
+    decisions.
+
+    Returns (added, suppressed, demoted).
     """
+    live = _referral_live_sets(cats_text, anudeep_text,
+                               exceptions_text, traced_exceptions)
+    _guard_referral_feeds(st, live)
+    demoted = _annotate_referral_removals(st, live, date)
     records = referral.build_records(cats_text, anudeep_text,
                                      exceptions_text, traced_exceptions)
     added, suppressed = state.merge_referral(st, records)
-    log.info("referral merge: +%d added, %d suppressed", len(added), len(suppressed))
-    return added, suppressed
+    log.info("referral merge: +%d added, %d suppressed, %d demoted",
+             len(added), len(suppressed), len(demoted))
+    return added, suppressed, demoted
 
 
 def _referral_stance_conflicts(st: State, antiad_block: set[str],
@@ -185,8 +256,9 @@ def seed() -> None:
     traced_exceptions = {d for d, r in adguard_records.items()
                          if any(s.get("kind") == "dns-exception"
                                 for s in r["sources"])}
-    added, suppressed = _merge_referral(st, cats_text, anudeep_text,
-                                        adg_exc, traced_exceptions)
+    added, suppressed, _ = _merge_referral(st, cats_text, anudeep_text,
+                                           adg_exc, traced_exceptions,
+                                           now_iso()[:10])
     log.info("seed referral: +%d added, %d suppressed", len(added), len(suppressed))
 
     seed = state.load_seed_json("seed_awavenue_manual.json")
@@ -322,11 +394,14 @@ def run(full: bool = False) -> None:
     # referral merge sits between promotion and overrides: promoted records
     # gain provenance, and an approve/deny always lands on the merged state
     # (a deny after the merge still wins — any status -> rejected)
-    added, suppressed = _merge_referral(st, cats_text, anudeep_text,
-                                        adg_exc, traced_exceptions)
+    added, suppressed, ref_demoted = _merge_referral(st, cats_text, anudeep_text,
+                                                     adg_exc, traced_exceptions,
+                                                     run_info["date"])
     run_info["referral_added"] = added
     if suppressed:
         run_info["referral_suppressed"] = suppressed
+    if ref_demoted:
+        run_info["referral_demoted"] = ref_demoted
     run_info["approved"] = state.apply_overrides(st)
     rej_fixed = _reapply_rejection_seeds(st)
     if rej_fixed:

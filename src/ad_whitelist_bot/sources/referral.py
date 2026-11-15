@@ -66,25 +66,32 @@ def _cats_refs(line: str) -> list[dict]:
 
 
 def iter_annotated_domains(text: str):
-    """Cats-style block binding: `#`/`!` comment lines accumulate issue refs
-    that bind to the following run of domain lines; `#!` section markers and
-    blank lines clear the block. Yields (domain, issues)."""
+    """Cats-style block binding: `#`/`!` comment lines carry issue refs that
+    bind to the following run of domain lines. Blank lines and `#!` section
+    markers clear the block — and so does any comment line once a domain was
+    consumed: a comment labels exactly the run after it (2026-11-16 real-file
+    measurement: inheriting refs across ref-less comments mis-attributes 62
+    domains, e.g. `#百度地图 #201` → newvector.map.baidu.com → `#额外` →
+    sv.map.baidu.com). Yields (domain, issues)."""
     refs: list[dict] = []
+    seen_dom = False
     for raw in text.splitlines():
         s = raw.strip()
-        if not s:
+        if not s or s.startswith("#!"):  # blank / section marker: clear block
             refs = []
-            continue
-        if s.startswith("#!"):  # section marker: never carries refs
-            refs = []
+            seen_dom = False
             continue
         if s.startswith("#") or s.startswith("!"):
+            if seen_dom:
+                refs = []
+                seen_dom = False
             new_refs = _cats_refs(s)
             if new_refs:
-                refs = new_refs  # new ref block: 清旧立新
+                refs = new_refs
             continue
         dom = parse_domain_line(s)
         if dom:
+            seen_dom = True
             yield dom, refs
 
 
