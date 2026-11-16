@@ -1,6 +1,6 @@
 # 误报域名白名单 — 溯源
 
-自动生成于 2026-11-15;收录标准与判定方法见 README。
+自动生成于 2026-11-16;收录标准与判定方法见 README。
 
 | 域名 | 来源 | 判定 | issue |
 |---|---|---|---|
@@ -825,6 +825,7 @@
 | `mediametrics.ru` | AdguardTeam/AdGuardSDNSFilter | AdGuard DNS filter 编译期剔除 maintainer removed from filter | [#129](https://github.com/AdguardTeam/AdGuardSDNSFilter/issues/129) |
 | `meipian7.cn` | privacy-protection-tools/anti-AD | 白名单php(v=0) #672 | [#672](https://github.com/privacy-protection-tools/anti-AD/issues/672) |
 | `meitubeauty.meitudata.com` | privacy-protection-tools/anti-AD | 白名单php(v=0) #688 | [#688](https://github.com/privacy-protection-tools/anti-AD/issues/688) |
+| `memcyco.com` | AdguardTeam/AdGuardSDNSFilter | AdGuard DNS filter 编译期剔除 maintainer removed from filter | [#246585](https://github.com/AdguardTeam/AdguardFilters/issues/246585) |
 | `meta.plex.tv` | anudeepND/whitelist | 策展引用 curated allowlist entry | — |
 | `metric.ccc.cmbchina.com` | Cats-Team/AdRules | 策展引用 curated allowlist entry | — |
 | `metricool.com` | AdguardTeam/AdGuardSDNSFilter | AdGuard DNS filter 编译期剔除 maintainer removed from filter | [#1059](https://github.com/AdguardTeam/AdGuardSDNSFilter/issues/1059) |

@@ -1,4 +1,4 @@
-# Generated: 2026-11-15 | Total: 480
+# Generated: 2026-11-16 | Total: 481
 # 精确档白名单 — 只放行域名自身,不覆盖子域名。
 # 成员:裸域(两段)且来自裁决型来源(anti-AD php 白名单 / AWAvenue 移除 / AdGuard
 # DNS filter 剔除与豁免 / 人工批准)的条目。这些是上游项目在自家单源语义下的整域
@@ -274,6 +274,7 @@ marsflag.com
 meatballsandads.com
 mediametrics.ru
 meipian7.cn
+memcyco.com
 metricool.com
 micpn.com
 minergate.com

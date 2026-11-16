@@ -1,4 +1,4 @@
-# Generated: 2026-11-15 | Total: 840
+# Generated: 2026-11-16 | Total: 840
 # 误报白名单 — 域名在 anti-AD / AWAvenue-Ads-Rule / AdGuard DNS filter 的发布产物
 # 或 issue 中被判定为误报,并经维护者复核后处理(anti-AD 白名单 / AWAvenue 从主规则
 # 移除或移入补充规则 / AdGuard DNS filter 编译期剔除与子域豁免);另含策展引用层

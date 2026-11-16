@@ -1,4 +1,4 @@
-# 误报白名单(带溯源注释) 2026-11-15 | Total: 1320
+# 误报白名单(带溯源注释) 2026-11-16 | Total: 1321
 # 格式: 域名  # 仓库 issue号(报告的问题;维护者处置) — 多仓库来源用 ; 分隔
 0.client-channel.google.com  # anudeep 无issue号(curated allowlist entry)
 07c225f3.online  # AdGuard DNS #1645(https://github.com/easylist/easylist/commit/abaeb1ae5518324a10f469d2a40f96b31bd149a8;编译期剔除:https://github.com/easylist/easylist/commit/abaeb1ae5518324a10f469d2a40f96b31bd149a8)
@@ -734,6 +734,7 @@ media-consumer365.desigual.com  # AdGuard DNS #1604(maintainer exempted subdomai
 mediametrics.ru  # AdGuard DNS #129(maintainer removed from filter;编译期剔除:maintainer removed from filter)
 meipian7.cn  # anti-AD #672([误杀]美篇被拦截;php白名单)
 meitubeauty.meitudata.com  # anti-AD #688([误杀]美颜相机无法下载滤镜;php白名单)
+memcyco.com  # AdGuard DNS #246585(maintainer removed from filter;编译期剔除:maintainer removed from filter)
 meta.plex.tv  # anudeep 无issue号(curated allowlist entry)
 metric.ccc.cmbchina.com  # Cats-AdRules 无issue号(curated allowlist entry)
 metricool.com  # AdGuard DNS #1059(maintainer removed from filter;编译期剔除:maintainer removed from filter)

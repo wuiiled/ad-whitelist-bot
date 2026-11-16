@@ -1,7 +1,7 @@
 {
  "checkpoints": {
-  "TG-Twilight/AWAvenue-Ads-Rule": "2026-11-15T19:23:08Z",
-  "privacy-protection-tools/anti-AD": "2026-11-15T19:23:08Z"
+  "TG-Twilight/AWAvenue-Ads-Rule": "2026-11-16T01:12:43Z",
+  "privacy-protection-tools/anti-AD": "2026-11-16T01:12:43Z"
  },
  "domains": {
   "0.client-channel.google.com": {
@@ -1151,7 +1151,7 @@
   "ads.google.com": {
    "approved_by": "manual_overrides",
    "conflict": {
-    "detected": "2026-11-15T19:23:10Z",
+    "detected": "2026-11-16T01:12:46Z",
     "where": "anti-ad-domains.txt (exact)"
    },
    "domain": "ads.google.com",
@@ -8331,7 +8331,7 @@
   "dig.bdurl.net": {
    "approved_by": "manual_overrides",
    "conflict": {
-    "detected": "2026-11-15T19:23:10Z",
+    "detected": "2026-11-16T01:12:46Z",
     "where": "anti-ad-domains.txt (exact)"
    },
    "domain": "dig.bdurl.net",
@@ -14882,7 +14882,7 @@
   "log.amemv.com": {
    "approved_by": "manual_overrides",
    "conflict": {
-    "detected": "2026-11-15T19:23:10Z",
+    "detected": "2026-11-16T01:12:46Z",
     "where": "anti-ad-domains.txt (exact)"
    },
    "domain": "log.amemv.com",
@@ -15762,6 +15762,26 @@
      "kind": "whitelist-php",
      "repo": "privacy-protection-tools/anti-AD",
      "value": 0
+    }
+   ],
+   "status": "active"
+  },
+  "memcyco.com": {
+   "domain": "memcyco.com",
+   "in_adguard_filter_now": false,
+   "in_antiad_block_now": true,
+   "in_awavenue_main_now": false,
+   "sources": [
+    {
+     "action": "maintainer removed from filter",
+     "issues": [
+      {
+       "n": 246585,
+       "repo": "AdguardTeam/AdguardFilters"
+      }
+     ],
+     "kind": "dns-exclusion",
+     "repo": "AdguardTeam/AdGuardSDNSFilter"
     }
    ],
    "status": "active"
@@ -21123,7 +21143,7 @@
   "seeip.org": {
    "approved_by": "manual_overrides",
    "conflict": {
-    "detected": "2026-11-15T19:23:10Z",
+    "detected": "2026-11-16T01:12:46Z",
     "where": "anti-ad-domains.txt (exact)"
    },
    "domain": "seeip.org",
@@ -28396,7 +28416,7 @@
    "status": "active"
   }
  },
- "generated_at": "2026-11-15T19:23:10Z",
+ "generated_at": "2026-11-16T01:12:46Z",
  "issues": {
   "TG-Twilight/AWAvenue-Ads-Rule": {
    "112": {
