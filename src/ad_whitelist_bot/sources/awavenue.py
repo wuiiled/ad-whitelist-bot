@@ -25,15 +25,18 @@ def is_candidate(issue: dict) -> bool:
 
 
 def domains_from_issue(issue: dict) -> list[str]:
-    """Title first, then the template's 相关域名 section, then the whole body."""
+    """Title first, then the template's 相关域名 section.
+
+    11-17 audit fix: the whole-body fallback is deliberately NOT used —
+    same decision as the anti-AD scanner (body-wide extraction pulls
+    unrelated domains out of mass reports into whitelist candidates, and
+    any candidate absent from the main rule gets whitelisted outright).
+    """
     body = issue.get("body") or ""
     picked = extract.extract_domains(issue.get("title"))
     m = RELATED_SECTION_RE.search(body)
     if m:
         picked += extract.extract_domains(m.group(1))
-    for d in extract.extract_domains(body):
-        if d not in picked:
-            picked.append(d)
     return picked
 
 
@@ -48,9 +51,15 @@ def scan_issues(client, issues: list[dict], st, awavenue_main: set[str],
         num = str(it["number"])
         rec = base.base_issue_record(ev)
         rec["issue_state"] = it["state"]
-        if ev["verdict"] == "confirmed":
+        if ev["verdict"] in ("confirmed", "confirmed_pending"):
+            # 11-17 audit fix: confirmed_pending ("下个版本移除") previously
+            # fell into the verdict-less else branch and LOST its domains —
+            # promote_pending requires rec["domains"], so such issues could
+            # never be promoted even after the rule actually dropped the
+            # domain. confirmed_pending now follows the identical path:
+            # closed+absent -> activate; otherwise pending WITH domains.
             # candidates = confirming comment + the issue's own report
-            # (title / 相关域名 / body), before main-rule filtering
+            # (title / 相关域名), before main-rule filtering
             mc = extract.extract_domains(ev["verdict_body"])
             candidates = list(dict.fromkeys(mc + domains_from_issue(it)))
             picked = [d for d in candidates
@@ -71,7 +80,7 @@ def scan_issues(client, issues: list[dict], st, awavenue_main: set[str],
                 # rebuilt yet (picked empty while candidates exist — race
                 # between the maintainer closing and their CI rebuild): hold
                 # as pending; promote_pending() activates after the rebuild.
-                rec.update(status="pending", verdict="confirmed",
+                rec.update(status="pending", verdict=ev["verdict"],
                            domains=candidates)
             else:
                 # maintainer confirmed but no domain is extractable from the

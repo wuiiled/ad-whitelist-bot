@@ -43,13 +43,23 @@ class GitHubClient:
                     data = resp.read()
                     return data.decode("utf-8") if raw else json.loads(data)
             except urllib.error.HTTPError as exc:
-                if exc.code in (403, 429) and exc.headers.get("X-RateLimit-Remaining") == "0":
-                    reset = int(exc.headers.get("X-RateLimit-Reset", "0"))
-                    wait = min(max(reset - time.time(), 0) + 5, 3600)
-                    log.warning("rate limit hit; sleeping %ds", wait)
-                    time.sleep(wait)
-                    last = exc
-                    continue
+                if exc.code in (403, 429):
+                    if exc.headers.get("X-RateLimit-Remaining") == "0":
+                        reset = int(exc.headers.get("X-RateLimit-Reset", "0"))
+                        wait = min(max(reset - time.time(), 0) + 5, 3600)
+                        log.warning("rate limit hit; sleeping %ds", wait)
+                        time.sleep(wait)
+                        last = exc
+                        continue
+                    retry_after = (exc.headers.get("Retry-After") or "").strip()
+                    if retry_after.isdigit():
+                        # secondary rate limit (abuse detection): honour
+                        # Retry-After instead of dying mid-run
+                        wait = min(int(retry_after) + 2, 600)
+                        log.warning("secondary rate limit; sleeping %ds", wait)
+                        time.sleep(wait)
+                        last = exc
+                        continue
                 if exc.code in (500, 502, 503, 504):
                     last = exc
                     time.sleep(min(60, 5 * (attempt + 1)))
@@ -96,5 +106,16 @@ class GitHubClient:
         return out
 
     def commits(self, repo: str, sha: str, path: str, since: str) -> list[dict]:
-        return self.get(f"{API}/repos/{repo}/commits?sha={sha}"
-                        f"&path={path}&since={since}&per_page={config.PER_PAGE}")
+        out: list[dict] = []
+        page = 1
+        while True:
+            batch = self.get(f"{API}/repos/{repo}/commits?sha={sha}"
+                             f"&path={path}&since={since}"
+                             f"&per_page={config.PER_PAGE}&page={page}")
+            if not batch:
+                break
+            out.extend(batch)
+            if len(batch) < config.PER_PAGE:
+                break
+            page += 1
+        return out

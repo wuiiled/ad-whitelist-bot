@@ -36,7 +36,7 @@ def parse_white_php(text: str) -> list[dict]:
         if not m:
             continue
         dom, val = m.group(1).lower(), int(m.group(2))
-        tail = m.group(3).lstrip("/").lstrip("/")
+        tail = m.group(3).lstrip("/")
         comment = tail[2:].strip() if tail.startswith("//") else tail.strip()
         refs: list[tuple[int, str | None]] = []
         for a, b, c in ISSUE_REF_RE.findall(tail):
@@ -76,7 +76,14 @@ def harvest_white_php(php_text: str) -> tuple[dict[str, dict], dict[str, str]]:
 
 
 def commit_issue_refs(client, since_iso: str | None) -> list[int]:
-    """Issue numbers cited in recent whitelist-php commit messages (`fix #N`)."""
+    """Issue numbers cited in recent whitelist-php commit messages (`fix #N`).
+
+    Known imprecision (commit-level attribution, accepted): numbers come from
+    the whole commit message, so a commit that adds AND removes entries citing
+    different issues may attach a removal's issue to an added entry. Per-line
+    attribution would need one per-commit patch detail call — not worth the
+    API cost for a belt-and-suspenders attribution layer.
+    """
     if not since_iso:
         return []
     try:

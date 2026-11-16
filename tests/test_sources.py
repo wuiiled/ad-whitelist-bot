@@ -189,6 +189,59 @@ class AwavenueScanTest(unittest.TestCase):
         self.assertEqual(rec["status"], "done")
         self.assertEqual(rec["domains"], [])
 
+    def test_confirmed_pending_keeps_domains_and_promotes(self):
+        # 11-17 P1 修复:「下个版本移除」= confirmed_pending, 但 domains 必须
+        # 保留在工单上 — 否则规则移除后 promote_pending 永跳空(永久漏采)
+        st = state.empty_state()
+        issue = mk_issue(15, "[BUG] 某功能失效", "相关域名：\nnextver.example.com\n",
+                         state="open")
+        client = FakeClient({15: [c("TG-Twilight", "下个版本会移除的", "OWNER")]})
+        confirmed = awavenue.scan_issues(client, [issue], st, set())
+        self.assertEqual(confirmed, {})
+        rec = st["issues"][AWAVENUE]["15"]
+        self.assertEqual(rec["status"], "pending")
+        self.assertEqual(rec["verdict"], "confirmed_pending")
+        self.assertEqual(rec["domains"], ["nextver.example.com"])
+        # 规则实际移除后自动晋升
+        promoted = awavenue.promote_pending(st, set())
+        self.assertEqual(promoted, ["nextver.example.com"])
+        self.assertEqual(st["domains"]["nextver.example.com"]["status"], "active")
+
+    def test_confirmed_pending_closed_and_already_absent_activates(self):
+        # confirmed_pending + 已关单 + 域名确实已离开主规则 = 落实完毕,
+        # 与 confirmed 同路径立即激活(不再被 pending 措辞卡死)
+        st = state.empty_state()
+        issue = mk_issue(18, "[BUG] 某功能失效", "相关域名：\nlanded.example.com\n")
+        client = FakeClient({18: [c("TG-Twilight", "下个版本会移除的", "OWNER")]})
+        confirmed = awavenue.scan_issues(client, [issue], st, {"other.aw"})
+        self.assertIn("landed.example.com", confirmed)
+        rec = st["issues"][AWAVENUE]["18"]
+        self.assertEqual(rec["status"], "done")
+        self.assertEqual(rec["domains"], ["landed.example.com"])
+
+    def test_old_pending_remark_no_longer_poisons_later_confirmation(self):
+        # 11-17 verdict 修复: 旧的「还没处理」发言不得降级后来的明确确认
+        st = state.empty_state()
+        body = "相关域名：\nlate.example.com\n"
+        issue = mk_issue(16, "[BUG] 某功能失效", body)
+        client = FakeClient({16: [
+            c("TG-Twilight", "先等等，还没处理", "OWNER"),
+            c("TG-Twilight", "已经移除了", "OWNER"),
+        ]})
+        confirmed = awavenue.scan_issues(client, [issue], st, {"other.aw"})
+        self.assertIn("late.example.com", confirmed)
+
+    def test_body_domains_without_template_section_not_harvested(self):
+        # 11-17 收紧: 正文里散落的域名(无「相关域名」节)不再进候选 —
+        # 与 anti-AD 扫描器同款决定(全文抽取会把汇总帖无关域拖进白名单)
+        st = state.empty_state()
+        issue = mk_issue(17, "[BUG] 某功能失效",
+                         "顺便说一句 unrelated-clean.example.org 也有问题")
+        client = FakeClient({17: [c("TG-Twilight", "已经移除了", "OWNER")]})
+        confirmed = awavenue.scan_issues(client, [issue], st, {"other.aw"})
+        self.assertEqual(confirmed, {})
+        self.assertNotIn("unrelated-clean.example.org", st["domains"])
+
 
 if __name__ == "__main__":
     unittest.main()

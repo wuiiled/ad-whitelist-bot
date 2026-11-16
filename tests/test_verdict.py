@@ -73,6 +73,14 @@ class VerdictFromCommentsTest(unittest.TestCase):
         v, _, _ = verdict.verdict_from_comments(cs, ANTIAD)
         self.assertEqual(v, "confirmed_pending")
 
+    def test_pending_mark_scoped_to_confirming_comment(self):
+        # 11-17 修复: PENDING_MARK 只看确认评论自身 — 旧「下个版本」发言
+        # 不再永久降级后来的明确确认
+        cs = [c("TG-Twilight", "这个要下个版本才能处理", "OWNER"),
+              c("TG-Twilight", "已经移除了", "OWNER")]
+        v, _, _ = verdict.verdict_from_comments(cs, AWAVENUE)
+        self.assertEqual(v, "confirmed")
+
     def test_self_service_only_if_no_stronger(self):
         cs = [c("TG-Twilight", "建议自行放行", "OWNER"),
               c("TG-Twilight", "已经修复了", "OWNER")]

@@ -63,11 +63,9 @@ def verdict_from_comments(comments: list[dict], repo: str) -> tuple[str | None, 
     verdict: str | None = None
     evidence: str | None = None
     verdict_body = ""
-    maint_bodies: list[str] = []
     for c in comments:
         if not is_maintainer(c.get("user", ""), c.get("author_association"), repo):
             continue  # audit fix: only maintainer comments may set a verdict
-        maint_bodies.append(c.get("body") or "")
         cls = classify_comment(c.get("body"))
         if cls is None:
             continue
@@ -83,7 +81,12 @@ def verdict_from_comments(comments: list[dict], repo: str) -> tuple[str | None, 
             verdict = "self_service"
             evidence = "self-service advice"
             verdict_body = c.get("body") or ""
-    if verdict == "confirmed" and PENDING_MARK.search(" ".join(maint_bodies)):
+    # 11-17 audit fix: the pending mark is judged ONLY against the confirming
+    # comment itself. Scanning all historical maintainer bodies was
+    # position-insensitive — an old「下个版本」remark would permanently
+    # downgrade every later confirmation (and PENDING_MARK phrases overlap
+    # ACCEPT phrases, so a fresh「下个版本移除」stays confirmable here).
+    if verdict == "confirmed" and PENDING_MARK.search(verdict_body or ""):
         verdict = "confirmed_pending"
     return verdict, evidence, verdict_body
 
