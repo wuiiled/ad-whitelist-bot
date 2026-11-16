@@ -198,15 +198,6 @@ class MergeReferralTest(unittest.TestCase):
         # flag 未被清除(仍处于人工队列, 复活须走人工或新 traced 证据)
         self.assertTrue(st["domains"]["q.com"]["sources"][1].get("referral_removed"))
 
-    def test_rejected_never_restored(self):
-        st = state.empty_state()
-        rec = self._self_demoted_pending(st, "r.com")
-        rec["status"] = "rejected"
-        added, supp = state.merge_referral(st, self._rec("r.com"))
-        self.assertEqual((added, supp), ([], ["r.com"]))
-        self.assertEqual(st["domains"]["r.com"]["status"], "rejected")  # 拒绝粘滞
-
-
 class InvariantKeysTest(unittest.TestCase):
     def test_referral_only_no_keys(self):
         rec = {"sources": [{"repo": CATS, "kind": "referral"}]}

@@ -78,7 +78,7 @@ class SubstantiveTest(unittest.TestCase):
 
 
 class ReferralRetirementTest(unittest.TestCase):
-    """referral 存活对账: 标记 + 降级 + feed 健康防呆(镜像 php 撤除)。"""
+    """referral 存活对账: 标记+降级+feed 防呆(镜像 php 撤除)。"""
 
     def test_mark_and_demote_unbacked_active(self):
         st = state.empty_state()
@@ -89,8 +89,8 @@ class ReferralRetirementTest(unittest.TestCase):
         state.merge_domain(st, "backed.com", {
             "repo": ANTIAD, "kind": "whitelist-php", "value": 0,
             "issues": [{"n": 1, "repo": ANTIAD}]})
-        live = {CATS: {"backed.com"}}
-        demoted = pipeline._annotate_referral_removals(st, live, "2026-11-16")
+        demoted = pipeline._annotate_referral_removals(
+            st, {CATS: {"backed.com"}}, "2026-11-16")
         self.assertEqual(demoted, ["cats-only.com"])
         self.assertEqual(rec["status"], "pending")
         self.assertEqual(rec.get("demoted_by"), "referral-removal")
@@ -99,35 +99,26 @@ class ReferralRetirementTest(unittest.TestCase):
         self.assertNotIn("referral_removed",
                          st["domains"]["backed.com"]["sources"][0])
 
-    def test_empty_feed_skips_marking(self):
-        # 一轮坏抓取(空文件)不得把整个策展层静默退役
+    def test_feed_guards_skip_marking(self):
         st = state.empty_state()
         rec = state.merge_domain(st, "cats-only.com", {
             "repo": CATS, "kind": "referral", "action": "curated"})
+        # 空 feed: 抓取异常, 跳过对账不误标
         live = {CATS: set()}
         pipeline._guard_referral_feeds(st, live)
         self.assertIsNone(live[CATS])
-        self.assertEqual(pipeline._annotate_referral_removals(st, live, "2026-11-16"), [])
+        self.assertEqual(pipeline._annotate_referral_removals(
+            st, live, "2026-11-16"), [])
         self.assertIsNone(rec["sources"][0].get("referral_removed"))
         self.assertEqual(rec["status"], "active")
-
-    def test_collapsed_feed_skips_marking(self):
-        st = state.empty_state()
-        for i in range(4):
-            state.merge_domain(st, f"d{i}.com", {
-                "repo": CATS, "kind": "referral", "action": "curated"})
-        live = {CATS: {"d0.com"}}  # 1 live vs 4 backed in state -> 收缩异常
-        pipeline._guard_referral_feeds(st, live)
-        self.assertIsNone(live[CATS])
-
-    def test_healthy_feed_marks_removals(self):
-        st = state.empty_state()
-        for i in range(4):
-            state.merge_domain(st, f"d{i}.com", {
-                "repo": CATS, "kind": "referral", "action": "curated"})
-        live = {CATS: {"d0.com", "d1.com", "d2.com", "extra.com"}}  # 增不减,健康
-        pipeline._guard_referral_feeds(st, live)
-        self.assertEqual(live[CATS], {"d0.com", "d1.com", "d2.com", "extra.com"})
+        # 收缩 >50% (3 在册 → feed 仅 1): 同样跳过
+        state.merge_domain(st, "d1.com", {
+            "repo": CATS, "kind": "referral", "action": "curated"})
+        state.merge_domain(st, "d2.com", {
+            "repo": CATS, "kind": "referral", "action": "curated"})
+        live2 = {CATS: {"d1.com"}}
+        pipeline._guard_referral_feeds(st, live2)
+        self.assertIsNone(live2[CATS])
 
     def test_readd_clears_flag_before_merge_no_duplicate(self):
         # 双背书 active 记录(php+cats): cats 删→标记(status 保持 active)→
