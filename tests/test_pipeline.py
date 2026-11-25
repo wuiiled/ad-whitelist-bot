@@ -194,5 +194,33 @@ class RejectionSeedTest(unittest.TestCase):
             pipeline._reapply_rejection_seeds(state.empty_state()), [])
 
 
+class IssueOnlyBackingGuardTest(unittest.TestCase):
+    def test_issue_only_does_not_demote_other_backed_active(self):
+        from ad_whitelist_bot import invariants
+        st = state.empty_state()
+        state.merge_domain(st, "aw-backed.com", {
+            "repo": AWAVENUE, "kind": "issue-confirmed",
+            "issues": [{"n": 10, "repo": AWAVENUE}]})
+        # Merge an anti-AD issue-only record onto the already-active domain
+        state.merge_records(st, {"aw-backed.com": {
+            "domain": "aw-backed.com",
+            "sources": [{"repo": ANTIAD, "kind": "issue-only",
+                         "issues": [{"n": 20, "repo": ANTIAD}]}]}})
+        rec = st["domains"]["aw-backed.com"]
+        if rec["status"] == "active" and not invariants.has_active_backing(rec):
+            rec["status"] = "pending"
+        self.assertEqual(rec["status"], "active")
+
+        # Pure issue-only domain still lands in pending
+        state.merge_records(st, {"only-issue.com": {
+            "domain": "only-issue.com",
+            "sources": [{"repo": ANTIAD, "kind": "issue-only",
+                         "issues": [{"n": 21, "repo": ANTIAD}]}]}})
+        rec2 = st["domains"]["only-issue.com"]
+        if rec2["status"] == "active" and not invariants.has_active_backing(rec2):
+            rec2["status"] = "pending"
+        self.assertEqual(rec2["status"], "pending")
+
+
 if __name__ == "__main__":
     unittest.main()

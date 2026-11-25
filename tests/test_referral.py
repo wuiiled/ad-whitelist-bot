@@ -1,4 +1,5 @@
 """Referral source: parsing, merge semantics, tier split, invariant keys."""
+from pathlib import Path
 import unittest
 
 from ad_whitelist_bot import invariants, render, state
@@ -246,16 +247,38 @@ class TierSplitTest(unittest.TestCase):
         st = self._st()
         with __import__("tempfile").TemporaryDirectory() as tmp:
             doms = render.render_lists(st, tmp)
-            main = open(f"{tmp}/merged_false_positive_whitelist.txt",
-                        encoding="utf-8").read().splitlines()
-            exact = open(f"{tmp}/merged_false_positive_whitelist_exact.txt",
-                         encoding="utf-8").read().splitlines()
+            main = Path(f"{tmp}/merged_false_positive_whitelist.txt").read_text(
+                encoding="utf-8").splitlines()
+            exact = Path(f"{tmp}/merged_false_positive_whitelist_exact.txt").read_text(
+                encoding="utf-8").splitlines()
         self.assertEqual(len(doms), 4)
         main_doms = {l for l in main if l and not l.startswith("#")}
         exact_doms = {l for l in exact if l and not l.startswith("#")}
         self.assertEqual(exact_doms, {"bare-traced.com"})
         self.assertEqual(main_doms, {"bare-referral.net", "deep.traced.org",
                                      "deep.referral.org"})
+
+    def test_ccsld_apex_in_exact_and_tier_override(self):
+        st = state.empty_state()
+        state.merge_domain(st, "duiba.com.cn", {
+            "repo": "antiad", "kind": "whitelist-php", "value": 1})
+        state.merge_domain(st, "netcore.co.in", {
+            "repo": ADG_DNS, "kind": "dns-exclusion"})
+        state.merge_domain(st, "sub.duiba.com.cn", {
+            "repo": "antiad", "kind": "whitelist-php", "value": 0})
+        rec_cf = state.merge_domain(st, "cloudfront.net", {
+            "repo": "manual", "kind": "manual"})
+        rec_cf["tier"] = "suffix"
+        with __import__("tempfile").TemporaryDirectory() as tmp:
+            render.render_lists(st, tmp)
+            main = Path(f"{tmp}/merged_false_positive_whitelist.txt").read_text(
+                encoding="utf-8").splitlines()
+            exact = Path(f"{tmp}/merged_false_positive_whitelist_exact.txt").read_text(
+                encoding="utf-8").splitlines()
+        main_doms = {l for l in main if l and not l.startswith("#")}
+        exact_doms = {l for l in exact if l and not l.startswith("#")}
+        self.assertEqual(exact_doms, {"duiba.com.cn", "netcore.co.in"})
+        self.assertEqual(main_doms, {"sub.duiba.com.cn", "cloudfront.net"})
 
 
 if __name__ == "__main__":

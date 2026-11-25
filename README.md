@@ -15,8 +15,8 @@
  ├─ AWAvenue:issue 扫描(维护者确认 + 主规则消失验证)
  ├─ AdGuard DNS filter:exclusions/exceptions 文件收割(编译期裁决,带 issue 注释)
  └─ 策展引用层(kind=referral):Cats-Team/AdRules dns-allowlist(注释 #N 转 issue
-    链接)+ anudeepND/whitelist(2021-12 起冻结,仍每日跟文件)+ AdGuard exceptions
-    无注释条目兜底 —— 无误报裁决语义的消费端原始源,收进本仓统一合成
+    链接)+ anudeepND/whitelist(2021-12 起冻结,已静态固化于 data/anudeep_whitelist.txt)
+    + AdGuard exceptions 无注释条目兜底 —— 无误报裁决语义的消费端原始源,收进本仓统一合成
 ```
 
 ## 列表章程(硬性规则,代码强制)
@@ -153,8 +153,7 @@ python -m ad_whitelist_bot run        # 不安装也能跑(需 PYTHONPATH=src)
 
 ### GitHub Actions
 
-- **daily.yml**:每天 UTC 21:30(北京 05:30)自动增量运行,把
-  `data/state.json` 与 `output/` 的变更提交回仓库;手动触发时可勾选全量。
+- **daily.yml**:每天 UTC 20:23(北京 04:23,避开整点/半点排队高峰)自动增量运行。每次运行通过 `actions/cache` 持久化 `data/state.json` 的增量检查点(即使当天产物零变更、未提交回仓库也不丢失 `checkpoints`),仅当输出有实质变更时才提交回仓库,并在配置了 `DISPATCH_TOKEN` 时自动向 `wuiiled/Wuiiled_Setup` 发送 `whitelist-updated` 触发下游构建;手动触发时可勾选全量。
 - **ci.yml**:push/PR 时在 Python 3.12 单版本跑冒烟测试(全量多版本矩阵在本地跑)。
 
 ## 输出(`output/`)
@@ -162,9 +161,9 @@ python -m ad_whitelist_bot run        # 不安装也能跑(需 PYTHONPATH=src)
 | 文件 | 说明 |
 |---|---|
 | `merged_false_positive_whitelist.txt` | **主列表(后缀档)**,一行一个域名,放行语义覆盖全部子域 |
-| `merged_false_positive_whitelist_exact.txt` | **精确档**:裸域(两段)裁决型条目,消费端须按整域精确匹配、不参与祖先连坐 |
+| `merged_false_positive_whitelist_exact.txt` | **精确档**:裸根域(eTLD+1,含 `.com.cn`/`.co.in` 等二级公共后缀)裁决型条目,消费端须按整域精确匹配、不参与祖先连坐 |
 | `whitelist_annotated.txt` | **带溯源注释版**:每行 `域名  # 仓库 issue号(报告的问题;处置)` |
-| `merged_false_positive_whitelist_adguard.txt` | **AdGuard 语法双档变体**:`@@||domain^`(后缀档,840 条)+ `@@|domain^`(精确档,480 条;单首锚 = 精确主机名,不覆盖子域) |
+| `merged_false_positive_whitelist_adguard.txt` | **AdGuard 语法双档变体**:`@@||domain^`(后缀档)+ `@@|domain^`(精确档;单首锚 = 精确主机名,不覆盖子域) |
 | `PROVENANCE.md` | 每个域名 → 来源仓库 → 判定依据 → issue 链接(表格版溯源) |
 | `antiad_whitelist_without_issue_ref.txt` | anti-AD 无 issue 引用条目(仅参考) |
 | `report.md` | 当次运行报告:新增/晋升/批准/冲突/复核队列/php 变更/策展引用并入与立场冲突 |
@@ -175,7 +174,7 @@ python -m ad_whitelist_bot run        # 不安装也能跑(需 PYTHONPATH=src)
 广告一并放走(连坐)。本仓把"该宽放"与"该窄放"拆成两个文件,由消费端用
 **不同的匹配口径**消费——这是本仓产物最核心的契约。
 
-### `merged_false_positive_whitelist.txt` — 主文件(后缀档,当前 840 条)
+### `merged_false_positive_whitelist.txt` — 主文件(后缀档,当前 822 条)
 
 **一行 = 该域名自身 + 它的全部子域都放行。**
 
@@ -190,14 +189,14 @@ python -m ad_whitelist_bot run        # 不安装也能跑(需 PYTHONPATH=src)
    上游(Cats 自家黑名单 1,481 条 cloudfront 规则被自家白名单压掉)与本仓
    (2026-11-16 Option A 裁决)共同的取舍;代价自知,可逐条 `deny` 反悔。
 
-### `merged_false_positive_whitelist_exact.txt` — 精确档(当前 480 条)
+### `merged_false_positive_whitelist_exact.txt` — 精确档(当前 499 条)
 
 **一行 = 只放行这个名字本身,子域一概不管。**
 
-装的全是**裁决型来源的两段裸域**(AdGuard exclusions 编译期剔除为主,
-anti-AD php 白名单、AWAvenue issue 确认、人工 approve 为辅)。这些裸域是
-上游在**自家单源语境**下的整域裁决,但放进多源消费栈语境完全不同——裸域
-之下几乎全是广告节点(tanx / yximgs / ucweb / co.in / adsterra 等),按
+装的全是**裁决型来源的裸根域(eTLD+1)**(AdGuard exclusions 编译期剔除为主,
+anti-AD php 白名单、AWAvenue issue 确认、人工 approve 为辅,含 `.com.cn`/`.co.in`/`.com.br` 等二级公共后缀下的注册根域)。这些裸根域是
+上游在**自家单源语境**下的整域裁决,但放进多源消费栈语境完全不同——裸根域
+之下几乎全是广告节点(tanx / yximgs / ucweb / duiba.com.cn / netcore.co.in / adsterra 等),按
 后缀放行会把**其他黑名单源**的同族拦截规则一并清掉。
 
 **为什么必须单列一个文件**(2026-11-16 实测):

@@ -105,6 +105,7 @@
     "zhuanlan.zhihu.com",
     {
       "domain": "cloudfront.net",
+      "tier": "suffix",
       "note": "基础设施裸域(后缀档)。2026-11-16 白名单合成迁入本仓时裁决: cats 自家黑名单含 1,481 条 cloudfront 子域规则但其白名单裸放整族(白名单先行=有意设计), 消费端维持同一取舍; 旧 deny(11-05)在双档架构下由后缀档安置, 作废。"
     }
   ],

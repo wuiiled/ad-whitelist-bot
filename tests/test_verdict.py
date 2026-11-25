@@ -42,6 +42,16 @@ class ClassifyCommentTest(unittest.TestCase):
         # reject earlier, accept later -> accept
         body2 = "一开始不想处理。但经复核确认是误杀，已经移除了。"
         self.assertEqual(verdict.classify_comment(body2), "accept")
+        # comma-separated clause flipping to reject -> reject
+        body3 = "已修复，但该域名非误杀不予处理"
+        self.assertEqual(verdict.classify_comment(body3), "reject")
+        # same clause with reject overrides accept
+        body4 = "已修复但经复核非误杀不予放行"
+        self.assertEqual(verdict.classify_comment(body4), "reject")
+
+    def test_done_word_boundary(self):
+        self.assertIsNone(verdict.classify_comment("this remains undone"))
+        self.assertEqual(verdict.classify_comment("it is done"), "accept")
 
     def test_no_signal(self):
         self.assertIsNone(verdict.classify_comment("感谢反馈"))

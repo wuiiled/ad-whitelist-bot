@@ -41,6 +41,35 @@ TLD_ALLOW = frozenset({
     "za", "ua", "ro", "hu", "bg", "sk", "si", "hr", "rs", "lt", "lv", "ee",
 })
 
+# Common two-label public suffixes (ccSLDs & community SLDs) so registered apex
+# domains like `duiba.com.cn` or `netcore.co.in` are classified as exact-tier
+# rather than treated as deep functional subdomains.
+MULTI_LABEL_PUBLIC_SUFFIXES = frozenset({
+    "com.cn", "net.cn", "org.cn", "gov.cn", "edu.cn", "ac.cn", "mil.cn",
+    "com.hk", "edu.hk", "gov.hk", "org.hk", "net.hk",
+    "com.tw", "org.tw", "gov.tw", "edu.tw", "net.tw", "idv.tw", "com.mo",
+    "co.jp", "ne.jp", "or.jp", "ac.jp", "go.jp",
+    "co.kr", "or.kr", "go.kr", "ac.kr",
+    "co.uk", "org.uk", "gov.uk", "ac.uk", "me.uk",
+    "co.in", "net.in", "org.in", "gov.in", "ac.in",
+    "com.au", "net.au", "org.au", "edu.au", "gov.au",
+    "co.nz", "org.nz", "com.sg", "edu.sg", "gov.sg",
+    "com.my", "com.ph", "co.id", "co.th", "com.vn",
+    "com.br", "net.br", "org.br", "gov.br", "edu.br",
+    "com.mx", "com.ar", "com.tr", "co.za", "co.il", "com.ua",
+    "eu.org", "us.ci", "dpdns.org", "qzz.io",
+})
+
+
+def is_apex_domain(domain: str) -> bool:
+    """True if domain is a registered apex (eTLD+1), accounting for common ccSLDs."""
+    labels = [lbl for lbl in domain.lower().strip(".").split(".") if lbl]
+    if len(labels) < 2:
+        return False
+    if ".".join(labels[-2:]) in MULTI_LABEL_PUBLIC_SUFFIXES:
+        return len(labels) == 3
+    return len(labels) == 2
+
 
 def clean_domain(token: str) -> str | None:
     """Normalize one candidate token; return None if it is not a plausible domain."""

@@ -67,8 +67,7 @@ def _fetch_artifacts(client: GitHubClient) -> tuple[str, set[str], set[str]]:
     php = client.get_raw(config.ANTIAD_WHITE_PHP_URL)
     antiad_block = extract.parse_domain_blocklist(client.get_raw(config.ANTIAD_BLOCK_URL))
     awavenue_main = extract.parse_adguard_rule_domainset(client.get_raw(config.AWAVENUE_RULE_URL))
-    log.info("artifacts: php=%d entries, anti-ad block=%d domains, "
-             "awavenue rule=%d domains", len(antiad.parse_white_php(php)),
+    log.info("artifacts: anti-ad block=%d domains, awavenue rule=%d domains",
              len(antiad_block), len(awavenue_main))
     return php, antiad_block, awavenue_main
 
@@ -119,9 +118,13 @@ def _fetch_adguard(client: GitHubClient) -> tuple[dict[str, dict], dict[str, str
 
 
 def _fetch_referral(client: GitHubClient) -> tuple[str, str]:
-    """Curated referral feed files (Cats-Team/AdRules, anudeepND)."""
+    """Curated referral feed files (Cats-Team/AdRules, local anudeepND snapshot)."""
     cats = client.get_raw(config.CATS_ALLOWLIST_URL)
-    anudeep = client.get_raw(config.ANUDEEP_WHITELIST_URL)
+    if os.path.exists(config.ANUDEEP_WHITELIST_PATH):
+        with open(config.ANUDEEP_WHITELIST_PATH, encoding="utf-8") as f:
+            anudeep = f.read()
+    else:
+        anudeep = client.get_raw(config.ANUDEEP_WHITELIST_URL)
     log.info("referral artifacts: cats=%d bytes, anudeep=%d bytes",
              len(cats), len(anudeep))
     return cats, anudeep
@@ -202,24 +205,19 @@ def _merge_referral(st: State, cats_text: str, anudeep_text: str,
                     ) -> tuple[list[str], list[str], list[str]]:
     """Consolidate the curated consumer feeds (2026-11-16 migration).
 
-    The consumer stack previously downloaded these three files raw; the bot
-    now harvests them so the whitelist has one synthesis point. Status-quo
-    rails: pending/rejected records are never touched (see
-    state.merge_referral — except the bot's own referral-removal demotions,
-    which re-activate when the feed carries the domain again), liveness is
-    reconciled per feed with a fetch-anomaly guard, and stance conflicts
-    (referral-only domains the CN block products deliberately block) are
-    shipped as-is but surfaced in the run report for individual deny
-    decisions.
-
     Returns (added, suppressed, demoted).
     """
-    live = _referral_live_sets(cats_text, anudeep_text,
-                               exceptions_text, traced_exceptions)
+    cats_rec = referral.harvest_cats(cats_text)
+    anudeep_rec = referral.harvest_anudeep(anudeep_text)
+    exc_rec = referral.harvest_exceptions_noref(exceptions_text, traced_exceptions)
+    live: dict[str, set[str] | None] = {
+        config.CATS: set(cats_rec),
+        config.ANUDEEP: set(anudeep_rec),
+        config.ADG_DNS: set(exc_rec),
+    }
     _guard_referral_feeds(st, live)
     demoted = _annotate_referral_removals(st, live, date)
-    records = referral.build_records(cats_text, anudeep_text,
-                                     exceptions_text, traced_exceptions)
+    records = referral.merge_harvested_records([cats_rec, anudeep_rec, exc_rec])
     added, suppressed = state.merge_referral(st, records)
     log.info("referral merge: +%d added, %d suppressed, %d demoted",
              len(added), len(suppressed), len(demoted))
@@ -239,7 +237,7 @@ def _referral_stance_conflicts(st: State, antiad_block: set[str],
         if rec.get("status") != "active":
             continue
         kinds = {s.get("kind") for s in rec["sources"]}
-        if not kinds or not kinds <= invariants._REFERRAL_KINDS:
+        if not kinds or not kinds <= invariants.REFERRAL_KINDS:
             continue
         if d in antiad_block or d in awavenue_main:
             out.append(d)
@@ -252,11 +250,12 @@ def seed() -> None:
     st = state.empty_state()
     php, antiad_block, awavenue_main = _fetch_artifacts(client)
 
-    records, noref = antiad.harvest_white_php(php)
+    php_entries = antiad.parse_white_php(php)
+    records, noref = antiad.harvest_white_php(php, entries=php_entries)
     state.merge_records(st, records)
     st["whitelist_php_noref"] = noref
     st["whitelist_php_snapshot"] = {e["domain"]: e["value"]
-                                    for e in antiad.parse_white_php(php)
+                                    for e in php_entries
                                     if e["value"] != -1}
 
     adguard_records, _, adguard_block, adguard_allow, adg_exc = _fetch_adguard(client)
@@ -296,10 +295,11 @@ def seed() -> None:
                     "status": "rejected", "locked": True,
                     "title": "human-audited rejection 2026-11-05"}
 
-    from . import invariants
+    state.apply_overrides(st)
+    _reapply_rejection_seeds(st)
     invariants.enforce_invariants(st, awavenue_main, antiad_block,
                                   adguard_block, adguard_allow)
-    invariants.refresh_cross_status(st, awavenue_main, antiad_block)
+    invariants.refresh_cross_status(st, awavenue_main, antiad_block, adguard_block)
     state.save(st)
     log.info("seeded: %d domain records, %d active",
              len(st["domains"]), len(render.active_domains(st)))
@@ -319,9 +319,11 @@ def run(full: bool = False) -> None:
     php, antiad_block, awavenue_main = _fetch_artifacts(client)
 
     # ---- 1. whitelist-php harvest (issue-provenance entries only) ----------
-    records, noref = antiad.harvest_white_php(php)
-    snapshot = {e["domain"]: e["value"] for e in antiad.parse_white_php(php)
+    php_entries = antiad.parse_white_php(php)
+    records, noref = antiad.harvest_white_php(php, entries=php_entries)
+    snapshot = {e["domain"]: e["value"] for e in php_entries
                 if e["value"] != -1}
+    log.info("php entries: %d active", len(snapshot))
     old_snap = st.get("whitelist_php_snapshot", {})
     added = [d for d in snapshot if d not in old_snap]
     removed = [d for d in old_snap if d not in snapshot]
@@ -382,9 +384,10 @@ def run(full: bool = False) -> None:
         state.merge_records(st, {d: rec})
         domain_rec = st["domains"][d]
         # anti-AD issue-only confirmations go to the review queue, never
-        # straight into the list; human-approved domains are never demoted.
+        # straight into the list; domains already backed by another qualifying
+        # source or manual_overrides are preserved as active.
         if (domain_rec["status"] == "active"
-                and not any(s["kind"] == "whitelist-php" for s in domain_rec["sources"])):
+                and not invariants.has_active_backing(domain_rec)):
             domain_rec["status"] = "pending"
 
     since_aw = None if full else st["checkpoints"][config.AWAVENUE]

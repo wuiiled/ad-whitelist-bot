@@ -43,12 +43,12 @@ def classify_comment(body: str | None) -> str | None:
 
 
 def _classify_tail(text: str) -> str | None:
-    sentences = [s for s in re.split(r"[。！!?\n]", text) if s.strip()]
+    sentences = [s for s in re.split(r"[。！!?；;，,\n]", text) if s.strip()]
     for sentence in reversed(sentences):
-        if ACCEPT.search(sentence):
-            return "accept"
         if REJECT.search(sentence):
             return "reject"
+        if ACCEPT.search(sentence):
+            return "accept"
     return None
 
 

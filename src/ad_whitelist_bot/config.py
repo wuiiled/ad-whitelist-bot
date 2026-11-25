@@ -40,6 +40,7 @@ ADG_DNS_FILTER_URL = "https://adguardteam.github.io/HostlistsRegistry/assets/fil
 # daily (one raw GET) so a revival is tracked automatically.
 CATS_ALLOWLIST_URL = (
     f"https://raw.githubusercontent.com/{CATS}/script/mod/rules/dns-allowlist.txt")
+ANUDEEP_WHITELIST_PATH = os.path.join(DATA_DIR, "anudeep_whitelist.txt")
 ANUDEEP_WHITELIST_URL = (
     f"https://raw.githubusercontent.com/{ANUDEEP}/master/domains/whitelist.txt")
 
@@ -74,7 +75,7 @@ ACCEPT_RE = (
     r"已?加入白名单|加入白名单|已?加白|白名单(已|中)?(加|收录)|已修复|已经修复|已解决|已经解决|"
     r"已处理|已经处理|已移除|已经移除|将会移除|会移除|将会修复|会修复|会处理|"
     r"已更正|已修正|移至补充|迁移至补充|移动到补充|已清理|已经清理|"
-    r"下个?版本|下一个版本|更新后生效|已修正该错误|\bfix(ed)?\b|done\b|will (fix|remove)"
+    r"下个?版本|下一个版本|更新后生效|已修正该错误|\bfix(ed)?\b|\bdone\b|will (fix|remove)"
 )
 
 # Maintainer comment phrases that reject the report.

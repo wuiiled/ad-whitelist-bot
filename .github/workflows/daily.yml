@@ -2,7 +2,7 @@ name: daily-update
 
 on:
   schedule:
-    - cron: "30 21 * * *"   # 05:30 UTC+8 daily
+    - cron: "23 20 * * *"   # 04:23 UTC+8 daily (off-peak minute)
   workflow_dispatch:
     inputs:
       full:
@@ -22,11 +22,40 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 120
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262  # v4
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065  # v5
         with:
           python-version: "3.12"
+
+      - name: Snapshot repo state.json
+        run: cp data/state.json /tmp/git_state.json
+
+      - name: Restore state checkpoint cache
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830  # v4
+        with:
+          path: ~/.cache/ad-whitelist-bot
+          key: bot-state-${{ github.run_id }}
+          restore-keys: |
+            bot-state-
+
+      - name: Reconcile state.json (prefer newer checkpoint over git)
+        env:
+          FULL_RUN: ${{ github.event.inputs.full }}
+        run: |
+          python3 - <<'EOF'
+          import json, os, shutil
+          cache_p = os.path.expanduser("~/.cache/ad-whitelist-bot/state.json")
+          git_p = "/tmp/git_state.json"
+          if os.environ.get("FULL_RUN") != "true" and os.path.exists(cache_p):
+              with open(cache_p, encoding="utf-8") as f:
+                  c_ts = json.load(f).get("generated_at", "")
+              with open(git_p, encoding="utf-8") as f:
+                  g_ts = json.load(f).get("generated_at", "")
+              if c_ts > g_ts:
+                  shutil.copyfile(cache_p, "data/state.json")
+                  print(f"Restored fresher state cache (cache={c_ts} > git={g_ts})")
+          EOF
 
       - name: Install
         run: python -m pip install -e .
@@ -40,13 +69,15 @@ jobs:
           else
             ad-whitelist-bot run
           fi
+          mkdir -p ~/.cache/ad-whitelist-bot
+          cp data/state.json ~/.cache/ad-whitelist-bot/state.json
 
       - name: Commit outputs
         run: |
           git config user.name "ad-whitelist-bot[bot]"
           git config user.email "ad-whitelist-bot[bot]@users.noreply.github.com"
           if [ ! -f output/changed.flag ]; then
-            echo "No substantive changes today; skipping commit."
+            echo "No substantive changes today; skipping git commit (checkpoints preserved in cache)."
             exit 0
           fi
           rm -f output/changed.flag
@@ -58,3 +89,15 @@ jobs:
           git commit -m "bot: daily update $(date -u +%F) [skip ci]"
           git pull --rebase origin main
           git push
+          echo "PUSHED=true" >> "$GITHUB_ENV"
+
+      - name: Notify downstream Wuiiled_Setup
+        if: env.PUSHED == 'true' && env.DISPATCH_TOKEN != ''
+        env:
+          DISPATCH_TOKEN: ${{ secrets.DISPATCH_TOKEN }}
+        run: |
+          curl -fsSL -X POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer $DISPATCH_TOKEN" \
+            https://api.github.com/repos/wuiiled/Wuiiled_Setup/dispatches \
+            -d '{"event_type":"whitelist-updated"}' || echo "::warning::repository_dispatch failed (non-fatal)"

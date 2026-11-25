@@ -94,6 +94,15 @@ class OverridesTest(unittest.TestCase):
         self.assertEqual(self.st["domains"]["z.com"]["status"], "conflict")
         self.assertEqual(self.st["domains"]["z.com"]["approved_by"], "manual_overrides")
 
+    def test_approve_rescues_rejected_and_sets_tier(self):
+        rec = state.merge_domain(self.st, "cf.net", mk_source(kind="rejected"))
+        rec["status"] = "rejected"
+        self.write_overrides({"approve": [{"domain": "cf.net", "tier": "suffix"}], "deny": []})
+        approved = state.apply_overrides(self.st)
+        self.assertEqual(approved, ["cf.net"])
+        self.assertEqual(self.st["domains"]["cf.net"]["status"], "active")
+        self.assertEqual(self.st["domains"]["cf.net"]["tier"], "suffix")
+
 
 class SaveLoadTest(unittest.TestCase):
     def test_roundtrip_and_normalization(self):

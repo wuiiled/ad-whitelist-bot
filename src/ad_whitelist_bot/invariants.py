@@ -41,7 +41,8 @@ _REPO_BLOCK = {config.ANTIAD: "antiad", config.AWAVENUE: "awavenue",
 # also carry traced evidence (a php-backed domain stays php-keyed even if
 # Cats also allows it). A record backed ONLY by referral kinds has no
 # adjudication regime to contradict, so it is checked against nothing.
-_REFERRAL_KINDS = frozenset({"referral"})
+REFERRAL_KINDS = frozenset({"referral"})
+_REFERRAL_KINDS = REFERRAL_KINDS  # backward-compatible alias
 
 
 def has_active_backing(rec: dict) -> bool:
@@ -73,10 +74,10 @@ def _checked_keys(rec: dict) -> tuple[str, ...]:
     """
     kinds = {s.get("kind") for s in rec.get("sources", [])
              if s.get("kind") != "rejected"}
-    if kinds and kinds <= _REFERRAL_KINDS:
+    if kinds and kinds <= REFERRAL_KINDS:
         return ()
     repos = {s.get("repo") for s in rec.get("sources", [])
-             if s.get("kind") not in (_REFERRAL_KINDS | {"rejected"})}
+             if s.get("kind") not in (REFERRAL_KINDS | {"rejected"})}
     if not repos or "manual" in repos:
         return ("antiad", "awavenue", "adguard")
     return tuple({_REPO_BLOCK[r] for r in repos if r in _REPO_BLOCK})

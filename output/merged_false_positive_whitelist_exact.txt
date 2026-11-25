@@ -1,6 +1,6 @@
-# Generated: 2026-11-16 | Total: 481
+# Generated: 2026-11-25 | Total: 499
 # 精确档白名单 — 只放行域名自身,不覆盖子域名。
-# 成员:裸域(两段)且来自裁决型来源(anti-AD php 白名单 / AWAvenue 移除 / AdGuard
+# 成员:裸根域(eTLD+1, 含 .com.cn/.co.in 等二级公共后缀)且来自裁决型来源(anti-AD php 白名单 / AWAvenue 移除 / AdGuard
 # DNS filter 剔除与豁免 / 人工批准)的条目。这些是上游项目在自家单源语义下的整域
 # 裁决;多源消费栈若按后缀放行会连坐清除其他黑名单源的同族广告规则(tanx/yximgs/
 # ucweb/co.in 等整族),故消费端必须按整域精确匹配本文件,不参与祖先连坐。
@@ -36,6 +36,7 @@ affirm.com
 afi-b.com
 agilecrm.com
 airbrake.io
+aizhigu.com.cn
 albacross.com
 alicdn.com
 aliexpress-media.com
@@ -49,6 +50,7 @@ app.link
 ashleymadison.com
 atatus.com
 auditude.com
+aurorabrand.co.il
 autopilothq.com
 avantlink.com
 awin1.com
@@ -89,17 +91,20 @@ cedexis.net
 cglms.com
 chkaja.com
 chtbl.com
+cifraclub.com.br
 cint.com
 cip.cc
 cision.com
+clarins.com.cn
 clearbit.com
+clearsale.com.br
 cleverpush.com
 click.ru
 clickdimensions.com
 clustrmaps.com
 cnnic.cn
 cnnic.net
-co.in
+cnnic.net.cn
 conac.cn
 connatix.com
 connectif.cloud
@@ -137,11 +142,13 @@ discord.com
 docodoco.jp
 dpbolvw.net
 drift.com
+duiba.com.cn
 durasite.net
 dynamicyield.com
 easysol.net
 eksiup.com
 emjcd.com
+ename.com.cn
 ename.net
 enhance.com
 enter-system.com
@@ -179,10 +186,12 @@ getresponse.com
 gleam.io
 gm99.com
 goldbach.com
+google.co.in
 govdelivery.com
 grabo.bg
 group-ib.ru
 gvt1.com
+hax.co.id
 henzanapp.com
 heytapimage.com
 hidive.com
@@ -294,6 +303,7 @@ mybluemix.net
 n8s.jp
 naifei.shop
 nejmqianyan.cn
+netcore.co.in
 newrelic.com
 ngenix.net
 nicequest.com
@@ -315,6 +325,7 @@ onlinepbx.ru
 pdst.fm
 pega.com
 pendo.io
+pepsico.com.cn
 perfops.net
 ping-admin.ru
 pinpoll.com
@@ -345,6 +356,7 @@ questionpro.com
 rarbgprx.org
 rb.gy
 rdstation.com
+rdstation.com.br
 realwap.net
 recruitics.com
 redirectingat.com
@@ -428,6 +440,7 @@ tmearn.com
 tns-sifo.se
 tollfreeforwarding.com
 tongji.cn
+tongji.edu.cn
 top-shop.ru
 top.lv
 toptracker.ru
@@ -449,6 +462,7 @@ umiwi.com
 unbouncepages.com
 uniconsent.com
 unpkg.com
+uol.com.br
 upload.cc
 upoint.id
 uralweb.ru
@@ -463,11 +477,14 @@ vivocha.com
 voyeurhit.com
 vsexshop.ru
 vxcash.net
+w8.com.cn
+watchtimes.com.cn
 we-stats.com
 webengage.com
 webpower.eu
 weworkremotely.com
 whatfinger.com
+whhd.gov.cn
 wishabi.net
 wmflabs.org
 woniu.com
@@ -475,6 +492,7 @@ wpnrtnmrewunrtok.xyz
 x6img.com
 xifuquan.com
 xiti.com
+xj-n-tax.gov.cn
 youbora.com
 youborafds01.com
 yximgs.com

@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 import tempfile
 import unittest
 
@@ -30,8 +31,8 @@ class AnnotatedListTest(unittest.TestCase):
         st = build_st()
         with tempfile.TemporaryDirectory() as tmp:
             lines = render.render_annotated_list(st, tmp)
-            content = open(os.path.join(tmp, "whitelist_annotated.txt"),
-                           encoding="utf-8").read()
+            content = Path(os.path.join(tmp, "whitelist_annotated.txt")).read_text(
+                encoding="utf-8")
         by_domain = dict(l.split("  # ", 1) for l in lines)
         # php comment wins when the issue has no scanned record
         self.assertIn("anti-AD #156(修复同花顺的tips异常;php白名单)",

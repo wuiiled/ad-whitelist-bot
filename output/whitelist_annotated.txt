@@ -1,4 +1,4 @@
-# 误报白名单(带溯源注释) 2026-11-16 | Total: 1321
+# 误报白名单(带溯源注释) 2026-11-25 | Total: 1321
 # 格式: 域名  # 仓库 issue号(报告的问题;维护者处置) — 多仓库来源用 ; 分隔
 0.client-channel.google.com  # anudeep 无issue号(curated allowlist entry)
 07c225f3.online  # AdGuard DNS #1645(https://github.com/easylist/easylist/commit/abaeb1ae5518324a10f469d2a40f96b31bd149a8;编译期剔除:https://github.com/easylist/easylist/commit/abaeb1ae5518324a10f469d2a40f96b31bd149a8)

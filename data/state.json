@@ -5879,7 +5879,8 @@
      "repo": "Cats-Team/AdRules"
     }
    ],
-   "status": "active"
+   "status": "active",
+   "tier": "suffix"
   },
   "clustrmaps.com": {
    "domain": "clustrmaps.com",
@@ -28416,7 +28417,7 @@
    "status": "active"
   }
  },
- "generated_at": "2026-11-16T01:12:46Z",
+ "generated_at": "2026-11-25T16:38:19Z",
  "issues": {
   "TG-Twilight/AWAvenue-Ads-Rule": {
    "112": {

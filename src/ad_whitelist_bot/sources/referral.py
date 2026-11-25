@@ -143,15 +143,10 @@ def harvest_exceptions_noref(text: str, traced: set[str]) -> dict[str, dict]:
     return records
 
 
-def build_records(cats_text: str, anudeep_text: str,
-                  exceptions_text: str, traced_exceptions: set[str],
-                  ) -> dict[str, dict]:
-    """Merge the three referral feeds into one {domain -> record} map."""
+def merge_harvested_records(harvests: list[dict[str, dict]]) -> dict[str, dict]:
+    """Merge per-feed {domain -> record} maps into one {domain -> record} map."""
     records: dict[str, dict] = {}
-    for harvest in (harvest_cats(cats_text),
-                    harvest_anudeep(anudeep_text),
-                    harvest_exceptions_noref(exceptions_text,
-                                             traced_exceptions)):
+    for harvest in harvests:
         for d, r in harvest.items():
             tgt = records.setdefault(d, {"domain": d, "sources": []})
             for s in r["sources"]:
@@ -159,3 +154,14 @@ def build_records(cats_text: str, anudeep_text: str,
                     tgt["sources"].append(s)
     log.info("referral harvest: %d domains", len(records))
     return records
+
+
+def build_records(cats_text: str, anudeep_text: str,
+                  exceptions_text: str, traced_exceptions: set[str],
+                  ) -> dict[str, dict]:
+    """Merge the three referral feeds into one {domain -> record} map."""
+    return merge_harvested_records([
+        harvest_cats(cats_text),
+        harvest_anudeep(anudeep_text),
+        harvest_exceptions_noref(exceptions_text, traced_exceptions),
+    ])

@@ -5,7 +5,7 @@ import logging
 import os
 import re
 
-from . import config
+from . import config, extract
 from .state import State, now_iso
 
 log = logging.getLogger(__name__)
@@ -21,13 +21,13 @@ HEADER_NOTE = [
     "层带文件来源(Cats 注释里的 #N 关联为 issue);②逐源源内零交集——裁决型条目不出现",
     "在其来源项目自己的发布产物中(人工 approve 对全部产物检查);跨源立场差异不剔除,",
     "仅注记;策展引用层无裁决语义,不做产物交集检查。",
-    "双档产物:裸域(两段)裁决型条目单列于 merged_false_positive_whitelist_exact.txt,",
+    "双档产物:裸根域(eTLD+1, 含 .com.cn/.co.in 等二级公共后缀)裁决型条目单列于 merged_false_positive_whitelist_exact.txt,",
     "消费端应按整域精确匹配;其余条目在本文件按后缀放行。",
 ]
 
 EXACT_NOTE = [
     "精确档白名单 — 只放行域名自身,不覆盖子域名。",
-    "成员:裸域(两段)且来自裁决型来源(anti-AD php 白名单 / AWAvenue 移除 / AdGuard",
+    "成员:裸根域(eTLD+1, 含 .com.cn/.co.in 等二级公共后缀)且来自裁决型来源(anti-AD php 白名单 / AWAvenue 移除 / AdGuard",
     "DNS filter 剔除与豁免 / 人工批准)的条目。这些是上游项目在自家单源语义下的整域",
     "裁决;多源消费栈若按后缀放行会连坐清除其他黑名单源的同族广告规则(tanx/yximgs/",
     "ucweb/co.in 等整族),故消费端必须按整域精确匹配本文件,不参与祖先连坐。",
@@ -46,11 +46,15 @@ def active_domains(st: State) -> list[str]:
 
 
 def is_exact_tier(rec: dict) -> bool:
-    """Bare (two-label) domains backed by an adjudicating source go to the
-    exact-tier file; everything else (deep entries, curated referral) stays
-    suffix-tier in the main file."""
-    domain = rec["domain"]
-    if len(domain.split(".")) > 2:
+    """Registered apex (eTLD+1) domains backed by an adjudicating source go
+    to the exact-tier file (unless explicitly pinned via manual tier override);
+    everything else (deep entries, curated referral) stays suffix-tier."""
+    tier_override = rec.get("tier")
+    if tier_override == "suffix":
+        return False
+    if tier_override == "exact":
+        return True
+    if not extract.is_apex_domain(rec["domain"]):
         return False
     return any(s.get("kind") in TRACED_KINDS for s in rec.get("sources", []))
 
@@ -289,13 +293,21 @@ def render_report(st: State, out_dir: str, run_info: dict) -> None:
     pending = sorted(d for d, rec in st["domains"].items()
                      if rec.get("status") == "pending")
     if pending:
-        lines.append(f"- 待人工复核(anti-AD issue 确认但未经白名单php佐证,{len(pending)} 个):")
+        lines.append(f"- 待人工复核({len(pending)} 个):")
         for d in pending:
             rec = st["domains"][d]
-            iss = sorted({it["n"] for s in rec["sources"] for it in s.get("issues", [])
-                          if s["repo"] == config.ANTIAD})
-            links = " ".join(f"[#{n}]({_link(n, config.ANTIAD)})" for n in iss)
-            lines.append(f"  - `{d}` {links}")
+            iss = sorted({(s["repo"], it["n"]) for s in rec["sources"]
+                          for it in s.get("issues", [])})
+            links = " ".join(f"[#{n}]({_link(n, r)})" for r, n in iss)
+            tags = []
+            if rec.get("demoted_by") == "referral-removal":
+                tags.append("referral退役")
+            if any(s.get("php_removed") for s in rec.get("sources", [])):
+                tags.append("php撤出")
+            if any(s.get("kind") == "issue-only" for s in rec.get("sources", [])):
+                tags.append("issue确认待php/人工佐证")
+            tag_str = f" ({', '.join(tags)})" if tags else ""
+            lines.append(f"  - `{d}`{tag_str}" + (f" {links}" if links else ""))
     with open(os.path.join(out_dir, "report.md"), "w",
               encoding="utf-8", newline="\n") as f:
         f.write("\n".join(lines) + "\n")

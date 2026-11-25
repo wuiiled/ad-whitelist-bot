@@ -50,7 +50,7 @@ def parse_white_php(text: str) -> list[dict]:
     return entries
 
 
-def harvest_white_php(php_text: str) -> tuple[dict[str, dict], dict[str, str]]:
+def harvest_white_php(php_text: str, entries: list[dict] | None = None) -> tuple[dict[str, dict], dict[str, str]]:
     """Split active php entries by provenance.
 
     Returns (records, noref):
@@ -60,7 +60,7 @@ def harvest_white_php(php_text: str) -> tuple[dict[str, dict], dict[str, str]]:
     """
     records: dict[str, dict] = {}
     noref: dict[str, str] = {}
-    for e in parse_white_php(php_text):
+    for e in (entries if entries is not None else parse_white_php(php_text)):
         if e["value"] == -1:
             continue
         if e["refs"]:

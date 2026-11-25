@@ -1,4 +1,4 @@
-# Generated: 2026-11-16 | Total: 840
+# Generated: 2026-11-25 | Total: 822
 # 误报白名单 — 域名在 anti-AD / AWAvenue-Ads-Rule / AdGuard DNS filter 的发布产物
 # 或 issue 中被判定为误报,并经维护者复核后处理(anti-AD 白名单 / AWAvenue 从主规则
 # 移除或移入补充规则 / AdGuard DNS filter 编译期剔除与子域豁免);另含策展引用层
@@ -9,7 +9,7 @@
 # 层带文件来源(Cats 注释里的 #N 关联为 issue);②逐源源内零交集——裁决型条目不出现
 # 在其来源项目自己的发布产物中(人工 approve 对全部产物检查);跨源立场差异不剔除,
 # 仅注记;策展引用层无裁决语义,不做产物交集检查。
-# 双档产物:裸域(两段)裁决型条目单列于 merged_false_positive_whitelist_exact.txt,
+# 双档产物:裸根域(eTLD+1, 含 .com.cn/.co.in 等二级公共后缀)裁决型条目单列于 merged_false_positive_whitelist_exact.txt,
 # 消费端应按整域精确匹配;其余条目在本文件按后缀放行。
 0.client-channel.google.com
 1drv.com
@@ -56,7 +56,6 @@ afl.rakuten.co.jp
 ahd.ruten.com.tw
 air.1688.com
 aiseet.atianqi.com
-aizhigu.com.cn
 ak-d.tripcdn.com
 akamaihd.net
 akamaitechnologies.com
@@ -125,7 +124,6 @@ assets.ckjr001.com
 assets.msn.cn
 attestation.xboxlive.com
 audid-api.taobao.com
-aurorabrand.co.il
 aweme.snssdk.com
 ax.phobos.apple.com.edgesuite.net
 bbs.nga.cn
@@ -171,14 +169,11 @@ cert.mgt.xboxlive.com
 chat.xiaomi.net
 check.ddos-guard.net
 christianitytoday.activehosted.com
-cifraclub.com.br
 cindyholbrook.lpages.co
 citiintl.122.2o7.net
 cj.dotomi.com
 cl.link-ag.net
-clarins.com.cn
 classliving.lpages.co
-clearsale.com.br
 click.appcast.io
 click.avs.io
 click.cptrack.de
@@ -208,8 +203,8 @@ cmp.inmobi.com
 cmp.osano.com
 cmpassport.com
 cn.app.chat.xiaomi.net
-cnnic.net.cn
 cnt.mail.netbk.co.jp
+co.in
 code.sms.mob.com
 collector.appconsent.io
 collector1.sooplive.co.kr
@@ -296,7 +291,6 @@ download.windowsupdate.com
 drcn-weather.cloud.huawei.com
 driftt.com
 du.163.com
-duiba.com.cn
 dyn.ithome.com
 dynupdate.no-ip.com
 e.189.cn
@@ -316,7 +310,6 @@ email.elitedangerous.com
 email.procook.co.uk
 emails.educause.edu
 empic.dfcfw.com
-ename.com.cn
 ephemeralcounters.api.roblox.com
 epl.paypal-communication.com
 epochtimes.com
@@ -368,7 +361,6 @@ go.adjust.com
 go.pardot.com
 go.redirectingat.com
 go.scorptec.com.au
-google.co.in
 googleadapis.l.google.com
 goto.target.com
 goto.walmart.com
@@ -384,7 +376,6 @@ guce.advertising.com
 h-adashx.ut.dingtalk.com
 h-adashx.ut.ele.me
 h5hosting.dbankcdn.com
-hax.co.id
 hb.afl.rakuten.co.jp
 health.halodoc.com
 help-advertisers.adsterra.com
@@ -500,7 +491,6 @@ my-material.zone1.meitudata.com
 my.plexapp.com
 my.tealiumiq.com
 netatmo.commander1.com
-netcore.co.in
 newloc.map.n.shifen.com
 news-l.play.aiseet.atianqi.com
 news.smi2.ru
@@ -551,7 +541,6 @@ partner.o2online.de
 partners.adsterra.com
 pay.weixin.qq.com
 pdc.micloud.xiaomi.net
-pepsico.com.cn
 pi.pardot.com
 pic.imgdb.cn
 ping.pinyin.sogou.com
@@ -588,7 +577,6 @@ raw.githubusercontent.com
 rd.bizrate.com
 rd.rakuten.co.jp
 rdelivery.qq.com
-rdstation.com.br
 recommender.scarabresearch.com
 redir.ownpage.fr
 redir.tradedoubler.com
@@ -741,7 +729,6 @@ tnc3-alisc2.zijieapi.com
 tnc3-bjlgy.bytedance.com
 tnc3-bjlgy.snssdk.com
 tnc3-bjlgy.toutiaoapi.com
-tongji.edu.cn
 tongji.kuwo.cn
 torimochi.line-apps.com
 tr.rdrtr.com
@@ -768,7 +755,6 @@ uim.tifbs.net
 un-acs.youku.com
 unsubscribe.email.premierleague.com
 unsubscribe.lhinsights.com
-uol.com.br
 up.cm.ksmobile.com
 update.360safe.com
 update.avlyun.sec.miui.com
@@ -786,13 +772,10 @@ video-stats.l.google.com
 videocloud.cn-hangzhou.log.aliyuncs.com
 vip.cainiaofx.com
 vs-api.voodoo-tech.io
-w8.com.cn
 waimai-guide.ele.me
 wanproxy.127.net
-watchtimes.com.cn
 weather-drcn.music.dbankcloud.cn
 wgo.mmstat.com
-whhd.gov.cn
 whoami.akamai.net
 widget-cdn.rpxnow.com
 widget.gleamjs.io
@@ -836,7 +819,6 @@ xbox.ipv6.microsoft.com
 xboxexperiencesprod.experimentation.xboxlive.com
 xflight.xboxlive.com
 xiaoshuo.wtzw.com
-xj-n-tax.gov.cn
 xkms.xboxlive.com
 xmpush.xiaomi.com
 xp.apple.com

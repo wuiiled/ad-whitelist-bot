@@ -35,6 +35,7 @@ class SourceRecord(TypedDict, total=False):
     audited: bool  # set on human-audited seeds; never overwritten by scans
     attributed_by: str  # "commit-message" when attribution came from commits
     php_removed: str  # date the entry disappeared from the live whitelist php
+    referral_removed: str  # date the entry disappeared from a referral feed
 
 
 class ReversalInfo(TypedDict):
@@ -46,12 +47,15 @@ class DomainRecord(TypedDict, total=False):
     domain: str
     sources: list[SourceRecord]
     status: str  # active | pending | rejected | conflict
+    tier: str  # optional explicit override: "suffix" | "exact"
     approved_by: str
     demoted_by: str  # "referral-removal": machine-demoted, eligible for re-add
     conflict: ReversalInfo
     partial_block: str  # informational: ancestor blocked in anti-ad-domains.txt
+    adguard_ancestor_block: str  # informational: ancestor blocked in AdGuard DNS filter
     in_awavenue_main_now: bool
     in_antiad_block_now: bool
+    in_adguard_filter_now: bool
 
 
 class IssueRecord(TypedDict, total=False):
@@ -216,11 +220,12 @@ def apply_overrides(st: State) -> list[str]:
     approved: list[str] = []
     for entry in ov.get("approve", []):
         if isinstance(entry, str):
-            domain, issues, note = entry, [], ""
+            domain, issues, note, tier = entry, [], "", None
         else:
             domain = entry["domain"]
             issues = entry.get("issues", [])
             note = entry.get("note", "")
+            tier = entry.get("tier")
         rec = st["domains"].get(domain)
         if rec is None:
             merge_domain(st, domain, {
@@ -229,11 +234,14 @@ def apply_overrides(st: State) -> list[str]:
                 "issues": issues})
             rec = st["domains"][domain]
             rec["approved_by"] = "manual_overrides"
+            if tier in ("suffix", "exact"):
+                rec["tier"] = tier
             approved.append(domain)
         else:
-            if rec["status"] == "pending":
+            if rec["status"] in ("pending", "rejected"):
                 rec["status"] = "active"
                 rec["approved_by"] = "manual_overrides"
+                rec.pop("demoted_by", None)
                 approved.append(domain)
             elif rec["status"] == "conflict":
                 # conflict is a hard charter rule — approval cannot flip the
@@ -242,6 +250,10 @@ def apply_overrides(st: State) -> list[str]:
                 # recovery goes to `active` via has_active_backing. Idempotent,
                 # emits no events.
                 rec["approved_by"] = "manual_overrides"
+            if tier in ("suffix", "exact"):
+                rec["tier"] = tier
+            else:
+                rec.pop("tier", None)
             # human-provided issue provenance subsumes older issue-less manual
             # sources; prune them idempotently, then add provenance if missing
             if issues:
